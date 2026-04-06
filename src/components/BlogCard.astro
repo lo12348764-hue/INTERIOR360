@@ -1,0 +1,62 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  post: CollectionEntry<"blog">;
+  dateFormatter?: (date: Date) => string;
+  articleClass?: string;
+  wrapperClass?: string;
+  imageClass?: string;
+  contentClass?: string;
+  metaClass?: string;
+  categoryClass?: string;
+  dateClass?: string;
+  titleClass?: string;
+  excerptClass?: string;
+  linkClass?: string;
+  readMoreLabel?: string;
+  lazy?: boolean;
+}
+
+const {
+  post,
+  dateFormatter = (date: Date) => date.toLocaleDateString("ru-RU"),
+  articleClass = "",
+  wrapperClass = "",
+  imageClass = "",
+  contentClass = "",
+  metaClass = "",
+  categoryClass = "",
+  dateClass = "",
+  titleClass = "",
+  excerptClass = "",
+  linkClass = "",
+  readMoreLabel = "Читать далее",
+  lazy = true,
+} = Astro.props;
+---
+
+<article class={articleClass}>
+  <div class={wrapperClass}>
+    <img
+      src={post.data.cover}
+      alt={post.data.coverAlt ?? post.data.title}
+      class={imageClass}
+      loading={lazy ? "lazy" : "eager"}
+    />
+  </div>
+  <div class={contentClass}>
+    <div class={metaClass}>
+      <span class={categoryClass}>{post.data.category}</span>
+      <span class={dateClass}>{dateFormatter(post.data.date)}</span>
+    </div>
+    <h3 class={titleClass}>{post.data.title}</h3>
+    <p class={excerptClass}>{post.data.excerpt}</p>
+    <a href={`/blog/${post.slug}/`} class={linkClass}>
+      <span>{readMoreLabel}</span>
+      <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+      </svg>
+    </a>
+  </div>
+</article>
