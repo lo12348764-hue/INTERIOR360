@@ -1,4 +1,4 @@
----
+﻿---
 import type { CollectionEntry } from "astro:content";
 
 interface Props {
@@ -50,13 +50,8 @@ const {
       <span class={categoryClass}>{post.data.category}</span>
       <span class={dateClass}>{dateFormatter(post.data.date)}</span>
     </div>
-    <h3 class={titleClass}>{post.data.title}</h3>
+    <h3 class={titleClass} style="margin: 14px 0; font-size: 1.45rem; line-height: 1.3;">{post.data.title}</h3>
     <p class={excerptClass}>{post.data.excerpt}</p>
-    <a href={`/blog/${post.slug}/`} class={linkClass}>
-      <span>{readMoreLabel}</span>
-      <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-      </svg>
-    </a>
+    <a href={`/blog/${post.slug}/`} class={linkClass}>{readMoreLabel}</a>
   </div>
 </article>

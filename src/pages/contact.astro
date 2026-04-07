@@ -1,0 +1,57 @@
+﻿---
+import { contactChannels } from "../data/site";
+import SiteLayout from "../layouts/SiteLayout.astro";
+---
+
+<SiteLayout
+  title="Контакты | INTERIOR.360"
+  description="Контакты студии INTERIOR.360 для обсуждения проекта по 3D-визуализации."
+  canonicalPath="/contact/"
+>
+  <section class="page-hero">
+    <div>
+      <p class="eyebrow">Contact</p>
+      <h1>Контакты</h1>
+      <p class="lead">
+        Контакты вынесены на отдельную страницу, чтобы можно было направлять трафик сразу в точку обращения:
+        из рекламы, мессенджеров, карточек компании и социальных сетей.
+      </p>
+    </div>
+    <aside class="hero-panel">
+      <p>Ответ</p>
+      <strong>В течение 24 часов</strong>
+      <p>Формат</p>
+      <strong>Письмо, звонок или Telegram</strong>
+    </aside>
+  </section>
+
+  <section class="grid grid-2">
+    <div class="surface">
+      <h2 style="font-size: 2rem; margin-bottom: 18px;">Как связаться</h2>
+      <div class="grid" style="gap: 14px;">
+        {contactChannels.map((channel) => (
+          <a
+            href={channel.href}
+            class="surface"
+            style="text-decoration: none; padding: 18px; box-shadow: none;"
+          >
+            <p class="kicker" style="margin-bottom: 8px;">{channel.label}</p>
+            <strong style="font-size: 1.1rem;">{channel.value}</strong>
+          </a>
+        ))}
+      </div>
+    </div>
+    <div class="surface">
+      <h2 style="font-size: 2rem; margin-bottom: 18px;">Что прислать в первом сообщении</h2>
+      <ul class="list" style="margin-top: 0;">
+        <li>тип объекта и площадь</li>
+        <li>чертежи, планировки или 3D-модель</li>
+        <li>референсы по стилю и атмосфере</li>
+        <li>нужное количество ракурсов и сроки</li>
+      </ul>
+      <p class="muted">
+        Так мы быстрее оценим объём, предложим формат работы и подскажем реалистичный график.
+      </p>
+    </div>
+  </section>
+</SiteLayout>

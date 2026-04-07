@@ -1,14 +1,11 @@
----
+﻿---
 import { getCollection } from "astro:content";
 import BlogCard from "../../components/BlogCard.astro";
+import SiteLayout from "../../layouts/SiteLayout.astro";
 
 const posts = (await getCollection("blog", ({ data }) => !data.draft)).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
 );
-
-const siteUrl = Astro.site ?? new URL("https://archi-vis.example");
-const canonicalUrl = new URL("/blog/", siteUrl).toString();
-const socialImage = posts[0]?.data.cover ?? "";
 
 const formatBlogDate = (date: Date) =>
   new Intl.DateTimeFormat("ru-RU", {
@@ -17,262 +14,43 @@ const formatBlogDate = (date: Date) =>
     year: "numeric",
   }).format(date);
 ---
-<!DOCTYPE html>
-<html lang="ru">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Блог | ARCHI.VIS</title>
-    <meta
-      name="description"
-      content="Блог студии ARCHI.VIS о 3D-визуализации, интерьерных трендах и рабочих процессах архитектурной подачи."
-    />
-    <link rel="canonical" href={canonicalUrl} />
-    <meta name="robots" content="index,follow" />
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="ARCHI.VIS" />
-    <meta property="og:title" content="Блог | ARCHI.VIS" />
-    <meta property="og:description" content="Статьи студии ARCHI.VIS о 3D-визуализации, подаче проектов и интерьерных трендах." />
-    <meta property="og:url" content={canonicalUrl} />
-    <meta property="og:image" content={socialImage} />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Блог | ARCHI.VIS" />
-    <meta name="twitter:description" content="Статьи студии ARCHI.VIS о 3D-визуализации, подаче проектов и интерьерных трендах." />
-    <meta name="twitter:image" content={socialImage} />
-    <style>
-      :root {
-        --bg-primary: #0a0a0a;
-        --bg-secondary: #141414;
-        --bg-card: #1a1a1a;
-        --accent: #c9a962;
-        --text-primary: #ffffff;
-        --text-secondary: #a0a0a0;
-        --text-muted: #666666;
-        --border: rgba(255, 255, 255, 0.08);
-      }
 
-      * {
-        box-sizing: border-box;
-      }
+<SiteLayout
+  title="Блог | INTERIOR.360"
+  description="Блог студии INTERIOR.360 о 3D-визуализации, интерьерах и рабочем процессе."
+  canonicalPath="/blog/"
+>
+  <section class="page-hero">
+    <div>
+      <p class="eyebrow">Блог</p>
+      <h1>Блог студии</h1>
+      <p class="lead">
+        Блог теперь живёт как самостоятельный раздел. Это уже не фрагмент лендинга, а отдельная контентная зона,
+        которую можно развивать для SEO и экспертной коммуникации.
+      </p>
+    </div>
+    <aside class="hero-panel">
+      <p>Материалов</p>
+      <strong>{posts.length}</strong>
+      <p>Формат</p>
+      <strong>Полноценные страницы статей</strong>
+    </aside>
+  </section>
 
-      body {
-        margin: 0;
-        font-family: Helvetica, Arial, sans-serif;
-        background: var(--bg-primary);
-        color: var(--text-primary);
-      }
-
-      a {
-        color: inherit;
-      }
-
-      .shell {
-        max-width: 1440px;
-        margin: 0 auto;
-        padding: 32px 24px 96px;
-      }
-
-      .topbar {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 24px;
-        padding: 16px 0 40px;
-      }
-
-      .logo,
-      .back-link {
-        text-decoration: none;
-        text-transform: uppercase;
-        letter-spacing: 0.14em;
-        font-size: 12px;
-      }
-
-      .logo {
-        font-weight: 700;
-      }
-
-      .back-link {
-        color: var(--text-secondary);
-      }
-
-      .hero {
-        display: grid;
-        grid-template-columns: minmax(0, 1.2fr) minmax(320px, 0.8fr);
-        gap: 40px;
-        align-items: end;
-        padding: 40px 0 56px;
-        border-bottom: 1px solid var(--border);
-      }
-
-      .eyebrow {
-        color: var(--accent);
-        font-size: 12px;
-        text-transform: uppercase;
-        letter-spacing: 0.3em;
-        margin: 0 0 16px;
-      }
-
-      h1 {
-        margin: 0;
-        font-size: clamp(44px, 8vw, 92px);
-        line-height: 0.92;
-        text-transform: uppercase;
-      }
-
-      .hero-copy {
-        margin: 24px 0 0;
-        color: var(--text-secondary);
-        font-size: 18px;
-        line-height: 1.8;
-        max-width: 58ch;
-      }
-
-      .hero-panel {
-        padding: 28px;
-        background: linear-gradient(180deg, rgba(201, 169, 98, 0.12), rgba(255, 255, 255, 0.03));
-        border: 1px solid var(--border);
-      }
-
-      .hero-panel p {
-        margin: 0 0 12px;
-        color: var(--text-muted);
-        text-transform: uppercase;
-        letter-spacing: 0.16em;
-        font-size: 11px;
-      }
-
-      .hero-panel strong {
-        display: block;
-        font-size: 28px;
-        line-height: 1.3;
-      }
-
-      .grid {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 32px;
-        margin-top: 48px;
-      }
-
-      .card {
-        background: var(--bg-card);
-        border: 1px solid var(--border);
-        display: flex;
-        flex-direction: column;
-        min-height: 100%;
-        transition: border-color 0.25s ease, transform 0.25s ease;
-      }
-
-      .card:hover {
-        border-color: var(--accent);
-        transform: translateY(-4px);
-      }
-
-      .card-image {
-        width: 100%;
-        height: 260px;
-        object-fit: cover;
-      }
-
-      .card-image-wrapper {
-        overflow: hidden;
-      }
-
-      .content {
-        padding: 28px;
-      }
-
-      .meta {
-        display: flex;
-        gap: 14px;
-        flex-wrap: wrap;
-        margin-bottom: 14px;
-        font-size: 12px;
-      }
-
-      .meta span:first-child {
-        color: var(--accent);
-        text-transform: uppercase;
-        letter-spacing: 0.18em;
-      }
-
-      .meta span:last-child {
-        color: var(--text-muted);
-      }
-
-      .card-title {
-        margin: 0 0 14px;
-        font-size: 24px;
-        line-height: 1.35;
-      }
-
-      .excerpt {
-        margin: 0 0 20px;
-        color: var(--text-secondary);
-        line-height: 1.7;
-      }
-
-      .readmore {
-        color: var(--accent);
-        text-transform: uppercase;
-        letter-spacing: 0.15em;
-        font-size: 12px;
-        text-decoration: none;
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-      }
-
-      @media (max-width: 1024px) {
-        .hero,
-        .grid {
-          grid-template-columns: 1fr;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <main class="shell">
-      <div class="topbar">
-        <a class="logo" href="/">ARCHI.VIS</a>
-        <a class="back-link" href="/#blog">На главную</a>
-      </div>
-
-      <section class="hero">
-        <div>
-          <p class="eyebrow">Journal</p>
-          <h1>Блог студии</h1>
-          <p class="hero-copy">
-            Публикуем материалы о 3D-визуализации, интерьерных трендах и рабочем процессе студии.
-            Это уже не декоративный блок, а настоящие страницы статей, которые можно развивать дальше.
-          </p>
-        </div>
-        <div class="hero-panel">
-          <p>Материалов</p>
-          <strong>{posts.length}</strong>
-          <p>Формат</p>
-          <strong>Astro Content Collection</strong>
-        </div>
-      </section>
-
-      <section class="grid">
-        {posts.map((post) => (
-          <BlogCard
-            post={post}
-            dateFormatter={(date) => `${formatBlogDate(date)} · ${post.data.readingTime}`}
-            articleClass="card"
-            wrapperClass="card-image-wrapper"
-            imageClass="card-image"
-            contentClass="content"
-            metaClass="meta"
-            titleClass="card-title"
-            excerptClass="excerpt"
-            linkClass="readmore"
-            readMoreLabel="Читать статью"
-          />
-        ))}
-      </section>
-    </main>
-  </body>
-</html>
+  <section class="grid grid-3">
+    {posts.map((post) => (
+      <BlogCard
+        post={post}
+        dateFormatter={(date) => `${formatBlogDate(date)} · ${post.data.readingTime}`}
+        articleClass="card"
+        imageClass="media"
+        contentClass="card-body"
+        metaClass="muted"
+        categoryClass="kicker"
+        excerptClass="muted"
+        linkClass="button-secondary"
+        readMoreLabel="Читать статью"
+      />
+    ))}
+  </section>
+</SiteLayout>

@@ -1,0 +1,41 @@
+﻿---
+import { portfolioItems } from "../data/site";
+import SiteLayout from "../layouts/SiteLayout.astro";
+---
+
+<SiteLayout
+  title="Портфолио | INTERIOR.360"
+  description="Портфолио студии INTERIOR.360: жилые, коммерческие и девелоперские проекты 3D-визуализации."
+  canonicalPath="/portfolio/"
+>
+  <section class="page-hero">
+    <div>
+      <p class="eyebrow">Portfolio</p>
+      <h1>Портфолио студии</h1>
+      <p class="lead">
+        Отдельная страница с проектами помогает показывать работы без лишнего скролла по главной.
+        Здесь можно развивать кейсы, фильтры и посадки под разные сегменты.
+      </p>
+    </div>
+    <aside class="hero-panel">
+      <p>В подборке</p>
+      <strong>{portfolioItems.length} проектов</strong>
+      <p>Форматы</p>
+      <strong>Жилые, коммерческие, девелоперские</strong>
+    </aside>
+  </section>
+
+  <section class="grid grid-2">
+    {portfolioItems.map((item) => (
+      <article class="card">
+        <img class="media" src={item.image} alt={item.title} loading="lazy" />
+        <div class="card-body">
+          <p class="kicker">{item.category}</p>
+          <h2 style="margin-top: 10px; font-size: 2rem;">{item.title}</h2>
+          <p class="muted" style="margin-bottom: 8px;">{item.location}</p>
+          <p class="muted">{item.description}</p>
+        </div>
+      </article>
+    ))}
+  </section>
+</SiteLayout>

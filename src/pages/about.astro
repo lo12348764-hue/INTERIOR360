@@ -1,0 +1,71 @@
+﻿---
+import { studioStats } from "../data/site";
+import SiteLayout from "../layouts/SiteLayout.astro";
+---
+
+<SiteLayout
+  title="О студии | INTERIOR.360"
+  description="О студии INTERIOR.360: опыт, подход к визуализации и показатели команды."
+  canonicalPath="/about/"
+>
+  <section class="page-hero">
+    <div>
+      <p class="eyebrow">About</p>
+      <h1>О студии</h1>
+      <p class="lead">
+        INTERIOR.360 создаёт фотореалистичные изображения, которые помогают согласовывать решения,
+        продавать идеи и собирать сильную визуальную подачу для проектов интерьера.
+      </p>
+    </div>
+    <aside class="hero-panel">
+      <p>Подход</p>
+      <strong>Сначала смысл, потом картинка</strong>
+      <p>Инструменты</p>
+      <strong>3ds Max, Corona, V-Ray, Photoshop</strong>
+    </aside>
+  </section>
+
+  <section class="section">
+    <div class="grid grid-2">
+      <div class="surface">
+        <h2 style="font-size: 2rem; margin-bottom: 16px;">Что важно для нас</h2>
+        <p class="muted">
+          Мы не делаем изображения ради декоративного эффекта. Каждая сцена должна решать задачу:
+          убедить инвестора, согласовать интерьер, усилить презентацию или помочь отделу продаж.
+        </p>
+        <p class="muted">
+          Поэтому на отдельной странице о студии мы объясняем не только кто мы, но и как именно думаем
+          о результате для клиента.
+        </p>
+      </div>
+      <article class="card">
+        <img
+          class="media"
+          src="/images/channel/arches-lounge.jpg"
+          alt="Команда студии за работой"
+        />
+        <div class="card-body">
+          <p class="kicker">Команда</p>
+          <p class="muted">
+            Работаем с жилыми и коммерческими пространствами, собираем понятный production и следим,
+            чтобы подача была убедительной не только для профессионального сообщества, но и для конечного клиента.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">Цифры</h2>
+    <div class="stats">
+      {studioStats.map((stat) => (
+        <div class="stat">
+          <strong>{stat.value}</strong>
+          <span>{stat.label}</span>
+        </div>
+      ))}
+    </div>
+  </section>
+</SiteLayout>
+
+
