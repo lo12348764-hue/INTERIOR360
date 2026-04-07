@@ -1,0 +1,722 @@
+---
+const propertyTypes = [
+  { value: "apartment", label: "Квартира", rateFactor: 1, note: "Базовый сценарий для городского жилья." },
+  { value: "house", label: "Дом / таунхаус", rateFactor: 1.12, note: "Больше зон, сценариев и инженерных узлов." },
+  { value: "commercial", label: "Коммерческий интерьер", rateFactor: 1.18, note: "Выше требования к нормативам и бренд-подаче." },
+  { value: "premium", label: "Премиум-объект", rateFactor: 1.28, note: "Индивидуальные решения, сложная координация и подбор." },
+];
+
+const packages = [
+  { value: "concept", label: "Концепция", baseRate: 2800, note: "Планировка, стиль, коллажи и общая идея." },
+  { value: "design", label: "Полный дизайн-проект", baseRate: 4600, note: "Концепция, чертежи, ведомости и комплект на реализацию." },
+  { value: "premium", label: "Премиум-проект", baseRate: 6200, note: "Максимальная детализация, кастом и плотная координация." },
+];
+
+const complexityLevels = [
+  { value: "calm", label: "Спокойный минимализм", factor: 1 },
+  { value: "balanced", label: "Современный со средним уровнем деталей", factor: 1.1 },
+  { value: "detailed", label: "Сложный многослойный интерьер", factor: 1.22 },
+  { value: "bespoke", label: "Индивидуальный премиальный стиль", factor: 1.35 },
+];
+
+const planningModes = [
+  { value: "ready", label: "Без перепланировки", factor: 1 },
+  { value: "light", label: "Лёгкая перепланировка", factor: 1.06 },
+  { value: "deep", label: "Глубокая перепланировка", factor: 1.14 },
+];
+
+const visualizationOptions = [
+  { value: "none", label: "Не нужны", rate: 0 },
+  { value: "basic", label: "Базовые ракурсы", rate: 450 },
+  { value: "full", label: "Полный пакет визуализаций", rate: 900 },
+];
+
+const furnitureOptions = [
+  { value: "basic", label: "Готовые позиции", rate: 0 },
+  { value: "mixed", label: "Часть мебели на заказ", rate: 550 },
+  { value: "custom", label: "Много индивидуальных изделий", rate: 1100 },
+];
+
+const engineeringOptions = [
+  { value: "none", label: "Без инженерных разделов", rate: 0 },
+  { value: "base", label: "Электрика и свет", rate: 320 },
+  { value: "full", label: "Полный инженерный пакет", rate: 680 },
+];
+
+const urgencyOptions = [
+  { value: "standard", label: "Стандартный график", factor: 1 },
+  { value: "fast", label: "Ускоренный режим", factor: 1.15 },
+  { value: "rush", label: "Срочный режим", factor: 1.3 },
+];
+
+const designStages = [
+  { key: "brief", label: "Бриф и анализ задачи", rate: 120, checked: true },
+  { key: "planning", label: "Планировочные решения", rate: 260, checked: true },
+  { key: "concept", label: "Концепция и стиль", rate: 320, checked: true },
+  { key: "visual", label: "3D-визуализации", rate: 420, checked: true },
+  { key: "drawings", label: "Рабочие чертежи", rate: 380, checked: true },
+  { key: "spec", label: "Ведомости и комплектация", rate: 260, checked: true },
+  { key: "supervision", label: "Авторский надзор", rate: 240, checked: false },
+];
+
+const extraConditions = [
+  { key: "smart", label: "Сценарии умного дома", rate: 180 },
+  { key: "acoustic", label: "Акустика / кинозона", rate: 140 },
+  { key: "kids", label: "Детские или подростковые комнаты", rate: 120 },
+  { key: "art", label: "Искусство и декоративная курация", rate: 110 },
+  { key: "supplier", label: "Сложная комплектация с несколькими поставщиками", rate: 150 },
+  { key: "approval", label: "Согласования с УК / девелопером", rate: 130 },
+];
+---
+
+<section class="section">
+  <div class="calculator-head">
+    <div>
+      <p class="eyebrow">Calculator</p>
+      <h2 class="section-title" style="margin-top: 0;">Калькулятор стоимости дизайна интерьера</h2>
+      <p class="section-copy" style="max-width: 64ch;">
+        Калькулятор теперь учитывает не только площадь, но и реальные стадии разработки дизайн-проекта:
+        планировку, концепцию, визуализации, рабочие чертежи, комплектацию и авторский надзор. Сверху
+        добавлены условия, которые обычно сильнее всего влияют на цену.
+      </p>
+    </div>
+    <div class="calculator-badge surface">
+      <p class="kicker">Estimate</p>
+      <strong>Смета по стадиям проекта</strong>
+      <p class="muted">
+        Можно собрать как быстрый концепт, так и полный интерьерный пакет с реализацией и сопровождением.
+      </p>
+    </div>
+  </div>
+
+  <div class="calculator-grid" data-calculator>
+    <div class="surface calculator-form">
+      <div class="calculator-stack">
+        <label class="field">
+          <span>Площадь проекта, м²</span>
+          <input type="range" min="35" max="450" step="1" value="120" data-area-range />
+          <div class="field-inline">
+            <input type="number" min="35" max="450" step="1" value="120" data-area-input />
+            <small>Подходит для квартир, домов и коммерческих помещений</small>
+          </div>
+        </label>
+
+        <div class="grid grid-2 calculator-fields">
+          <label class="field">
+            <span>Тип объекта</span>
+            <select data-property-type>
+              {propertyTypes.map((item) => (
+                <option value={item.value} data-factor={item.rateFactor}>{item.label}</option>
+              ))}
+            </select>
+            <small data-property-note>{propertyTypes[0].note}</small>
+          </label>
+
+          <label class="field">
+            <span>Пакет услуг</span>
+            <select data-package>
+              {packages.map((item) => (
+                <option value={item.value} data-rate={item.baseRate} selected={item.value === "design"}>
+                  {item.label}
+                </option>
+              ))}
+            </select>
+            <small data-package-note>{packages[1].note}</small>
+          </label>
+        </div>
+
+        <div class="field">
+          <span>Стадии разработки дизайна интерьера</span>
+          <div class="stage-grid">
+            {designStages.map((stage) => (
+              <label class="stage-card">
+                <input type="checkbox" data-stage data-rate={stage.rate} value={stage.key} checked={stage.checked} />
+                <span>{stage.label}</span>
+              </label>
+            ))}
+          </div>
+          <small>Можно посчитать и полный проект, и отдельные этапы: от планировки до авторского надзора.</small>
+        </div>
+
+        <div class="grid grid-3 calculator-fields">
+          <label class="field">
+            <span>Количество основных зон</span>
+            <input type="number" min="1" max="20" step="1" value="5" data-room-count />
+          </label>
+
+          <label class="field">
+            <span>Санузлы / мокрые зоны</span>
+            <input type="number" min="1" max="8" step="1" value="2" data-bath-count />
+          </label>
+
+          <label class="field">
+            <span>Авторское сопровождение, мес.</span>
+            <input type="number" min="0" max="18" step="1" value="2" data-supervision-months />
+          </label>
+        </div>
+
+        <div class="grid grid-2 calculator-fields">
+          <label class="field">
+            <span>Сложность стилистики</span>
+            <select data-complexity>
+              {complexityLevels.map((item) => (
+                <option value={item.value} data-factor={item.factor}>{item.label}</option>
+              ))}
+            </select>
+          </label>
+
+          <label class="field">
+            <span>Перепланировка</span>
+            <select data-planning>
+              {planningModes.map((item) => (
+                <option value={item.value} data-factor={item.factor}>{item.label}</option>
+              ))}
+            </select>
+          </label>
+        </div>
+
+        <div class="grid grid-3 calculator-fields">
+          <label class="field">
+            <span>3D-визуализации</span>
+            <select data-visuals>
+              {visualizationOptions.map((item) => (
+                <option value={item.value} data-rate={item.rate}>{item.label}</option>
+              ))}
+            </select>
+          </label>
+
+          <label class="field">
+            <span>Кастомная мебель</span>
+            <select data-furniture>
+              {furnitureOptions.map((item) => (
+                <option value={item.value} data-rate={item.rate}>{item.label}</option>
+              ))}
+            </select>
+          </label>
+
+          <label class="field">
+            <span>Инженерные разделы</span>
+            <select data-engineering>
+              {engineeringOptions.map((item) => (
+                <option value={item.value} data-rate={item.rate}>{item.label}</option>
+              ))}
+            </select>
+          </label>
+        </div>
+
+        <div class="grid grid-2 calculator-fields">
+          <label class="field">
+            <span>Срочность</span>
+            <select data-urgency>
+              {urgencyOptions.map((item) => (
+                <option value={item.value} data-factor={item.factor}>{item.label}</option>
+              ))}
+            </select>
+          </label>
+
+          <label class="field field-checkbox">
+            <span>Нужны выезды и дополнительные замеры</span>
+            <input type="checkbox" checked data-site-visits />
+            <small>Добавляем координацию на объекте и выездной блок.</small>
+          </label>
+        </div>
+
+        <div class="field">
+          <span>Дополнительные условия проекта</span>
+          <div class="stage-grid condition-grid">
+            {extraConditions.map((item) => (
+              <label class="stage-card">
+                <input type="checkbox" data-extra data-rate={item.rate} value={item.key} />
+                <span>{item.label}</span>
+              </label>
+            ))}
+          </div>
+          <small>Эти условия часто не видны в метраже, но заметно увеличивают объём работы команды.</small>
+        </div>
+      </div>
+    </div>
+
+    <aside class="surface calculator-summary">
+      <p class="kicker">Budget</p>
+      <div class="result-line">
+        <span>Предварительный бюджет</span>
+        <strong data-total>0 ₽</strong>
+      </div>
+      <div class="result-line subtle">
+        <span>Ориентир за м²</span>
+        <strong data-rate-total>0 ₽/м²</strong>
+      </div>
+      <div class="range-box">
+        <span>Рабочий диапазон</span>
+        <strong data-range>0 - 0 ₽</strong>
+      </div>
+
+      <div class="breakdown">
+        <div class="breakdown-row">
+          <span>Базовый пакет</span>
+          <strong data-base>0 ₽</strong>
+        </div>
+        <div class="breakdown-row">
+          <span>Стадии проекта</span>
+          <strong data-stage-total>0 ₽</strong>
+        </div>
+        <div class="breakdown-row">
+          <span>Тип объекта и сложность</span>
+          <strong data-complexity-total>0 ₽</strong>
+        </div>
+        <div class="breakdown-row">
+          <span>Планировка и зоны</span>
+          <strong data-planning-total>0 ₽</strong>
+        </div>
+        <div class="breakdown-row">
+          <span>Визуализации и мебель</span>
+          <strong data-visual-total>0 ₽</strong>
+        </div>
+        <div class="breakdown-row">
+          <span>Инженерия и сопровождение</span>
+          <strong data-support-total>0 ₽</strong>
+        </div>
+        <div class="breakdown-row">
+          <span>Дополнительные условия</span>
+          <strong data-extra-total>0 ₽</strong>
+        </div>
+        <div class="breakdown-row">
+          <span>Срочность</span>
+          <strong data-urgency-total>0 ₽</strong>
+        </div>
+      </div>
+
+      <div class="summary-note">
+        <p data-summary-text>
+          Оценка подходит для объекта среднего масштаба с базовым набором стадий и умеренным уровнем детализации.
+        </p>
+        <a class="summary-link" href="/contact/">Запросить точную смету</a>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<style>
+  .calculator-head {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
+    gap: 24px;
+    align-items: start;
+    margin-bottom: 24px;
+  }
+
+  .calculator-badge {
+    display: grid;
+    gap: 8px;
+    align-self: stretch;
+  }
+
+  .calculator-badge strong {
+    font-size: 1.7rem;
+    line-height: 1.05;
+  }
+
+  .calculator-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(320px, 0.75fr);
+    gap: 24px;
+    align-items: start;
+  }
+
+  .calculator-form,
+  .calculator-summary {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .calculator-form::before,
+  .calculator-summary::before {
+    content: "";
+    position: absolute;
+    inset: -20% auto auto -10%;
+    width: 220px;
+    height: 220px;
+    border-radius: 999px;
+    background: radial-gradient(circle, rgba(92, 141, 255, 0.18), transparent 68%);
+    pointer-events: none;
+  }
+
+  .calculator-stack {
+    position: relative;
+    display: grid;
+    gap: 18px;
+  }
+
+  .calculator-fields {
+    gap: 18px;
+  }
+
+  .stage-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .stage-card {
+    display: flex;
+    gap: 12px;
+    align-items: start;
+    padding: 14px 16px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.035);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .stage-card span {
+    font-size: 0.92rem;
+    line-height: 1.5;
+  }
+
+  .stage-card input {
+    width: 20px;
+    height: 20px;
+    margin-top: 2px;
+    padding: 0;
+    accent-color: var(--accent);
+  }
+
+  .field {
+    display: grid;
+    gap: 10px;
+  }
+
+  .field span {
+    font-size: 0.95rem;
+    color: var(--text);
+  }
+
+  .field small {
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  .field input,
+  .field select {
+    width: 100%;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 18px;
+    background: rgba(7, 10, 14, 0.72);
+    color: var(--text);
+    padding: 14px 16px;
+    font: inherit;
+    outline: none;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+  }
+
+  .field input:focus,
+  .field select:focus {
+    border-color: rgba(92, 141, 255, 0.6);
+    transform: translateY(-1px);
+  }
+
+  .field input[type="range"] {
+    padding: 0;
+    border: none;
+    background: transparent;
+    accent-color: var(--accent);
+  }
+
+  .field-inline {
+    display: grid;
+    grid-template-columns: minmax(120px, 160px) 1fr;
+    gap: 14px;
+    align-items: center;
+  }
+
+  .field-checkbox {
+    align-content: start;
+  }
+
+  .field-checkbox input[type="checkbox"] {
+    width: 22px;
+    height: 22px;
+    margin: 0;
+    padding: 0;
+    border-radius: 8px;
+    accent-color: var(--accent);
+  }
+
+  .calculator-summary {
+    display: grid;
+    gap: 18px;
+  }
+
+  .result-line,
+  .breakdown-row,
+  .range-box {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    align-items: baseline;
+  }
+
+  .result-line strong {
+    font-size: clamp(2rem, 4vw, 3.4rem);
+    line-height: 0.95;
+    text-align: right;
+  }
+
+  .result-line.subtle strong {
+    font-size: 1.2rem;
+    line-height: 1.2;
+  }
+
+  .range-box {
+    padding: 16px 18px;
+    border-radius: 22px;
+    background: linear-gradient(135deg, rgba(92, 141, 255, 0.18), rgba(210, 180, 140, 0.08));
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .range-box strong {
+    font-size: 1.1rem;
+    text-align: right;
+  }
+
+  .breakdown {
+    display: grid;
+    gap: 12px;
+  }
+
+  .breakdown-row {
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    color: var(--muted);
+  }
+
+  .breakdown-row strong {
+    color: var(--text);
+    text-align: right;
+  }
+
+  .summary-note {
+    display: grid;
+    gap: 12px;
+    padding: 18px 20px;
+    border-radius: 22px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .summary-note p {
+    margin: 0;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  .summary-link {
+    display: inline-flex;
+    width: fit-content;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 18px;
+    border-radius: 999px;
+    text-decoration: none;
+    color: var(--text);
+    background: rgba(92, 141, 255, 0.18);
+    border: 1px solid rgba(92, 141, 255, 0.24);
+  }
+
+  @media (max-width: 1024px) {
+    .calculator-head,
+    .calculator-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .field-inline,
+    .calculator-fields,
+    .stage-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .result-line,
+    .breakdown-row,
+    .range-box {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .result-line strong,
+    .breakdown-row strong,
+    .range-box strong {
+      text-align: left;
+    }
+  }
+</style>
+
+<script>
+  const root = document.querySelector("[data-calculator]");
+
+  if (root) {
+    const formatMoney = (value) =>
+      new Intl.NumberFormat("ru-RU", {
+        style: "currency",
+        currency: "RUB",
+        maximumFractionDigits: 0,
+      }).format(value);
+
+    const areaRange = root.querySelector("[data-area-range]");
+    const areaInput = root.querySelector("[data-area-input]");
+    const propertyType = root.querySelector("[data-property-type]");
+    const servicePackage = root.querySelector("[data-package]");
+    const roomCount = root.querySelector("[data-room-count]");
+    const bathCount = root.querySelector("[data-bath-count]");
+    const supervisionMonths = root.querySelector("[data-supervision-months]");
+    const complexity = root.querySelector("[data-complexity]");
+    const planning = root.querySelector("[data-planning]");
+    const visuals = root.querySelector("[data-visuals]");
+    const furniture = root.querySelector("[data-furniture]");
+    const engineering = root.querySelector("[data-engineering]");
+    const urgency = root.querySelector("[data-urgency]");
+    const siteVisits = root.querySelector("[data-site-visits]");
+    const propertyNote = root.querySelector("[data-property-note]");
+    const packageNote = root.querySelector("[data-package-note]");
+    const stageInputs = Array.from(root.querySelectorAll("[data-stage]"));
+    const extraInputs = Array.from(root.querySelectorAll("[data-extra]"));
+
+    const nodes = {
+      total: root.querySelector("[data-total]"),
+      rateTotal: root.querySelector("[data-rate-total]"),
+      range: root.querySelector("[data-range]"),
+      base: root.querySelector("[data-base]"),
+      stageTotal: root.querySelector("[data-stage-total]"),
+      complexityTotal: root.querySelector("[data-complexity-total]"),
+      planningTotal: root.querySelector("[data-planning-total]"),
+      visualTotal: root.querySelector("[data-visual-total]"),
+      supportTotal: root.querySelector("[data-support-total]"),
+      extraTotal: root.querySelector("[data-extra-total]"),
+      urgencyTotal: root.querySelector("[data-urgency-total]"),
+      summaryText: root.querySelector("[data-summary-text]"),
+    };
+
+    const propertyMeta = {
+      apartment: { note: "Базовый сценарий для городского жилья." },
+      house: { note: "Больше зон, сценариев и инженерных узлов." },
+      commercial: { note: "Выше требования к нормативам и бренд-подаче." },
+      premium: { note: "Индивидуальные решения, сложная координация и подбор." },
+    };
+
+    const packageMeta = {
+      concept: { note: "Планировка, стиль, коллажи и общая идея." },
+      design: { note: "Концепция, чертежи, ведомости и комплект на реализацию." },
+      premium: { note: "Максимальная детализация, кастом и плотная координация." },
+    };
+
+    const syncArea = (source, target) => {
+      target.value = source.value;
+      update();
+    };
+
+    const getNumber = (input, fallback = 0) => {
+      const value = Number(input.value);
+      return Number.isFinite(value) ? value : fallback;
+    };
+
+    const getSelectedData = (select, key) => Number(select.selectedOptions[0]?.dataset[key] ?? 0);
+
+    const getCheckedRate = (inputs) =>
+      inputs.reduce((sum, input) => (input.checked ? sum + Number(input.dataset.rate ?? 0) : sum), 0);
+
+    const getCheckedCount = (inputs) => inputs.filter((input) => input.checked).length;
+
+    const update = () => {
+      const area = Math.min(450, Math.max(35, getNumber(areaInput, 120)));
+      areaInput.value = String(area);
+      areaRange.value = String(area);
+
+      const baseRate = getSelectedData(servicePackage, "rate");
+      const propertyFactor = getSelectedData(propertyType, "factor") || 1;
+      const complexityFactor = getSelectedData(complexity, "factor") || 1;
+      const planningFactor = getSelectedData(planning, "factor") || 1;
+      const visualRate = getSelectedData(visuals, "rate");
+      const furnitureRate = getSelectedData(furniture, "rate");
+      const engineeringRate = getSelectedData(engineering, "rate");
+      const urgencyFactor = getSelectedData(urgency, "factor") || 1;
+
+      const rooms = Math.max(1, getNumber(roomCount, 5));
+      const baths = Math.max(1, getNumber(bathCount, 2));
+      const supervision = Math.max(0, getNumber(supervisionMonths, 0));
+      const stageRate = getCheckedRate(stageInputs);
+      const extraRate = getCheckedRate(extraInputs);
+      const stageCount = getCheckedCount(stageInputs);
+      const extraCount = getCheckedCount(extraInputs);
+
+      const base = area * baseRate;
+      const stageTotal = area * stageRate;
+      const complexityTotal = (base + stageTotal) * (propertyFactor * complexityFactor - 1);
+      const planningTotal =
+        base * (planningFactor - 1) +
+        Math.max(0, rooms - Math.ceil(area / 28)) * 12000 +
+        baths * 9000;
+      const visualTotal = area * (visualRate + furnitureRate);
+      const supportTotal =
+        area * engineeringRate +
+        supervision * 28000 +
+        (siteVisits.checked ? 18000 : 0);
+      const extraTotal = area * extraRate;
+
+      const beforeUrgency =
+        base + stageTotal + complexityTotal + planningTotal + visualTotal + supportTotal + extraTotal;
+      const urgencyTotal = beforeUrgency * (urgencyFactor - 1);
+      const total = beforeUrgency + urgencyTotal;
+      const perMeter = total / area;
+      const minRange = Math.round(total * 0.92);
+      const maxRange = Math.round(total * 1.12);
+
+      nodes.base.textContent = formatMoney(base);
+      nodes.stageTotal.textContent = formatMoney(stageTotal);
+      nodes.complexityTotal.textContent = formatMoney(complexityTotal);
+      nodes.planningTotal.textContent = formatMoney(planningTotal);
+      nodes.visualTotal.textContent = formatMoney(visualTotal);
+      nodes.supportTotal.textContent = formatMoney(supportTotal);
+      nodes.extraTotal.textContent = formatMoney(extraTotal);
+      nodes.urgencyTotal.textContent = formatMoney(urgencyTotal);
+      nodes.total.textContent = formatMoney(total);
+      nodes.rateTotal.textContent = `${formatMoney(Math.round(perMeter))}/м²`;
+      nodes.range.textContent = `${formatMoney(minRange)} - ${formatMoney(maxRange)}`;
+
+      propertyNote.textContent = propertyMeta[propertyType.value]?.note ?? "";
+      packageNote.textContent = packageMeta[servicePackage.value]?.note ?? "";
+
+      const packageLabels = {
+        concept: "концепцией",
+        design: "полным дизайн-проектом",
+        premium: "премиум-проектом",
+      };
+
+      nodes.summaryText.textContent =
+        `Оценка рассчитана для объекта площадью ${area} м² с ${packageLabels[servicePackage.value] ?? "проектом"}, ` +
+        `${stageCount} выбранными стадиями разработки и ${extraCount} дополнительными условиями. ` +
+        `Чем больше нестандартных узлов, сложной комплектации и сопровождения, тем ближе проект будет к верхней границе диапазона.`;
+    };
+
+    areaRange.addEventListener("input", () => syncArea(areaRange, areaInput));
+    areaInput.addEventListener("input", () => syncArea(areaInput, areaRange));
+
+    [
+      propertyType,
+      servicePackage,
+      roomCount,
+      bathCount,
+      supervisionMonths,
+      complexity,
+      planning,
+      visuals,
+      furniture,
+      engineering,
+      urgency,
+      siteVisits,
+      ...stageInputs,
+      ...extraInputs,
+    ].forEach((input) => input.addEventListener("input", update));
+
+    update();
+  }
+</script>
