@@ -6,7 +6,7 @@ import SiteLayout from "../layouts/SiteLayout.astro";
 
 const blogPosts = (await getCollection("blog", ({ data }) => !data.draft))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
-  .slice(0, 3);
+  .slice(0, 4);
 
 const formatBlogDate = (date: Date) =>
   new Intl.DateTimeFormat("ru-RU", {
@@ -48,7 +48,7 @@ const formatBlogDate = (date: Date) =>
     <p class="section-copy">
       Вместо якорной навигации на одной странице теперь есть отдельные URL для ключевых направлений сайта.
     </p>
-    <div class="grid grid-3">
+    <div class="grid grid-visual">
       <article class="card">
         <img class="media" src={portfolioItems[0].image} alt="Пример интерьерной визуализации" loading="eager" />
         <div class="card-body">
@@ -94,6 +94,22 @@ const formatBlogDate = (date: Date) =>
           </div>
         </div>
       </article>
+      <article class="card">
+        <img
+          class="media"
+          src="/images/channel/arches-lounge.jpg"
+          alt="Авторский подход к интерьерным решениям"
+        />
+        <div class="card-body">
+          <p class="kicker">Подход</p>
+          <h3 style="margin-top: 10px; font-size: 1.6rem;">Концепция и атмосфера</h3>
+          <p class="muted">
+            Отдельный акцент на стиле, материалах и характере пространства, чтобы сайт выглядел не как каталог,
+            а как студийная презентация с настроением.
+          </p>
+          <a class="button-secondary" href="/about/">Смотреть подход</a>
+        </div>
+      </article>
     </div>
   </section>
 
@@ -135,7 +151,7 @@ const formatBlogDate = (date: Date) =>
       </div>
       <a class="button-secondary" href="/blog/">Все материалы</a>
     </div>
-    <div class="grid grid-3" style="margin-top: 28px;">
+    <div class="grid grid-visual" style="margin-top: 28px;">
       {blogPosts.map((post) => (
         <BlogCard
           post={post}

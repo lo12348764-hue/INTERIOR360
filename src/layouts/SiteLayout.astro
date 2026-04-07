@@ -32,7 +32,7 @@ const canonicalUrl = new URL(canonicalPath, siteUrl).toString();
         --panel: rgba(255, 255, 255, 0.045);
         --text: #f5f1ea;
         --muted: #b7b1a7;
-        --accent: #d7a656;
+        --accent: #5c8dff;
         --border: rgba(255, 255, 255, 0.09);
         --shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
       }
@@ -62,7 +62,7 @@ const canonicalUrl = new URL(canonicalPath, siteUrl).toString();
         isolation: isolate;
         min-height: 100vh;
         background:
-          linear-gradient(180deg, rgba(10, 12, 16, 0.98) 0%, rgba(7, 9, 12, 0.99) 52%, rgba(11, 14, 18, 0.99) 100%);
+          linear-gradient(180deg, rgba(6, 8, 11, 0.995) 0%, rgba(4, 6, 9, 1) 50%, rgba(7, 10, 14, 1) 100%);
       }
 
       .site-shell::before,
@@ -74,6 +74,17 @@ const canonicalUrl = new URL(canonicalPath, siteUrl).toString();
       }
 
       .site-shell::before {
+        z-index: -3;
+        background:
+          linear-gradient(rgba(5, 7, 10, 0.42), rgba(5, 7, 10, 0.58)),
+          url("/images/channel/living-premium.jpg") center / cover no-repeat;
+        filter: blur(18px) brightness(0.68) saturate(0.95);
+        transform: scale(1.16);
+        opacity: 0.92;
+        animation: backgroundImageDrift 18s ease-in-out infinite alternate;
+      }
+
+      .site-shell::after {
         z-index: -2;
         background:
           radial-gradient(circle at 12% 18%, rgba(196, 154, 108, 0.32), transparent 24%),
@@ -83,16 +94,20 @@ const canonicalUrl = new URL(canonicalPath, siteUrl).toString();
           radial-gradient(circle at 52% 46%, rgba(225, 206, 178, 0.14), transparent 18%);
         background-size: 140% 140%;
         filter: blur(118px) saturate(135%);
-        opacity: 1;
+        opacity: 0.82;
         transform: scale(1.14);
         mix-blend-mode: screen;
         animation:
-          ambientFloat 18s ease-in-out infinite alternate,
-          gradientShift 14s ease-in-out infinite,
-          refractPulse 9s ease-in-out infinite;
+          ambientFloat 12s ease-in-out infinite alternate,
+          gradientShift 9s ease-in-out infinite,
+          refractPulse 7s ease-in-out infinite,
+          backgroundPulse 5.5s ease-in-out infinite;
       }
 
-      .site-shell::after {
+      .site-shell > .bg-overlay {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
         z-index: -1;
         background:
           linear-gradient(120deg, rgba(208, 184, 154, 0.14), rgba(255, 255, 255, 0) 28%),
@@ -100,32 +115,33 @@ const canonicalUrl = new URL(canonicalPath, siteUrl).toString();
           linear-gradient(180deg, rgba(7, 9, 12, 0.05), rgba(7, 9, 12, 0.42));
         background-size: 180% 180%;
         backdrop-filter: blur(38px) saturate(118%);
-        opacity: 0.95;
+        opacity: 0.72;
         mix-blend-mode: screen;
         animation:
-          gradientShift 18s ease-in-out infinite reverse,
-          refractDrift 12s ease-in-out infinite alternate;
+          gradientShift 10s ease-in-out infinite reverse,
+          refractDrift 7.5s ease-in-out infinite alternate,
+          backgroundPulse 6s ease-in-out infinite reverse;
       }
 
       @keyframes ambientFloat {
         0% {
-          transform: translate3d(-12%, -8%, 0) scale(1.04) rotate(-2deg);
+          transform: translate3d(-16%, -12%, 0) scale(1.02) rotate(-3deg);
         }
 
         25% {
-          transform: translate3d(8%, -4%, 0) scale(1.14) rotate(1deg);
+          transform: translate3d(12%, -6%, 0) scale(1.16) rotate(2deg);
         }
 
         50% {
-          transform: translate3d(12%, 10%, 0) scale(1.22) rotate(3deg);
+          transform: translate3d(16%, 14%, 0) scale(1.26) rotate(4deg);
         }
 
         75% {
-          transform: translate3d(-6%, 8%, 0) scale(1.16) rotate(-1deg);
+          transform: translate3d(-10%, 12%, 0) scale(1.18) rotate(-2deg);
         }
 
         100% {
-          transform: translate3d(10%, -10%, 0) scale(1.24) rotate(2deg);
+          transform: translate3d(14%, -14%, 0) scale(1.28) rotate(3deg);
         }
       }
 
@@ -174,6 +190,57 @@ const canonicalUrl = new URL(canonicalPath, siteUrl).toString();
         }
       }
 
+      @keyframes backgroundPulse {
+        0% {
+          opacity: 0.56;
+          filter: blur(112px) saturate(108%) brightness(0.74);
+        }
+
+        50% {
+          opacity: 0.94;
+          filter: blur(144px) saturate(132%) brightness(0.96);
+        }
+
+        100% {
+          opacity: 0.62;
+          filter: blur(120px) saturate(114%) brightness(0.82);
+        }
+      }
+
+      @keyframes backgroundImageDrift {
+        0% {
+          transform: scale(1.14) translate3d(-2%, -1%, 0);
+          background-position: 46% 50%;
+        }
+
+        50% {
+          transform: scale(1.2) translate3d(2%, 1%, 0);
+          background-position: 54% 48%;
+        }
+
+        100% {
+          transform: scale(1.16) translate3d(1%, -2%, 0);
+          background-position: 50% 54%;
+        }
+      }
+
+      @keyframes panelShimmer {
+        0% {
+          opacity: 0.48;
+          transform: translate3d(-1%, 0, 0);
+        }
+
+        50% {
+          opacity: 0.9;
+          transform: translate3d(2%, -1%, 0);
+        }
+
+        100% {
+          opacity: 0.62;
+          transform: translate3d(4%, 1%, 0);
+        }
+      }
+
       .topbar {
         position: sticky;
         top: 0;
@@ -186,7 +253,7 @@ const canonicalUrl = new URL(canonicalPath, siteUrl).toString();
       .topbar-inner,
       .container,
       .footer-inner {
-        width: min(1180px, calc(100% - 40px));
+        width: min(1320px, calc(100% - 40px));
         margin: 0 auto;
       }
 
@@ -254,8 +321,13 @@ const canonicalUrl = new URL(canonicalPath, siteUrl).toString();
       .surface,
       .stat {
         background: var(--panel);
-        border: 1px solid var(--border);
-        box-shadow: var(--shadow);
+        border: 1px solid rgba(156, 202, 255, 0.34);
+        box-shadow:
+          0 0 0 1px rgba(220, 238, 255, 0.08) inset,
+          0 0 18px rgba(92, 141, 255, 0.14),
+          0 0 42px rgba(92, 141, 255, 0.12),
+          0 0 82px rgba(92, 141, 255, 0.1),
+          var(--shadow);
         border-radius: 10px;
         backdrop-filter: blur(22px);
         position: relative;
@@ -343,6 +415,10 @@ const canonicalUrl = new URL(canonicalPath, siteUrl).toString();
         grid-template-columns: repeat(3, minmax(0, 1fr));
       }
 
+      .grid-visual {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
       .card {
         overflow: hidden;
       }
@@ -357,23 +433,54 @@ const canonicalUrl = new URL(canonicalPath, siteUrl).toString();
         pointer-events: none;
         border-radius: inherit;
         background:
-          linear-gradient(to right, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.06)) top left / 100% 1px no-repeat,
-          linear-gradient(to right, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.04)) bottom left / 100% 1px no-repeat,
-          linear-gradient(to bottom, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.045)) top left / 1px 100% no-repeat,
-          linear-gradient(to bottom, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.03)) top right / 1px 100% no-repeat;
-        opacity: 0.9;
+          linear-gradient(90deg, rgba(255, 255, 255, 0.18), rgba(132, 190, 255, 0.3), rgba(255, 255, 255, 0.08)) top left / 100% 1px no-repeat,
+          linear-gradient(90deg, rgba(255, 255, 255, 0.04), rgba(92, 141, 255, 0.18), rgba(255, 255, 255, 0.03)) bottom left / 100% 1px no-repeat,
+          linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(92, 141, 255, 0.22), rgba(255, 255, 255, 0.04)) top left / 1px 100% no-repeat,
+          linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(92, 141, 255, 0.16), rgba(255, 255, 255, 0.03)) top right / 1px 100% no-repeat;
+        opacity: 0.92;
+        filter: drop-shadow(0 0 10px rgba(106, 170, 255, 0.18));
+      }
+
+      .card::after,
+      .surface::after,
+      .stat::after,
+      .hero-panel::after {
+        content: "";
+        position: absolute;
+        inset: -1px;
+        border-radius: inherit;
+        pointer-events: none;
+        z-index: 2;
+        background:
+          linear-gradient(90deg, transparent 0%, rgba(210, 235, 255, 0.95) 48%, transparent 100%) top left / 120px 1px no-repeat,
+          linear-gradient(90deg, transparent 0%, rgba(130, 188, 255, 0.75) 48%, transparent 100%) bottom left / 120px 1px no-repeat,
+          linear-gradient(180deg, transparent 0%, rgba(210, 235, 255, 0.9) 48%, transparent 100%) top left / 1px 120px no-repeat,
+          linear-gradient(180deg, transparent 0%, rgba(130, 188, 255, 0.72) 48%, transparent 100%) top right / 1px 120px no-repeat;
+        filter: drop-shadow(0 0 8px rgba(160, 214, 255, 0.35));
+        opacity: 0;
+        transition: opacity 0.25s ease;
+      }
+
+      .card:hover::before,
+      .surface:hover::before,
+      .stat:hover::before,
+      .hero-panel:hover::before {
+        animation: borderSheen 6s linear infinite;
+      }
+
+      .card:hover::after,
+      .surface:hover::after,
+      .stat:hover::after,
+      .hero-panel:hover::after {
+        opacity: 1;
+        animation: borderTravel 5.5s linear infinite;
       }
 
       .card-body,
       .surface,
       .stat,
       .hero-panel {
-        background-image:
-          linear-gradient(rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.03)),
-          linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px),
-          linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px);
-        background-size: 100% 100%, 18px 18px, 18px 18px;
-        background-position: 0 0, -1px -1px, -1px -1px;
+        background-image: linear-gradient(rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.03));
       }
 
       .card-body {
@@ -414,7 +521,7 @@ const canonicalUrl = new URL(canonicalPath, siteUrl).toString();
 
       .media {
         width: 100%;
-        height: 280px;
+        height: 380px;
         object-fit: cover;
         display: block;
       }
@@ -445,6 +552,7 @@ const canonicalUrl = new URL(canonicalPath, siteUrl).toString();
       @media (max-width: 900px) {
         .page-hero,
         .grid-2,
+        .grid-visual,
         .grid-3,
         .stats {
           grid-template-columns: 1fr;
@@ -456,11 +564,75 @@ const canonicalUrl = new URL(canonicalPath, siteUrl).toString();
           align-items: flex-start;
           flex-direction: column;
         }
+
+        .media {
+          height: 320px;
+        }
+      }
+
+      @keyframes borderSheen {
+        0% {
+          opacity: 0.78;
+          filter: drop-shadow(0 0 8px rgba(106, 170, 255, 0.12)) hue-rotate(0deg);
+        }
+
+        50% {
+          opacity: 1;
+          filter: drop-shadow(0 0 14px rgba(148, 205, 255, 0.24)) hue-rotate(10deg);
+        }
+
+        100% {
+          opacity: 0.82;
+          filter: drop-shadow(0 0 9px rgba(106, 170, 255, 0.14)) hue-rotate(0deg);
+        }
+      }
+
+      @keyframes borderTravel {
+        0% {
+          background-position:
+            -140px 0,
+            calc(100% + 140px) 100%,
+            0 -140px,
+            100% calc(100% + 140px);
+        }
+
+        25% {
+          background-position:
+            calc(100% + 140px) 0,
+            calc(100% + 140px) 100%,
+            0 -140px,
+            100% calc(100% + 140px);
+        }
+
+        50% {
+          background-position:
+            calc(100% + 140px) 0,
+            -140px 100%,
+            0 calc(100% + 140px),
+            100% calc(100% + 140px);
+        }
+
+        75% {
+          background-position:
+            -140px 0,
+            -140px 100%,
+            0 calc(100% + 140px),
+            100% -140px;
+        }
+
+        100% {
+          background-position:
+            -140px 0,
+            calc(100% + 140px) 100%,
+            0 -140px,
+            100% calc(100% + 140px);
+        }
       }
     </style>
   </head>
   <body>
     <div class="site-shell">
+      <div class="bg-overlay"></div>
       <header class="topbar">
         <div class="topbar-inner">
           <a class="brand" href="/">INTERIOR<span class="brand-mark">.360</span></a>
@@ -487,3 +659,4 @@ const canonicalUrl = new URL(canonicalPath, siteUrl).toString();
     </div>
   </body>
 </html>
+
