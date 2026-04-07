@@ -38,12 +38,14 @@ const {
 
 <article class={articleClass}>
   <div class={wrapperClass}>
-    <img
-      src={post.data.cover}
-      alt={post.data.coverAlt ?? post.data.title}
-      class={imageClass}
-      loading={lazy ? "lazy" : "eager"}
-    />
+    <div class="media-motion">
+      <img
+        src={post.data.cover}
+        alt={post.data.coverAlt ?? post.data.title}
+        class={imageClass}
+        loading={lazy ? "lazy" : "eager"}
+      />
+    </div>
   </div>
   <div class={contentClass}>
     <div class={metaClass}>

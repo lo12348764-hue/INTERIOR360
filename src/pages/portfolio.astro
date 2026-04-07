@@ -28,7 +28,11 @@ import SiteLayout from "../layouts/SiteLayout.astro";
   <section class="grid grid-2">
     {portfolioItems.map((item) => (
       <article class="card">
-        <img class="media" src={item.image} alt={item.title} loading="lazy" />
+        <div class="media-frame">
+          <div class="media-motion">
+            <img class="media" src={item.image} alt={item.title} loading="lazy" />
+          </div>
+        </div>
         <div class="card-body">
           <p class="kicker">{item.category}</p>
           <h2 style="margin-top: 10px; font-size: 2rem;">{item.title}</h2>

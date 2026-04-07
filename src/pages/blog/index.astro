@@ -43,6 +43,7 @@ const formatBlogDate = (date: Date) =>
         post={post}
         dateFormatter={(date) => `${formatBlogDate(date)} · ${post.data.readingTime}`}
         articleClass="card"
+        wrapperClass="media-frame"
         imageClass="media"
         contentClass="card-body"
         metaClass="muted"

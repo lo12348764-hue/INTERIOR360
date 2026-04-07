@@ -50,7 +50,11 @@ const formatBlogDate = (date: Date) =>
     </p>
     <div class="grid grid-visual">
       <article class="card">
-        <img class="media" src={portfolioItems[0].image} alt="Пример интерьерной визуализации" loading="eager" />
+        <div class="media-frame">
+          <div class="media-motion">
+            <img class="media" src={portfolioItems[0].image} alt="Пример интерьерной визуализации" loading="eager" />
+          </div>
+        </div>
         <div class="card-body">
           <p class="kicker">Портфолио</p>
           <h3 style="margin-top: 10px; font-size: 1.6rem;">Подборка проектов</h3>
@@ -61,11 +65,15 @@ const formatBlogDate = (date: Date) =>
         </div>
       </article>
       <article class="card">
-        <img
-          class="media"
-          src="/images/channel/living-dark.jpg"
-          alt="Рабочий процесс команды"
-        />
+        <div class="media-frame">
+          <div class="media-motion">
+            <img
+              class="media"
+              src="/images/channel/living-dark.jpg"
+              alt="Рабочий процесс команды"
+            />
+          </div>
+        </div>
         <div class="card-body">
           <p class="kicker">Услуги</p>
           <h3 style="margin-top: 10px; font-size: 1.6rem;">Чёткие пакеты работ</h3>
@@ -76,11 +84,17 @@ const formatBlogDate = (date: Date) =>
         </div>
       </article>
       <article class="card">
-        <img
-          class="media"
-          src="/images/channel/house-exterior.jpg"
-          alt="Студия и блог"
-        />
+        <div class="media-frame" data-static-media>
+          <div class="media-motion media-physics" style="--water-image: url('/images/channel/house-exterior.jpg');">
+            <img
+              class="media"
+              src="/images/channel/house-exterior.jpg"
+              alt="Студия и блог"
+            />
+            <div class="media-water-layer" aria-hidden="true">
+            </div>
+          </div>
+        </div>
         <div class="card-body">
           <p class="kicker">Контекст</p>
           <h3 style="margin-top: 10px; font-size: 1.6rem;">О студии, блог и контакты</h3>
@@ -95,11 +109,15 @@ const formatBlogDate = (date: Date) =>
         </div>
       </article>
       <article class="card">
-        <img
-          class="media"
-          src="/images/channel/arches-lounge.jpg"
-          alt="Авторский подход к интерьерным решениям"
-        />
+        <div class="media-frame">
+          <div class="media-motion">
+            <img
+              class="media"
+              src="/images/channel/arches-lounge.jpg"
+              alt="Авторский подход к интерьерным решениям"
+            />
+          </div>
+        </div>
         <div class="card-body">
           <p class="kicker">Подход</p>
           <h3 style="margin-top: 10px; font-size: 1.6rem;">Концепция и атмосфера</h3>
@@ -157,6 +175,7 @@ const formatBlogDate = (date: Date) =>
           post={post}
           dateFormatter={(date) => `${formatBlogDate(date)} · ${post.data.readingTime}`}
           articleClass="card"
+          wrapperClass="media-frame"
           imageClass="media"
           contentClass="card-body"
           metaClass="muted"
