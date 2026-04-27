@@ -26,6 +26,7 @@ const canonicalUrl = new URL(canonicalPath, siteUrl).toString();
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalUrl} />
+    <link rel="stylesheet" href="/styles/site.css" />
     <style is:global>
       :root {
         --bg: #090b0d;
@@ -253,8 +254,10 @@ const canonicalUrl = new URL(canonicalPath, siteUrl).toString();
       .topbar-inner,
       .container,
       .footer-inner {
-        width: min(1320px, calc(100% - 40px));
-        margin: 0 auto;
+        width: 100%;
+        max-width: none;
+        margin: 0;
+        padding-inline: clamp(20px, 3vw, 40px);
       }
 
       .topbar-inner,
@@ -305,7 +308,7 @@ const canonicalUrl = new URL(canonicalPath, siteUrl).toString();
       }
 
       main {
-        padding: 56px 0 88px;
+        padding: 44px 0 72px;
       }
 
       .page-hero {
@@ -356,7 +359,7 @@ const canonicalUrl = new URL(canonicalPath, siteUrl).toString();
       }
 
       h1 {
-        font-size: clamp(3rem, 8vw, 6.5rem);
+        font-size: clamp(2.7rem, 6.6vw, 5.7rem);
         text-transform: uppercase;
       }
 
@@ -393,7 +396,8 @@ const canonicalUrl = new URL(canonicalPath, siteUrl).toString();
       }
 
       .section-title {
-        font-size: clamp(2rem, 4vw, 3.25rem);
+        font-size: clamp(1.8rem, 3.4vw, 2.8rem);
+        font-weight: 700;
         margin-bottom: 18px;
       }
 
@@ -832,6 +836,8 @@ const canonicalUrl = new URL(canonicalPath, siteUrl).toString();
         const cards = document.querySelectorAll(".card");
 
         cards.forEach((card) => {
+          if (card.classList.contains("project-card")) return;
+
           const frame = card.querySelector(".media-frame");
           const media = frame?.querySelector(".media");
 
@@ -893,10 +899,75 @@ const canonicalUrl = new URL(canonicalPath, siteUrl).toString();
         });
       };
 
+      const setupHorizontalWheelScroll = () => {
+        const strips = document.querySelectorAll(".projects-strip");
+
+        strips.forEach((strip) => {
+          if (!(strip instanceof HTMLElement) || strip.dataset.wheelBound === "true") return;
+
+          strip.dataset.wheelBound = "true";
+          let targetScrollLeft = strip.scrollLeft;
+          let animationFrameId = 0;
+
+          const animateScroll = () => {
+            const distance = targetScrollLeft - strip.scrollLeft;
+
+            if (Math.abs(distance) < 0.5) {
+              strip.scrollLeft = targetScrollLeft;
+              animationFrameId = 0;
+              return;
+            }
+
+            strip.scrollLeft += distance * 0.08;
+            animationFrameId = window.requestAnimationFrame(animateScroll);
+          };
+
+          const ensureAnimation = () => {
+            if (!animationFrameId) {
+              animationFrameId = window.requestAnimationFrame(animateScroll);
+            }
+          };
+
+          strip.addEventListener(
+            "wheel",
+            (event) => {
+              const delta = event.deltaY;
+
+              if (delta === 0) return;
+
+              const maxScrollLeft = strip.scrollWidth - strip.clientWidth;
+              const nextScrollLeft = Math.max(0, Math.min(maxScrollLeft, targetScrollLeft + delta));
+              const canScroll = maxScrollLeft > 0 && nextScrollLeft !== targetScrollLeft;
+
+              if (!canScroll) return;
+
+              event.preventDefault();
+              targetScrollLeft = nextScrollLeft;
+              ensureAnimation();
+            },
+            { passive: false }
+          );
+
+          strip.addEventListener("scroll", () => {
+            if (!animationFrameId) {
+              targetScrollLeft = strip.scrollLeft;
+            }
+          });
+        });
+      };
+
       if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", setupCardParallax, { once: true });
+        document.addEventListener(
+          "DOMContentLoaded",
+          () => {
+            setupCardParallax();
+            setupHorizontalWheelScroll();
+          },
+          { once: true }
+        );
       } else {
         setupCardParallax();
+        setupHorizontalWheelScroll();
       }
     </script>
   </body>

@@ -27,7 +27,7 @@ import SiteLayout from "../layouts/SiteLayout.astro";
 
   <section class="grid grid-2">
     {portfolioItems.map((item) => (
-      <article class="card">
+      <a class="card portfolio-card-link" href={`/portfolio/${item.slug}/`} aria-label={`Открыть проект ${item.title}`}>
         <div class="media-frame">
           <div class="media-motion">
             <img class="media" src={item.image} alt={item.title} loading="lazy" />
@@ -39,7 +39,24 @@ import SiteLayout from "../layouts/SiteLayout.astro";
           <p class="muted" style="margin-bottom: 8px;">{item.location}</p>
           <p class="muted">{item.description}</p>
         </div>
-      </article>
+      </a>
     ))}
   </section>
 </SiteLayout>
+
+<style is:inline>
+  .portfolio-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    cursor: pointer;
+  }
+
+  .portfolio-card-link,
+  .portfolio-card-link:hover,
+  .portfolio-card-link:visited,
+  .portfolio-card-link:active,
+  .portfolio-card-link * {
+    text-decoration: none;
+  }
+</style>

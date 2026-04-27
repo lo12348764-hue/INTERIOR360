@@ -1,5 +1,6 @@
 ---
 import ServiceCalculator from "../components/ServiceCalculator.astro";
+import CostCalculator from "../components/CostCalculator.astro";
 import { processSteps, services } from "../data/site";
 import SiteLayout from "../layouts/SiteLayout.astro";
 ---
@@ -15,7 +16,7 @@ import SiteLayout from "../layouts/SiteLayout.astro";
       <h1>Услуги и процесс</h1>
       <p class="lead">
         Здесь можно не только посмотреть форматы работы, но и сразу прикинуть бюджет проекта по ключевым параметрам:
-        площади, сложности, составу проекта и уровню детализации.
+        площади, сложности, составу проекта, уровню детализации и формату сопровождения.
       </p>
     </div>
     <aside class="hero-panel">
@@ -61,4 +62,32 @@ import SiteLayout from "../layouts/SiteLayout.astro";
       ))}
     </div>
   </section>
+
+  <section class="section">
+    <div class="grid grid-3">
+      <article class="surface">
+        <p class="kicker">Смета</p>
+        <h2 style="margin-top: 10px; font-size: 1.55rem;">Бюджет проекта</h2>
+        <p class="muted">
+          Считаем стоимость дизайн-проекта по площади, уровню детализации, составу работ и набору услуг.
+        </p>
+      </article>
+      <article class="surface">
+        <p class="kicker">Материалы</p>
+        <h2 style="margin-top: 10px; font-size: 1.55rem;">Закупочный ориентир</h2>
+        <p class="muted">
+          Разделяем бюджет на черновые материалы, чистовые покрытия, свет, сантехнику, двери и оборудование.
+        </p>
+      </article>
+      <article class="surface">
+        <p class="kicker">График</p>
+        <h2 style="margin-top: 10px; font-size: 1.55rem;">Работы на объекте</h2>
+        <p class="muted">
+          Показываем длительность этапов: подготовка, демонтаж, черновые работы, инженерия, комплектация и финиш.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <CostCalculator />
 </SiteLayout>

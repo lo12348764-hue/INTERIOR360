@@ -1,0 +1,596 @@
+<section class="section calculator-section" id="calculate">
+  <div class="calculator-heading">
+    <div>
+      <p class="eyebrow">Project budget</p>
+      <h2 class="section-title">Расчет сметы, материалов и графика работ</h2>
+      <p class="section-copy">
+        Быстрый расчет помогает понять порядок бюджета до консультации: стоимость дизайн-проекта,
+        ориентир по материалам и примерный календарь работ на объекте.
+      </p>
+    </div>
+    <a class="button-secondary" href="/contact/">Уточнить расчет</a>
+  </div>
+
+  <div class="calculator" data-calculator>
+    <form class="calculator-form" aria-label="Калькулятор сметы и материалов">
+      <fieldset class="calc-group">
+        <legend>Параметры объекта</legend>
+        <label class="range-field">
+          <span>Площадь, м²</span>
+          <strong data-area-output>72</strong>
+          <input data-calc-input name="area" type="range" min="20" max="260" step="1" value="72" />
+        </label>
+        <div class="calc-grid">
+          <label>
+            <span>Тип объекта</span>
+            <select data-calc-input name="objectType">
+              <option value="1">Квартира</option>
+              <option value="1.08">Дом</option>
+              <option value="1.16">Коммерческий интерьер</option>
+              <option value="1.24">HoReCa / шоурум</option>
+            </select>
+          </label>
+          <label>
+            <span>Комнат</span>
+            <input data-calc-input name="rooms" type="number" min="1" max="12" value="3" />
+          </label>
+        </div>
+      </fieldset>
+
+      <fieldset class="calc-group">
+        <legend>Формат проекта</legend>
+        <div class="choice-grid">
+          <label class="choice-card">
+            <input data-calc-input type="radio" name="package" value="2200" checked />
+            <span>
+              <strong>Эскизный</strong>
+              <small>Планировка, moodboard, базовая концепция</small>
+            </span>
+          </label>
+          <label class="choice-card">
+            <input data-calc-input type="radio" name="package" value="4500" />
+            <span>
+              <strong>Стандарт</strong>
+              <small>Концепция, чертежи, ведомости, 3D</small>
+            </span>
+          </label>
+          <label class="choice-card">
+            <input data-calc-input type="radio" name="package" value="7500" />
+            <span>
+              <strong>Премиум</strong>
+              <small>Полный проект, комплектация, сложные узлы</small>
+            </span>
+          </label>
+        </div>
+      </fieldset>
+
+      <fieldset class="calc-group">
+        <legend>Состав работ</legend>
+        <div class="calc-grid">
+          <label>
+            <span>Сложность стиля</span>
+            <select data-calc-input name="complexity">
+              <option value="1">Современный минимализм</option>
+              <option value="1.1">Теплый contemporary</option>
+              <option value="1.22">Классика / ар-деко</option>
+              <option value="1.3">Индивидуальные изделия</option>
+            </select>
+          </label>
+          <label>
+            <span>Уровень материалов</span>
+            <select data-calc-input name="materialLevel">
+              <option value="22000">Практичный</option>
+              <option value="38000" selected>Комфорт</option>
+              <option value="62000">Премиум</option>
+              <option value="90000">Индивидуальный</option>
+            </select>
+          </label>
+        </div>
+        <div class="toggle-grid">
+          <label class="toggle-row">
+            <input data-calc-input type="checkbox" name="drawings" checked />
+            <span>Рабочие чертежи</span>
+          </label>
+          <label class="toggle-row">
+            <input data-calc-input type="checkbox" name="visuals" checked />
+            <span>3D-визуализации</span>
+          </label>
+          <label class="toggle-row">
+            <input data-calc-input type="checkbox" name="shopping" />
+            <span>Комплектация и подбор</span>
+          </label>
+          <label class="toggle-row">
+            <input data-calc-input type="checkbox" name="supervision" />
+            <span>Авторский надзор</span>
+          </label>
+        </div>
+      </fieldset>
+    </form>
+
+    <aside class="calculator-result" aria-live="polite">
+      <p class="kicker">Итоговая смета</p>
+      <div class="result-price">
+        <span data-total-output>302 000 - 370 000 ₽</span>
+        <small data-meter-output>от 4 200 ₽/м²</small>
+      </div>
+
+      <div class="result-tabs">
+        <article>
+          <span>Дизайн-проект</span>
+          <strong data-design-output>302 000 ₽</strong>
+        </article>
+        <article>
+          <span>Материалы</span>
+          <strong data-materials-output>2 304 000 ₽</strong>
+        </article>
+        <article>
+          <span>Резерв</span>
+          <strong data-reserve-output>230 000 ₽</strong>
+        </article>
+      </div>
+
+      <div class="material-breakdown">
+        <h3>Расчет стоимости материалов</h3>
+        <div class="material-row">
+          <span>Черновые материалы</span>
+          <strong data-rough-output>576 000 ₽</strong>
+        </div>
+        <div class="material-row">
+          <span>Чистовые покрытия</span>
+          <strong data-finish-output>922 000 ₽</strong>
+        </div>
+        <div class="material-row">
+          <span>Свет, сантехника, двери</span>
+          <strong data-equipment-output>806 000 ₽</strong>
+        </div>
+      </div>
+
+      <div class="timeline-card">
+        <div class="timeline-heading">
+          <h3>График работ на объекте</h3>
+          <strong data-time-output>8-10 недель</strong>
+        </div>
+        <div class="schedule" data-schedule-output></div>
+      </div>
+
+      <a class="button" href="/contact/">Получить точную смету</a>
+      <p class="result-note">
+        Расчет предварительный. Финальная смета зависит от обмеров, состава помещений,
+        инженерии, выбранных брендов и состояния объекта.
+      </p>
+    </aside>
+  </div>
+</section>
+
+<style is:inline>
+  .calculator-heading {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 28px;
+  }
+
+  .calculator {
+    display: grid;
+    grid-template-columns: minmax(0, 0.92fr) minmax(360px, 1.08fr);
+    gap: 22px;
+  }
+
+  .calculator-form,
+  .calculator-result {
+    position: relative;
+    border: 1px solid rgba(156, 202, 255, 0.34);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow:
+      0 0 0 1px rgba(220, 238, 255, 0.08) inset,
+      0 0 34px rgba(92, 141, 255, 0.12),
+      var(--shadow);
+    backdrop-filter: blur(22px);
+  }
+
+  .calculator-form {
+    display: grid;
+    gap: 18px;
+    align-self: start;
+    padding: 24px;
+  }
+
+  .calculator-result {
+    display: grid;
+    gap: 22px;
+    padding: 28px;
+    overflow: hidden;
+  }
+
+  .calc-group {
+    min-width: 0;
+    margin: 0;
+    padding: 0 0 20px;
+    border: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .calc-group:last-child {
+    padding-bottom: 0;
+    border-bottom: 0;
+  }
+
+  .calc-group legend,
+  .material-breakdown h3,
+  .timeline-heading h3 {
+    margin: 0 0 16px;
+    color: var(--text);
+    font-size: 1.15rem;
+    font-weight: 700;
+  }
+
+  .calc-grid,
+  .choice-grid,
+  .toggle-grid,
+  .result-tabs {
+    display: grid;
+    gap: 14px;
+  }
+
+  .calc-grid,
+  .toggle-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .choice-grid,
+  .result-tabs {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  label span,
+  .result-tabs span {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--muted);
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  input,
+  select {
+    width: 100%;
+    min-height: 48px;
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    border-radius: 8px;
+    background: rgba(7, 10, 14, 0.64);
+    color: var(--text);
+    font: inherit;
+  }
+
+  input[type="number"],
+  select {
+    padding: 0 14px;
+  }
+
+  input[type="range"] {
+    min-height: 24px;
+    accent-color: var(--accent);
+  }
+
+  .range-field {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 6px 16px;
+    margin-bottom: 18px;
+  }
+
+  .range-field input {
+    grid-column: 1 / -1;
+  }
+
+  .range-field strong {
+    color: var(--accent);
+    font-size: 1.35rem;
+  }
+
+  .choice-card,
+  .toggle-row,
+  .result-tabs article,
+  .material-breakdown,
+  .timeline-card {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.035);
+  }
+
+  .choice-card,
+  .toggle-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    min-height: 100%;
+    padding: 16px;
+  }
+
+  .choice-card input,
+  .toggle-row input {
+    width: 18px;
+    min-height: 18px;
+    margin-top: 2px;
+    accent-color: var(--accent);
+  }
+
+  .choice-card strong {
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  .choice-card small {
+    display: block;
+    color: var(--muted);
+    line-height: 1.55;
+  }
+
+  .toggle-row {
+    align-items: center;
+  }
+
+  .toggle-row span {
+    margin: 0;
+    color: var(--text);
+    letter-spacing: 0;
+    text-transform: none;
+  }
+
+  .result-price {
+    padding-bottom: 22px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .result-price span {
+    display: block;
+    font-size: clamp(1.85rem, 4vw, 3rem);
+    font-weight: 700;
+    line-height: 1.05;
+  }
+
+  .result-price small {
+    display: block;
+    margin-top: 10px;
+    color: var(--accent);
+    font-size: 1rem;
+  }
+
+  .result-tabs article {
+    padding: 16px;
+  }
+
+  .result-tabs strong {
+    display: block;
+    font-size: 1.18rem;
+    line-height: 1.25;
+  }
+
+  .material-breakdown,
+  .timeline-card {
+    padding: 18px;
+  }
+
+  .material-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 14px;
+    padding: 12px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    color: var(--muted);
+  }
+
+  .material-row strong {
+    color: var(--text);
+    text-align: right;
+  }
+
+  .timeline-heading {
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    gap: 18px;
+  }
+
+  .timeline-heading strong {
+    color: var(--accent);
+    white-space: nowrap;
+  }
+
+  .schedule {
+    display: grid;
+    gap: 12px;
+  }
+
+  .schedule-row {
+    display: grid;
+    grid-template-columns: 118px minmax(0, 1fr) 72px;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .schedule-row span,
+  .schedule-row small {
+    color: var(--muted);
+    font-size: 0.86rem;
+  }
+
+  .schedule-track {
+    height: 12px;
+    overflow: hidden;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .schedule-bar {
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, #5c8dff, #d9b985);
+  }
+
+  .result-note {
+    margin: -6px 0 0;
+    color: var(--muted);
+    font-size: 0.9rem;
+    line-height: 1.7;
+  }
+
+  @media (max-width: 1080px) {
+    .calculator-heading,
+    .calculator {
+      display: grid;
+      grid-template-columns: 1fr;
+      align-items: start;
+    }
+  }
+
+  @media (max-width: 740px) {
+    .calculator-form,
+    .calculator-result {
+      padding: 18px;
+    }
+
+    .calc-grid,
+    .choice-grid,
+    .toggle-grid,
+    .result-tabs {
+      grid-template-columns: 1fr;
+    }
+
+    .material-row {
+      grid-template-columns: 1fr;
+      gap: 4px;
+    }
+
+    .material-row strong {
+      text-align: left;
+    }
+
+    .schedule-row {
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+  }
+</style>
+
+<script>
+  const formatCurrency = (value) =>
+    new Intl.NumberFormat("ru-RU", {
+      maximumFractionDigits: 0,
+    }).format(value);
+
+  const setupCalculator = () => {
+    const root = document.querySelector("[data-calculator]");
+    if (!root) return;
+
+    const inputs = root.querySelectorAll("[data-calc-input]");
+    const areaOutput = root.querySelector("[data-area-output]");
+    const totalOutput = root.querySelector("[data-total-output]");
+    const meterOutput = root.querySelector("[data-meter-output]");
+    const designOutput = root.querySelector("[data-design-output]");
+    const materialsOutput = root.querySelector("[data-materials-output]");
+    const reserveOutput = root.querySelector("[data-reserve-output]");
+    const roughOutput = root.querySelector("[data-rough-output]");
+    const finishOutput = root.querySelector("[data-finish-output]");
+    const equipmentOutput = root.querySelector("[data-equipment-output]");
+    const timeOutput = root.querySelector("[data-time-output]");
+    const scheduleOutput = root.querySelector("[data-schedule-output]");
+
+    const getField = (name) => root.querySelector(`[name="${name}"]`);
+    const isChecked = (name) => getField(name)?.checked ?? false;
+    const rub = (value) => `${formatCurrency(value)} ₽`;
+
+    const renderSchedule = (weeks) => {
+      if (!scheduleOutput) return;
+
+      const phases = [
+        { title: "Подготовка", weeks: 1 },
+        { title: "Демонтаж", weeks: Math.max(1, Math.round(weeks * 0.14)) },
+        { title: "Черновые", weeks: Math.max(2, Math.round(weeks * 0.3)) },
+        { title: "Инженерия", weeks: Math.max(1, Math.round(weeks * 0.18)) },
+        { title: "Чистовая", weeks: Math.max(2, Math.round(weeks * 0.26)) },
+        { title: "Комплектация", weeks: Math.max(1, Math.round(weeks * 0.18)) },
+      ];
+
+      const maxWeeks = Math.max(...phases.map((phase) => phase.weeks));
+
+      scheduleOutput.innerHTML = phases
+        .map((phase) => {
+          const width = Math.max(18, Math.round((phase.weeks / maxWeeks) * 100));
+
+          return `
+            <div class="schedule-row">
+              <span>${phase.title}</span>
+              <div class="schedule-track" aria-hidden="true">
+                <div class="schedule-bar" style="width: ${width}%"></div>
+              </div>
+              <small>${phase.weeks} нед.</small>
+            </div>
+          `;
+        })
+        .join("");
+    };
+
+    const render = () => {
+      const area = Number(getField("area")?.value ?? 72);
+      const rooms = Number(getField("rooms")?.value ?? 3);
+      const baseRate = Number(root.querySelector('[name="package"]:checked')?.value ?? 4500);
+      const objectFactor = Number(getField("objectType")?.value ?? 1);
+      const complexityFactor = Number(getField("complexity")?.value ?? 1);
+      const materialRate = Number(getField("materialLevel")?.value ?? 38000);
+      const roughMaterials = Math.round((area * materialRate * 0.25) / 1000) * 1000;
+      const finishMaterials = Math.round((area * materialRate * 0.4 * complexityFactor) / 1000) * 1000;
+      const equipment = Math.round((area * materialRate * 0.35 * objectFactor) / 1000) * 1000;
+      const materialsTotal = roughMaterials + finishMaterials + equipment;
+      const weeksBase =
+        Math.ceil(area / 18) +
+        rooms +
+        (baseRate > 7000 ? 4 : 2) +
+        (isChecked("shopping") ? 2 : 0) +
+        (isChecked("supervision") ? 2 : 0);
+      const weeks = Math.max(6, Math.round(weeksBase * objectFactor));
+      const supervisionMonths = Math.max(1, Math.ceil(weeks / 4));
+      const optionPrice =
+        (isChecked("drawings") ? area * 900 : 0) +
+        (isChecked("visuals") ? rooms * 20000 : 0) +
+        (isChecked("shopping") ? Math.max(50000, materialsTotal * 0.06) : 0) +
+        (isChecked("supervision") ? supervisionMonths * 70000 : 0);
+
+      const designTotal = Math.round(
+        (area * baseRate * objectFactor * complexityFactor + optionPrice) / 1000
+      ) * 1000;
+      const reserve = Math.round(materialsTotal * 0.1 / 1000) * 1000;
+      const totalMin = designTotal + materialsTotal;
+      const totalMax = totalMin + reserve;
+
+      if (areaOutput) areaOutput.textContent = String(area);
+      if (totalOutput) totalOutput.textContent = `${rub(totalMin)} - ${rub(totalMax)}`;
+      if (meterOutput) meterOutput.textContent = `ориентир от ${rub(Math.round(totalMin / area))}/м²`;
+      if (designOutput) designOutput.textContent = rub(designTotal);
+      if (materialsOutput) materialsOutput.textContent = rub(materialsTotal);
+      if (reserveOutput) reserveOutput.textContent = rub(reserve);
+      if (roughOutput) roughOutput.textContent = rub(roughMaterials);
+      if (finishOutput) finishOutput.textContent = rub(finishMaterials);
+      if (equipmentOutput) equipmentOutput.textContent = rub(equipment);
+      if (timeOutput) timeOutput.textContent = `${weeks}-${weeks + 2} недель`;
+
+      renderSchedule(weeks);
+    };
+
+    inputs.forEach((input) => {
+      input.addEventListener("input", render);
+      input.addEventListener("change", render);
+    });
+
+    render();
+  };
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", setupCalculator, { once: true });
+  } else {
+    setupCalculator();
+  }
+</script>

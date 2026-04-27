@@ -1,0 +1,92 @@
+---
+import { portfolioItems } from "../../data/site";
+import SiteLayout from "../../layouts/SiteLayout.astro";
+
+export const getStaticPaths = () =>
+  portfolioItems.map((item) => ({
+    params: { slug: item.slug },
+    props: { item },
+  }));
+
+const { item } = Astro.props;
+---
+
+<SiteLayout
+  title={`${item.title} | INTERIOR.360`}
+  description={item.description}
+  canonicalPath={`/portfolio/${item.slug}/`}
+>
+  <section class="page-hero project-hero">
+    <div>
+      <p class="eyebrow">{item.category}</p>
+      <h1>{item.title}</h1>
+      <p class="lead">{item.description}</p>
+      <p class="project-location">{item.location}</p>
+    </div>
+    <aside class="hero-panel">
+      <p>&#1055;&#1088;&#1086;&#1077;&#1082;&#1090;</p>
+      <strong>{item.title}</strong>
+      <p>&#1051;&#1086;&#1082;&#1072;&#1094;&#1080;&#1103;</p>
+      <strong>{item.location}</strong>
+    </aside>
+  </section>
+
+  <section class="card project-showcase">
+    <div class="media-frame project-media-frame">
+      <div class="media-motion">
+        <img class="media project-media" src={item.image} alt={item.title} loading="eager" />
+      </div>
+    </div>
+    <div class="card-body project-copy">
+      <p class="kicker">&#1054;&#1087;&#1080;&#1089;&#1072;&#1085;&#1080;&#1077;</p>
+      <p class="muted">{item.description}</p>
+      <p class="muted">
+        &#1069;&#1090;&#1086;&#1090; &#1082;&#1077;&#1081;&#1089; &#1087;&#1086;&#1082;&#1072;&#1079;&#1099;&#1074;&#1072;&#1077;&#1090; &#1087;&#1086;&#1076;&#1093;&#1086;&#1076; &#1089;&#1090;&#1091;&#1076;&#1080;&#1080; &#1082; &#1082;&#1086;&#1084;&#1087;&#1086;&#1079;&#1080;&#1094;&#1080;&#1080;, &#1089;&#1074;&#1077;&#1090;&#1091;, &#1084;&#1072;&#1090;&#1077;&#1088;&#1080;&#1072;&#1083;&#1072;&#1084; &#1080; &#1101;&#1084;&#1086;&#1094;&#1080;&#1086;&#1085;&#1072;&#1083;&#1100;&#1085;&#1086;&#1081; &#1087;&#1086;&#1076;&#1072;&#1095;&#1077; &#1080;&#1085;&#1090;&#1077;&#1088;&#1100;&#1077;&#1088;&#1072;.
+      </p>
+      <a class="button-secondary" href="/portfolio/">&#1042;&#1077;&#1088;&#1085;&#1091;&#1090;&#1100;&#1089;&#1103; &#1074; &#1087;&#1086;&#1088;&#1090;&#1092;&#1086;&#1083;&#1080;&#1086;</a>
+    </div>
+  </section>
+</SiteLayout>
+
+<style is:inline>
+  .project-hero h1 {
+    max-width: 14ch;
+  }
+
+  .project-location {
+    margin: 18px 0 0;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-size: 0.78rem;
+  }
+
+  .project-showcase {
+    overflow: hidden;
+  }
+
+  .project-media-frame {
+    aspect-ratio: 16 / 9;
+  }
+
+  .project-media {
+    object-fit: contain;
+    transform: none;
+    padding: 32px;
+  }
+
+  .project-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .project-copy .muted {
+    margin: 0;
+  }
+
+  .project-copy .button-secondary {
+    align-self: flex-start;
+    margin-top: 8px;
+  }
+</style>

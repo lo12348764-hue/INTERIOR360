@@ -2,6 +2,7 @@
   { href: "/", label: "Главная" },
   { href: "/portfolio/", label: "Портфолио" },
   { href: "/services/", label: "Услуги" },
+  { href: "/services/#calculate", label: "Калькулятор" },
   { href: "/about/", label: "О студии" },
   { href: "/blog/", label: "Блог" },
   { href: "/contact/", label: "Контакты" },
@@ -9,15 +10,17 @@
 
 export const portfolioItems = [
   {
-    title: "Riverstone Residence",
+    slug: "rezidenciya-u-reki",
+    title: "Резиденция у реки",
     category: "Жилой интерьер",
     location: "Москва",
     image: "/images/channel/living-light.jpg",
     description:
-      "Спокойный жилой интерьер с арочной пластикой, мягким светом и очень собранной editorial-подачей.",
+      "Спокойный жилой интерьер с арочной пластикой, мягким светом и очень собранной журнальной подачей.",
   },
   {
-    title: "Aurum Lobby",
+    slug: "lobbi-aurum",
+    title: "Лобби «Аурум»",
     category: "Девелопмент",
     location: "Санкт-Петербург",
     image: "/images/channel/lobby-classic.jpg",
@@ -25,7 +28,8 @@ export const portfolioItems = [
       "Лобби с архитектурными ритмами, световыми шахтами и ощущением дорогого, тихого пространства.",
   },
   {
-    title: "Nordic Office",
+    slug: "severnyy-ofis",
+    title: "Северный офис",
     category: "Коммерческий интерьер",
     location: "Казань",
     image: "/images/channel/dining-minimal.jpg",
@@ -33,7 +37,8 @@ export const portfolioItems = [
       "Коммерческий интерьер со светлой геометрией, натуральными оттенками и журнальной чистотой кадра.",
   },
   {
-    title: "Atelier Kitchen",
+    slug: "kuhnya-atele",
+    title: "Кухня «Ателье»",
     category: "Предметная подача",
     location: "Екатеринбург",
     image: "/images/channel/accent-seating.jpg",
@@ -41,20 +46,58 @@ export const portfolioItems = [
       "Стилизованный интерьер с выразительной мебелью, декором и ощущением съёмки для интерьерного медиа.",
   },
   {
-    title: "Verde Wellness",
-    category: "HoReCa",
+    slug: "ozdorovitelnoe-prostranstvo-verde",
+    title: "Оздоровительное пространство «Верде»",
+    category: "Гостевые пространства",
     location: "Сочи",
     image: "/images/channel/arches-lounge.jpg",
     description:
-      "Гостевое пространство с искусством, растениями и тёплой relaxed-атмосферой как в редакционных подборках.",
+      "Гостевое пространство с искусством, растениями и тёплой расслабленной атмосферой как в редакционных подборках.",
   },
   {
-    title: "Frame Penthouse",
+    slug: "penthaus-freym",
+    title: "Пентхаус «Фрейм»",
     category: "Премиум-сегмент",
     location: "Дубай",
     image: "/images/channel/living-premium.jpg",
     description:
       "Премиальный интерьер с арочными проходами, мягкой мебелью и дорогой, современной архитектурной подачей.",
+  },
+  {
+    slug: "lyuks-u-mariny",
+    title: "Люкс у марины",
+    category: "Жилой интерьер",
+    location: "Сочи",
+    image: "/images/channel/living-dark.jpg",
+    description:
+      "Камерный интерьер с глубокими оттенками, мягкой подсветкой и атмосферой частных апартаментов у воды.",
+  },
+  {
+    slug: "obedennyy-zal-kedr",
+    title: "Обеденный зал «Кедр»",
+    category: "Гостевые пространства",
+    location: "Минск",
+    image: "/images/channel/dining-minimal.jpg",
+    description:
+      "Ресторанное пространство с тактильными материалами, чистой композицией и светом для рекламной подачи.",
+  },
+  {
+    slug: "galereya-monolit",
+    title: "Галерея «Монолит»",
+    category: "Коммерческий интерьер",
+    location: "Алматы",
+    image: "/images/channel/house-exterior.jpg",
+    description:
+      "Галерейное пространство с акцентом на масштаб, воздух и архитектурный ритм для презентации бренда.",
+  },
+  {
+    slug: "launzh-barhat",
+    title: "Лаунж «Бархат»",
+    category: "Премиум-сегмент",
+    location: "Ташкент",
+    image: "/images/channel/accent-seating.jpg",
+    description:
+      "Эффектная лаунж-зона с выразительными фактурами, мягкой мебелью и кинематографичной вечерней атмосферой.",
   },
 ];
 
