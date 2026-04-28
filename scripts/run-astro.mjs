@@ -27,7 +27,7 @@ function runFromAsciiWorkspace() {
   const sourceDir = projectRoot.replace(/[\\/]$/, "");
 
   console.warn(
-    `Non-ASCII project path detected. Mirroring the project to ${runDir} to avoid esbuild spawn EPERM on Windows.`
+    `Problematic Windows project path detected. Mirroring the project to ${runDir} to avoid filesystem and spawn EPERM issues.`
   );
 
   const robocopyArgs = [
@@ -72,6 +72,7 @@ function runFromAsciiWorkspace() {
           ...process.env,
           INTERIOR360_RUN_DIR: runDir,
           INTERIOR360_VITE_ALLOW: runDir,
+          NODE_OPTIONS: appendNodeOptions(process.env.NODE_OPTIONS, buildNodeRequireOption(runDir)),
         },
       }
     );
@@ -132,6 +133,7 @@ function runAstro(cwd, args) {
       ...process.env,
       INTERIOR360_RUN_DIR: cwd,
       INTERIOR360_VITE_ALLOW: sourceDir ?? cwd,
+      NODE_OPTIONS: appendNodeOptions(process.env.NODE_OPTIONS, buildNodeRequireOption(cwd)),
       ...(sourceDir ? { INTERIOR360_SOURCE_DIR: sourceDir } : {}),
     },
   });
@@ -139,6 +141,18 @@ function runAstro(cwd, args) {
   astro.on("exit", (code) => {
     process.exit(code ?? 1);
   });
+}
+
+function appendNodeOptions(existingOptions, requiredOption) {
+  if (!requiredOption) return existingOptions ?? "";
+  if (!existingOptions) return requiredOption;
+  if (existingOptions.includes(requiredOption)) return existingOptions;
+  return `${existingOptions} ${requiredOption}`;
+}
+
+function buildNodeRequireOption(baseDir) {
+  const preloadPath = path.join(baseDir, "scripts", "vite-windows-safe-realpath.cjs").replace(/\\/g, "/");
+  return `--require "${preloadPath}"`;
 }
 
 function resolveSubstSourceDir(cwd) {

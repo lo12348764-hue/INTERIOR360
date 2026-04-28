@@ -1,19 +1,176 @@
 ﻿---
-import { getCollection } from "astro:content";
-import BlogCard from "../components/BlogCard.astro";
-import { portfolioItems, services, studioStats } from "../data/site";
+import { portfolioItems, studioStats } from "../data/site";
 import SiteLayout from "../layouts/SiteLayout.astro";
 
-const blogPosts = (await getCollection("blog", ({ data }) => !data.draft))
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
-  .slice(0, 4);
+const firstStripImages = [
+  "1.1.jpg",
+  "1.2.jpg",
+  "1.3.jpg",
+  "1.4.jpg",
+  "1.5.jpg",
+  "1.6.jpg",
+  "1.7.jpg",
+  "1.8.jpg",
+  "1.10.jpg",
+];
 
-const formatBlogDate = (date: Date) =>
-  new Intl.DateTimeFormat("ru-RU", {
-    day: "numeric",
-    month: "short",
-    year: "numeric",
-  }).format(date);
+const firstStripContent = {
+  "1.1.jpg": {
+    kicker: "Гостиная",
+    title: "Тёмная гостиная с мягким светом",
+    description: "Глубокая тёмная палитра, мягкий диван и акцентный подвесной светильник в спокойной вечерней подаче.",
+  },
+  "1.2.jpg": {
+    kicker: "Кухня",
+    title: "Кухня с мраморным островом",
+    description: "Светлая кухня с выразительным мраморным островом, встроенной подсветкой и тёплыми акцентами.",
+  },
+  "1.3.jpg": {
+    kicker: "Спальня",
+    title: "Спальня в тёплой нейтральной гамме",
+    description: "Мягкая спальня с текстильным изголовьем, подсветкой по периметру и спокойным природным видом за окном.",
+  },
+  "1.4.jpg": {
+    kicker: "Гостиная",
+    title: "Светлая гостиная-столовая",
+    description: "Открытое жилое пространство с мягким диваном, высоким стеллажом и обеденной зоной у окна.",
+  },
+  "1.5.jpg": {
+    kicker: "Столовая",
+    title: "Столовая с тёмной кухней",
+    description: "Лаконичная обеденная зона с тёмными фасадами, мягким светом и акцентной подвесной лампой над столом.",
+  },
+  "1.6.jpg": {
+    kicker: "Кухня",
+    title: "Кухня с тёплым островом",
+    description: "Кухонный остров в тёплом терракотовом оттенке с мягкими скруглениями и натуральными фактурами.",
+  },
+  "1.7.jpg": {
+    kicker: "Кабинет",
+    title: "Домашний кабинет у окна",
+    description: "Компактное рабочее место с большим окном, встроенными полками и спокойной вечерней атмосферой.",
+  },
+  "1.8.jpg": {
+    kicker: "Гардеробная",
+    title: "Спальня с открытым гардеробом",
+    description: "Тёмная гардеробная зона с подсветкой, открытым хранением и собранной современной подачей.",
+  },
+  "1.10.jpg": {
+    kicker: "Кухня-гостиная",
+    title: "Кухня-гостиная в светлой палитре",
+    description: "Светлая общая зона с островом, мягкими диванами и пудровыми акцентами в мебели и текстиле.",
+  },
+};
+
+const secondStripImages = [
+  "2.1.jpg",
+  "2.2.jpg",
+  "2.3.jpg",
+  "2.4.jpg",
+  "2.5.jpg",
+  "2.10.jpg",
+];
+
+const secondStripContent = {
+  "2.1.jpg": {
+    kicker: "Гостиная",
+    title: "Тёмная лаунж-зона",
+    description: "Угловая мягкая зона с глубокими оттенками, акцентными подушками и высоким фактурным остеклением.",
+  },
+  "2.2.jpg": {
+    kicker: "Гостиная",
+    title: "Просторная гостиная в тёмной палитре",
+    description: "Большая мягкая композиция, низкий журнальный столик и камерная архитектурная подача пространства.",
+  },
+  "2.3.jpg": {
+    kicker: "Детали интерьера",
+    title: "Ниша у окна",
+    description: "Арочная ниша с мягким сиденьем у окна как спокойное место для отдыха и чтения.",
+  },
+  "2.4.jpg": {
+    kicker: "Экстерьер",
+    title: "Фасад современного дома",
+    description: "Чистая геометрия фасада, деревянные рейки и аккуратно собранная входная зона.",
+  },
+  "2.5.jpg": {
+    kicker: "Экстерьер",
+    title: "Внутренний двор",
+    description: "Минималистичный двор с крупным мощением, мягкими модулями для отдыха и деликатным озеленением.",
+  },
+  "2.10.jpg": {
+    kicker: "Гостиная",
+    title: "Гостиная с камином",
+    description: "Светлая гостиная с камином, панорамным окном и мягкой мебелью в природной атмосфере.",
+  },
+};
+
+const thirdStripImages = ["3.1.jpg"];
+
+const decorImages = [
+  "4.1.jpg",
+  "4.2.jpg",
+  "4.3.jpg",
+  "4.4.jpg",
+  "4.5.jpg",
+  "4.6.jpg",
+  "4.7.jpg",
+  "4.8.jpg",
+  "4.9.jpg",
+  "4.10.jpg",
+];
+
+const decorCardContent = {
+  "4.1.jpg": {
+    kicker: "Свет",
+    title: "Подвесной светильник",
+    description: "Минималистичный подвесной светильник с мягким тёплым светом в тёмной интерьерной подаче.",
+  },
+  "4.2.jpg": {
+    kicker: "Мягкая мебель",
+    title: "Пуф и акцентный текстиль",
+    description: "Лиловый пуф, декоративные подушки и мягкая мебель в спокойной жилой сцене.",
+  },
+  "4.3.jpg": {
+    kicker: "Столик и декор",
+    title: "Стеклянный журнальный столик",
+    description: "Лёгкий стеклянный столик с вазой и книгами как акцент в светлом интерьерном уголке.",
+  },
+  "4.4.jpg": {
+    kicker: "Свет",
+    title: "Подвесные светильники в спальне",
+    description: "Тёплый сценарий освещения для спальни с подвесами и настольной лампой у кровати.",
+  },
+  "4.5.jpg": {
+    kicker: "Мягкая мебель",
+    title: "Модульный диван",
+    description: "Модульный диван в мягком зелёном оттенке у большого арочного окна.",
+  },
+  "4.6.jpg": {
+    kicker: "Столик и декор",
+    title: "Столик с вазами и цветами",
+    description: "Круглый столик с сухоцветами и керамическими вазами в тёплой дневной подаче.",
+  },
+  "4.7.jpg": {
+    kicker: "Мягкая мебель",
+    title: "Кресло и напольный светильник",
+    description: "Компактное кресло с текстильными подушками и торшер для камерной зоны отдыха.",
+  },
+  "4.8.jpg": {
+    kicker: "Мягкая мебель",
+    title: "Круглый пуф",
+    description: "Сдержанный круглый пуф в тёмной минималистичной сцене с мягким вечерним светом.",
+  },
+  "4.9.jpg": {
+    kicker: "Мебель и свет",
+    title: "Диван с торшером",
+    description: "Пастельный диван, тонкий напольный светильник и лаконичный каменный столик.",
+  },
+  "4.10.jpg": {
+    kicker: "Мягкая мебель",
+    title: "Кресло-пуф",
+    description: "Низкое мягкое кресло в пудровом оттенке рядом с бра и текстильным ковром.",
+  },
+};
 ---
 
 <SiteLayout
@@ -26,98 +183,90 @@ const formatBlogDate = (date: Date) =>
       <p class="eyebrow">Interior Visualization Studio</p>
       <h1>СТУДИЯ ДИЗАЙНА ИНТЕРЬЕРА</h1>
       <div class="button-row">
-        <a class="button" href="/portfolio/">Смотреть портфолио</a>
-        <a class="button-secondary" href="/services/">Узнать об услугах</a>
+        <a class="button" href="/services/">Узнать об услугах</a>
+        <a class="button-secondary" href="/services/#calculate">Рассчитать проект</a>
       </div>
     </div>
     <aside class="hero-panel">
-      <p>Структура</p>
-      <strong>5 самостоятельных разделов</strong>
-      <p>Подходит для</p>
-      <strong>SEO, рекламы и удобной навигации</strong>
+      <p>Почему выбирают нас</p>
+      <strong>Показываем проект так, чтобы решение было принять проще</strong>
+      <p>Что получает клиент</p>
+      <strong>Чёткую подачу, понятный процесс и уверенный результат</strong>
     </aside>
   </section>
 
   <section class="section">
     <h2 class="section-title">Дизайн жилых интерьеров</h2>
     <div class="projects-strip">
-      {portfolioItems.slice(0, 10).map((item, index) => (
-        <a class="card project-card project-card-link" href={`/portfolio/${item.slug}/`} aria-label={`Открыть проект ${item.title}`}>
-          {index === 2 ? (
-            <div class="media-frame media-frame-static" data-static-media>
-              <div class="media-motion media-physics" style="--water-image: url('/images/channel/house-exterior.jpg');">
-                <img class="media" src={item.image} alt={item.title} loading="lazy" />
-                <div class="media-water-layer" aria-hidden="true"></div>
-              </div>
+      {firstStripImages.map((imageName, index) => (
+        <article class="card project-card decor-card">
+          <div class="media-frame">
+            <div class="media-motion">
+              <img class="media" src={`/images/channel/${imageName}`} alt="Дизайн жилых интерьеров" loading={index === 0 ? "eager" : "lazy"} />
             </div>
-          ) : (
-            <div class="media-frame">
-              <div class="media-motion">
-                <img class="media" src={item.image} alt={item.title} loading={index === 0 ? "eager" : "lazy"} />
-              </div>
-            </div>
-          )}
-          <div class="card-body">
-            <p class="kicker">{item.category}</p>
-            <h3 style="margin-top: 10px; font-size: 1.6rem;">{item.title}</h3>
-            <p class="muted" style="margin-bottom: 8px;">{item.location}</p>
-            <p class="muted">{item.description}</p>
           </div>
-        </a>
+          <div class="card-body">
+            <p class="kicker">{firstStripContent[imageName]?.kicker ?? "Жилой интерьер"}</p>
+            <h3 style="margin-top: 10px; font-size: 1.6rem;">{firstStripContent[imageName]?.title ?? "Дизайн интерьера"}</h3>
+            <p class="muted">{firstStripContent[imageName]?.description ?? "Подборка визуальных решений для жилого пространства."}</p>
+          </div>
+        </article>
       ))}
     </div>
     <p class="section-title projects-caption">Таунхаусы дуплексы модульные дома</p>
     <div class="projects-strip secondary-projects-strip">
-      {portfolioItems.slice(0, 10).map((item, index) => (
-        <a class="card project-card project-card-link" href={`/portfolio/${item.slug}/`} aria-label={`Открыть проект ${item.title}`}>
-          {index === 2 ? (
-            <div class="media-frame media-frame-static" data-static-media>
-              <div class="media-motion media-physics" style="--water-image: url('/images/channel/house-exterior.jpg');">
-                <img class="media" src={item.image} alt={item.title} loading="lazy" />
-                <div class="media-water-layer" aria-hidden="true"></div>
-              </div>
+      {secondStripImages.map((imageName) => (
+        <article class="card project-card decor-card">
+          <div class="media-frame">
+            <div class="media-motion">
+              <img class="media" src={`/images/channel/${imageName}`} alt="Таунхаусы, дуплексы и модульные дома" loading="lazy" />
             </div>
-          ) : (
-            <div class="media-frame">
-              <div class="media-motion">
-                <img class="media" src={item.image} alt={item.title} loading="lazy" />
-              </div>
-            </div>
-          )}
-          <div class="card-body">
-            <p class="kicker">{item.category}</p>
-            <h3 style="margin-top: 10px; font-size: 1.6rem;">{item.title}</h3>
-            <p class="muted" style="margin-bottom: 8px;">{item.location}</p>
-            <p class="muted">{item.description}</p>
           </div>
-        </a>
+          <div class="card-body">
+            <p class="kicker">{secondStripContent[imageName]?.kicker ?? "Жилой интерьер"}</p>
+            <h3 style="margin-top: 10px; font-size: 1.6rem;">{secondStripContent[imageName]?.title ?? "Таунхаусы и модульные дома"}</h3>
+            <p class="muted">{secondStripContent[imageName]?.description ?? "Подборка интерьерных решений для частного жилого пространства."}</p>
+          </div>
+        </article>
       ))}
     </div>
     <p class="section-title projects-caption">Бренд-пространства, b2b, выставочные стенды, Дизайн шоурумов, pop-up пространства</p>
     <div class="projects-strip secondary-projects-strip">
-      {portfolioItems.slice(0, 10).map((item, index) => (
-        <a class="card project-card project-card-link" href={`/portfolio/${item.slug}/`} aria-label={`Открыть проект ${item.title}`}>
-          {index === 2 ? (
-            <div class="media-frame media-frame-static" data-static-media>
-              <div class="media-motion media-physics" style="--water-image: url('/images/channel/house-exterior.jpg');">
-                <img class="media" src={item.image} alt={item.title} loading="lazy" />
-                <div class="media-water-layer" aria-hidden="true"></div>
-              </div>
+      {thirdStripImages.map((imageName) => (
+        <article class="card project-card decor-card">
+          <div class="media-frame">
+            <div class="media-motion">
+              <img class="media" src={`/images/channel/${imageName}`} alt="Бренд-пространства и шоурумы" loading="lazy" />
             </div>
-          ) : (
-            <div class="media-frame">
-              <div class="media-motion">
-                <img class="media" src={item.image} alt={item.title} loading="lazy" />
-              </div>
-            </div>
-          )}
-          <div class="card-body">
-            <p class="kicker">{item.category}</p>
-            <h3 style="margin-top: 10px; font-size: 1.6rem;">{item.title}</h3>
-            <p class="muted" style="margin-bottom: 8px;">{item.location}</p>
-            <p class="muted">{item.description}</p>
           </div>
-        </a>
+          <div class="card-body">
+            <p class="kicker">Коммерческий интерьер</p>
+            <h3 style="margin-top: 10px; font-size: 1.6rem;">Бренд-пространства и шоурумы</h3>
+            <p class="muted">Подборка визуальных решений для презентационных и коммерческих пространств.</p>
+          </div>
+        </article>
+      ))}
+    </div>
+    <p class="section-title projects-caption">Мебель и предметы декора</p>
+    <div class="projects-strip secondary-projects-strip">
+      {decorImages.map((imageName) => (
+        <article class="card project-card decor-card">
+          <div class="media-frame">
+            <div class="media-motion">
+              <img
+                class={`media ${imageName === "4.2.jpg" ? "media-lifted" : ""} ${imageName === "4.3.jpg" ? "media-lifted-300" : ""} ${imageName === "4.4.jpg" ? "media-lifted-strong" : ""} ${imageName === "4.5.jpg" ? "media-scaled" : ""} ${imageName === "4.6.jpg" ? "media-lifted-310" : ""} ${imageName === "4.7.jpg" ? "media-lifted-320" : ""} ${imageName === "4.8.jpg" || imageName === "4.10.jpg" ? "media-lifted-50" : ""} ${imageName === "4.9.jpg" ? "media-lifted-50-wide" : ""}`}
+                src={`/images/channel/${imageName}`}
+                alt="Мебель и предметы декора"
+                loading="lazy"
+              />
+            </div>
+          </div>
+          <div class="card-body">
+            <p class="kicker">{decorCardContent[imageName]?.kicker ?? "Детали интерьера"}</p>
+            <h3 style="margin-top: 10px; font-size: 1.6rem;">{decorCardContent[imageName]?.title ?? "Мебель и декор"}</h3>
+            <p class="muted">{decorCardContent[imageName]?.description ?? "Подборка визуальных акцентов для интерьерной подачи."}</p>
+          </div>
+        </article>
       ))}
     </div>
   </section>
@@ -130,51 +279,6 @@ const formatBlogDate = (date: Date) =>
           <strong>{stat.value}</strong>
           <span>{stat.label}</span>
         </div>
-      ))}
-    </div>
-  </section>
-
-  <section class="section">
-    <h2 class="section-title">Услуги в фокусе</h2>
-    <div class="grid grid-3">
-      {services.map((service) => (
-        <article class="surface">
-          <p class="kicker">Услуга</p>
-          <h3 style="margin-top: 10px; font-size: 1.4rem;">{service.title}</h3>
-          <p class="muted">{service.description}</p>
-          <ul class="list">
-            {service.bullets.map((bullet) => (
-              <li>{bullet}</li>
-            ))}
-          </ul>
-        </article>
-      ))}
-    </div>
-  </section>
-
-  <section class="section">
-    <div style="display: flex; justify-content: space-between; gap: 20px; align-items: end; flex-wrap: wrap;">
-      <div>
-        <p class="eyebrow">Блог</p>
-        <h2 class="section-title">Последние статьи</h2>
-      </div>
-      <a class="button-secondary" href="/blog/">Все материалы</a>
-    </div>
-    <div class="grid grid-visual" style="margin-top: 28px;">
-      {blogPosts.map((post) => (
-        <BlogCard
-          post={post}
-          dateFormatter={(date) => `${formatBlogDate(date)} · ${post.data.readingTime}`}
-          articleClass="card"
-          wrapperClass="media-frame"
-          imageClass="media"
-          contentClass="card-body"
-          metaClass="muted"
-          categoryClass="kicker"
-          excerptClass="muted"
-          linkClass="button-secondary"
-          readMoreLabel="Читать статью"
-        />
       ))}
     </div>
   </section>
@@ -283,8 +387,68 @@ const formatBlogDate = (date: Date) =>
     display: none;
   }
 
+  .project-card .media.media-lifted {
+    padding: 0 !important;
+    height: calc(100% + 110px);
+    transform: translateY(-110px) !important;
+  }
+
+  .project-card .media.media-lifted-strong {
+    padding: 0 !important;
+    height: calc(100% + 50px);
+    transform: translateY(-50px) !important;
+  }
+
+  .project-card .media.media-lifted-300 {
+    padding: 0 !important;
+    height: calc(100% + 185px);
+    transform: translateX(-3px) translateY(-185px) scale(1.08) !important;
+    transform-origin: center center;
+  }
+
+  .project-card .media.media-lifted-310 {
+    padding: 0 !important;
+    height: calc(100% + 195px);
+    transform: translateX(-3px) translateY(-195px) scale(1.08) !important;
+    transform-origin: center center;
+  }
+
+  .project-card .media.media-lifted-320 {
+    padding: 0 !important;
+    height: calc(100% + 205px);
+    transform: translateX(-3px) translateY(-205px) scale(1.08) !important;
+    transform-origin: center center;
+  }
+
+  .project-card .media.media-lifted-50 {
+    padding: 0 !important;
+    height: calc(100% + 70px);
+    transform: translateY(-70px) !important;
+    transform-origin: center center;
+  }
+
+  .project-card .media.media-lifted-50-wide {
+    padding: 0 !important;
+    height: calc(100% + 120px);
+    transform: translateX(-5px) translateY(-120px) scaleX(1.06) !important;
+    transform-origin: center center;
+  }
+
+  .project-card .media.media-scaled {
+    padding: 0 !important;
+    height: calc(100% + 100px);
+    transform: translateX(-3px) translateY(-100px) scale(1.08) !important;
+    transform-origin: center center;
+  }
+
+  .decor-card .media {
+    padding: 0 !important;
+  }
+
   .projects-caption {
     margin: 20px 0 0;
+    font-size: clamp(1.35rem, 2.3vw, 2rem);
+    line-height: 1.15;
   }
 
   .secondary-projects-strip {
