@@ -1,13 +1,11 @@
 ---
-import ServiceCalculator from "../components/ServiceCalculator.astro";
-import CostCalculator from "../components/CostCalculator.astro";
-import { processSteps, services } from "../data/site";
+import { services } from "../data/site";
 import SiteLayout from "../layouts/SiteLayout.astro";
 ---
 
 <SiteLayout
   title="Услуги | INTERIOR.360"
-  description="Услуги студии INTERIOR.360: интерьерная 3D-визуализация, анимация, дизайн-проекты и инструменты оценки бюджета."
+  description="Услуги студии INTERIOR.360: интерьерная 3D-визуализация, анимация, дизайн-проекты и подача для частных и коммерческих пространств."
   canonicalPath="/services/"
 >
   <section class="page-hero">
@@ -15,13 +13,12 @@ import SiteLayout from "../layouts/SiteLayout.astro";
       <p class="eyebrow">Services</p>
       <h1>Услуги и процесс</h1>
       <p class="lead">
-        Здесь можно не только посмотреть форматы работы, но и сразу прикинуть бюджет проекта по ключевым параметрам:
-        площади, сложности, составу проекта, уровню детализации и формату сопровождения.
+        Здесь можно посмотреть форматы работы, состав услуг и понять, как устроена подача проекта на разных стадиях.
       </p>
     </div>
     <aside class="hero-panel">
       <p>Фокус</p>
-      <strong>Качество подачи, точная смета и понятный production</strong>
+      <strong>Качество подачи, точная структура работы и понятный визуальный результат</strong>
       <p>Подходит для</p>
       <strong>Дизайнеров, архитекторов, девелоперов и частных заказчиков</strong>
     </aside>
@@ -39,25 +36,11 @@ import SiteLayout from "../layouts/SiteLayout.astro";
               <li>{bullet}</li>
             ))}
           </ul>
-        </article>
-      ))}
-    </div>
-  </section>
-
-  <ServiceCalculator />
-
-  <section class="section">
-    <h2 class="section-title">Как строим работу</h2>
-    <p class="section-copy">
-      Отдельная страница позволяет спокойно показать и процесс, и логику ценообразования: что входит в проект, где
-      появляются дополнительные часы команды и почему разные объекты не могут стоить одинаково.
-    </p>
-    <div class="grid grid-2">
-      {processSteps.map((step, index) => (
-        <article class="surface">
-          <p class="kicker">Этап {index + 1}</p>
-          <h3 style="margin-top: 10px; font-size: 1.5rem;">{step.title}</h3>
-          <p class="muted">{step.text}</p>
+          {service.ctaLabel && service.ctaHref ? (
+            <a class="button-secondary" href={service.ctaHref} style="margin-top: 20px;">
+              {service.ctaLabel}
+            </a>
+          ) : null}
         </article>
       ))}
     </div>
@@ -69,25 +52,41 @@ import SiteLayout from "../layouts/SiteLayout.astro";
         <p class="kicker">Смета</p>
         <h2 style="margin-top: 10px; font-size: 1.55rem;">Бюджет проекта</h2>
         <p class="muted">
-          Считаем стоимость дизайн-проекта по площади, уровню детализации, составу работ и набору услуг.
+          Бюджет проекта помогает заранее понять структуру расходов и увидеть распределение стоимости по основным блокам реализации.
         </p>
+        <ul class="list">
+          <li>Предварительный диапазон бюджета по проекту</li>
+          <li>Разделение на черновые и чистовые работы</li>
+          <li>Оценка затрат на материалы, мебель, свет и сантехнику</li>
+          <li>Понимание зависимости бюджета от площади и состава работ</li>
+        </ul>
       </article>
       <article class="surface">
         <p class="kicker">Материалы</p>
         <h2 style="margin-top: 10px; font-size: 1.55rem;">Закупочный ориентир</h2>
         <p class="muted">
-          Разделяем бюджет на черновые материалы, чистовые покрытия, свет, сантехнику, двери и оборудование.
+          Закупочный ориентир показывает, какие группы материалов и предметов закладываются в проект и как формируется комплектование объекта.
         </p>
+        <ul class="list">
+          <li>Отделочные материалы по помещениям</li>
+          <li>Осветительное оборудование и сценарии света</li>
+          <li>Сантехника, двери и встроенные элементы</li>
+          <li>Мебель, декор и ключевые позиции комплектации</li>
+        </ul>
       </article>
       <article class="surface">
         <p class="kicker">График</p>
         <h2 style="margin-top: 10px; font-size: 1.55rem;">Работы на объекте</h2>
         <p class="muted">
-          Показываем длительность этапов: подготовка, демонтаж, черновые работы, инженерия, комплектация и финиш.
+          График работ на объекте помогает увидеть последовательность этапов и ориентироваться в сроках реализации интерьера.
         </p>
+        <ul class="list">
+          <li>Подготовка и организация площадки</li>
+          <li>Демонтажные и черновые работы</li>
+          <li>Инженерные системы и монтаж</li>
+          <li>Чистовая отделка, комплектация и финальный этап</li>
+        </ul>
       </article>
     </div>
   </section>
-
-  <CostCalculator />
 </SiteLayout>

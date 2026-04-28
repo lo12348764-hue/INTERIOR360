@@ -272,12 +272,128 @@ const canonicalUrl = new URL(canonicalPath, siteUrl).toString();
         min-height: 76px;
       }
 
+      .topbar-left {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+
+      .menu-toggle {
+        display: inline-flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 5px;
+        width: 46px;
+        height: 46px;
+        padding: 0 12px;
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.03);
+        color: var(--text);
+        cursor: pointer;
+      }
+
+      .menu-toggle span {
+        display: block;
+        width: 100%;
+        height: 1.5px;
+        border-radius: 999px;
+        background: currentColor;
+      }
+
       .brand {
         text-decoration: none;
         font-size: 1.05rem;
         font-weight: 700;
         letter-spacing: 0.18em;
         text-transform: uppercase;
+      }
+
+      .side-nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 30;
+        width: min(360px, 88vw);
+        height: 100vh;
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        background: rgba(7, 10, 14, 0.96);
+        border-right: 1px solid var(--border);
+        box-shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
+        backdrop-filter: blur(24px);
+        transform: translateX(-100%);
+        transition: transform 0.28s ease;
+      }
+
+      .side-nav.is-open {
+        transform: translateX(0);
+      }
+
+      .side-nav-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+      }
+
+      .side-nav-title {
+        margin: 0;
+        font-size: 0.82rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+
+      .side-nav-close {
+        width: 42px;
+        height: 42px;
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.03);
+        color: var(--text);
+        font-size: 1.4rem;
+        line-height: 1;
+        cursor: pointer;
+      }
+
+      .side-nav-links {
+        display: grid;
+        gap: 10px;
+      }
+
+      .side-nav-links a {
+        padding: 14px 16px;
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        border-radius: 14px;
+        text-decoration: none;
+        color: var(--text);
+        background: rgba(255, 255, 255, 0.03);
+        font-size: 1rem;
+        line-height: 1.4;
+      }
+
+      .side-nav-links a:hover,
+      .side-nav-links a[aria-current="page"] {
+        border-color: rgba(92, 141, 255, 0.32);
+        background: rgba(92, 141, 255, 0.12);
+      }
+
+      .side-nav-backdrop {
+        position: fixed;
+        inset: 0;
+        z-index: 20;
+        background: rgba(0, 0, 0, 0.46);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.28s ease;
+      }
+
+      .side-nav-backdrop.is-open {
+        opacity: 1;
+        pointer-events: auto;
       }
 
       .brand-mark,
@@ -807,9 +923,30 @@ const canonicalUrl = new URL(canonicalPath, siteUrl).toString();
     </svg>
     <div class="site-shell">
       <div class="bg-overlay"></div>
+      <aside class="side-nav" data-side-nav aria-hidden="true">
+        <div class="side-nav-header">
+          <p class="side-nav-title">Разделы сайта</p>
+          <button class="side-nav-close" type="button" aria-label="Закрыть меню" data-side-nav-close>&times;</button>
+        </div>
+        <nav class="side-nav-links" aria-label="Боковая навигация">
+          {navigation.map((item) => (
+            <a href={item.href} aria-current={Astro.url.pathname === item.href ? "page" : undefined}>
+              {item.label}
+            </a>
+          ))}
+        </nav>
+      </aside>
+      <div class="side-nav-backdrop" data-side-nav-backdrop></div>
       <header class="topbar">
         <div class="topbar-inner">
-          <a class="brand" href="/">INTERIOR<span class="brand-mark">.360</span></a>
+          <div class="topbar-left">
+            <button class="menu-toggle" type="button" aria-label="Открыть меню" aria-expanded="false" data-menu-toggle>
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
+            <a class="brand" href="/">INTERIOR<span class="brand-mark">.360</span></a>
+          </div>
           <nav class="nav" aria-label="Основная навигация">
             {navigation.map((item) => (
               <a href={item.href} aria-current={Astro.url.pathname === item.href ? "page" : undefined}>
@@ -956,18 +1093,61 @@ const canonicalUrl = new URL(canonicalPath, siteUrl).toString();
         });
       };
 
+      const setupSideNav = () => {
+        const toggle = document.querySelector("[data-menu-toggle]");
+        const sideNav = document.querySelector("[data-side-nav]");
+        const closeButton = document.querySelector("[data-side-nav-close]");
+        const backdrop = document.querySelector("[data-side-nav-backdrop]");
+
+        if (
+          !(toggle instanceof HTMLButtonElement) ||
+          !(sideNav instanceof HTMLElement) ||
+          !(backdrop instanceof HTMLElement)
+        ) {
+          return;
+        }
+
+        const setOpen = (isOpen) => {
+          sideNav.classList.toggle("is-open", isOpen);
+          backdrop.classList.toggle("is-open", isOpen);
+          toggle.setAttribute("aria-expanded", String(isOpen));
+          sideNav.setAttribute("aria-hidden", String(!isOpen));
+          document.body.style.overflow = isOpen ? "hidden" : "";
+        };
+
+        toggle.addEventListener("click", () => {
+          const isOpen = !sideNav.classList.contains("is-open");
+          setOpen(isOpen);
+        });
+
+        closeButton?.addEventListener("click", () => setOpen(false));
+        backdrop.addEventListener("click", () => setOpen(false));
+
+        sideNav.querySelectorAll("a").forEach((link) => {
+          link.addEventListener("click", () => setOpen(false));
+        });
+
+        document.addEventListener("keydown", (event) => {
+          if (event.key === "Escape") {
+            setOpen(false);
+          }
+        });
+      };
+
       if (document.readyState === "loading") {
         document.addEventListener(
           "DOMContentLoaded",
           () => {
             setupCardParallax();
             setupHorizontalWheelScroll();
+            setupSideNav();
           },
           { once: true }
         );
       } else {
         setupCardParallax();
         setupHorizontalWheelScroll();
+        setupSideNav();
       }
     </script>
   </body>
