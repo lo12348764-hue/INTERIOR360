@@ -18,75 +18,208 @@ import SiteLayout from "../layouts/SiteLayout.astro";
     </div>
     <aside class="hero-panel">
       <p>Фокус</p>
-      <strong>Качество подачи, точная структура работы и понятный визуальный результат</strong>
+      <strong>Подача, которая упрощает согласование и делает проект убедительным</strong>
       <p>Подходит для</p>
-      <strong>Дизайнеров, архитекторов, девелоперов и частных заказчиков</strong>
+      <strong>Частных, B2B и девелоперских проектов</strong>
     </aside>
   </section>
 
   <section class="section">
     <div class="grid grid-3">
       {services.map((service) => (
-        <article class="surface">
-          <p class="kicker">Услуга</p>
-          <h2 style="margin-top: 10px; font-size: 1.55rem;">{service.title}</h2>
-          <p class="muted">{service.description}</p>
-          <ul class="list">
-            {service.bullets.map((bullet) => (
-              <li>{bullet}</li>
-            ))}
-          </ul>
-          {service.ctaLabel && service.ctaHref ? (
-            <a class="button-secondary" href={service.ctaHref} style="margin-top: 20px;">
-              {service.ctaLabel}
-            </a>
-          ) : null}
+        <article class="surface service-accordion" data-accordion-item>
+          <button class="service-summary" type="button" data-accordion-trigger aria-expanded="false">
+            <h2>{service.title}</h2>
+          </button>
+          <div class="service-content">
+            <p class="muted service-intro">
+              {service.description}
+            </p>
+            <ul class="list">
+              {service.bullets.map((bullet) => (
+                <li>{bullet}</li>
+              ))}
+            </ul>
+            <div class="service-actions">
+              {service.ctaLabel && service.ctaHref ? (
+                <a class="button-secondary" href={service.ctaHref}>
+                  {service.ctaLabel}
+                </a>
+              ) : null}
+              <a class="button-secondary" href="/calculator/">Рассчитать стоимость</a>
+            </div>
+          </div>
         </article>
       ))}
     </div>
   </section>
 
-  <section class="section">
+  <section class="section" id="calculate">
     <div class="grid grid-3">
-      <article class="surface">
-        <p class="kicker">Смета</p>
-        <h2 style="margin-top: 10px; font-size: 1.55rem;">Бюджет проекта</h2>
-        <p class="muted">
-          Бюджет проекта помогает заранее понять структуру расходов и увидеть распределение стоимости по основным блокам реализации.
-        </p>
-        <ul class="list">
-          <li>Предварительный диапазон бюджета по проекту</li>
-          <li>Разделение на черновые и чистовые работы</li>
-          <li>Оценка затрат на материалы, мебель, свет и сантехнику</li>
-          <li>Понимание зависимости бюджета от площади и состава работ</li>
-        </ul>
+      <article class="surface service-accordion" data-accordion-item>
+        <button class="service-summary" type="button" data-accordion-trigger aria-expanded="false">
+          <h2>Бюджет проекта</h2>
+        </button>
+        <div class="service-content">
+          <p class="kicker">Смета</p>
+          <p class="muted service-intro">
+            Помогает заранее понять структуру расходов и увидеть распределение стоимости по основным блокам реализации.
+          </p>
+          <ul class="list">
+            <li>Предварительный диапазон бюджета по проекту</li>
+            <li>Разделение на черновые и чистовые работы</li>
+            <li>Оценка затрат на материалы, мебель, свет и сантехнику</li>
+            <li>Понимание зависимости бюджета от площади и состава работ</li>
+          </ul>
+          <div class="service-actions">
+            <a class="button-secondary" href="/calculator/">Рассчитать стоимость</a>
+          </div>
+        </div>
       </article>
-      <article class="surface">
-        <p class="kicker">Материалы</p>
-        <h2 style="margin-top: 10px; font-size: 1.55rem;">Закупочный ориентир</h2>
-        <p class="muted">
-          Закупочный ориентир показывает, какие группы материалов и предметов закладываются в проект и как формируется комплектование объекта.
-        </p>
-        <ul class="list">
-          <li>Отделочные материалы по помещениям</li>
-          <li>Осветительное оборудование и сценарии света</li>
-          <li>Сантехника, двери и встроенные элементы</li>
-          <li>Мебель, декор и ключевые позиции комплектации</li>
-        </ul>
+      <article class="surface service-accordion" data-accordion-item>
+        <button class="service-summary" type="button" data-accordion-trigger aria-expanded="false">
+          <h2>Закупочный ориентир</h2>
+        </button>
+        <div class="service-content">
+          <p class="kicker">Материалы</p>
+          <p class="muted service-intro">
+            Помогает заранее определить состав материалов, оборудования и предметов, которые войдут в проект и комплектацию.
+          </p>
+          <ul class="list">
+            <li>Отделочные материалы по помещениям</li>
+            <li>Осветительное оборудование и сценарии света</li>
+            <li>Сантехника, двери и встроенные элементы</li>
+            <li>Мебель, декор и ключевые позиции комплектации</li>
+          </ul>
+          <div class="service-actions">
+            <a class="button-secondary" href="/calculator/">Рассчитать стоимость</a>
+          </div>
+        </div>
       </article>
-      <article class="surface">
-        <p class="kicker">График</p>
-        <h2 style="margin-top: 10px; font-size: 1.55rem;">Работы на объекте</h2>
-        <p class="muted">
-          График работ на объекте помогает увидеть последовательность этапов и ориентироваться в сроках реализации интерьера.
-        </p>
-        <ul class="list">
-          <li>Подготовка и организация площадки</li>
-          <li>Демонтажные и черновые работы</li>
-          <li>Инженерные системы и монтаж</li>
-          <li>Чистовая отделка, комплектация и финальный этап</li>
-        </ul>
+      <article class="surface service-accordion" data-accordion-item>
+        <button class="service-summary" type="button" data-accordion-trigger aria-expanded="false">
+          <h2>Работы на объекте</h2>
+        </button>
+        <div class="service-content">
+          <p class="kicker">График</p>
+          <p class="muted service-intro">
+            Помогает увидеть последовательность этапов и заранее ориентироваться в сроках реализации интерьера на объекте.
+          </p>
+          <ul class="list">
+            <li>Подготовка и организация площадки</li>
+            <li>Демонтажные и черновые работы</li>
+            <li>Инженерные системы и монтаж</li>
+            <li>Чистовая отделка, комплектация и финальный этап</li>
+          </ul>
+          <div class="service-actions">
+            <a class="button-secondary" href="/calculator/">Рассчитать стоимость</a>
+          </div>
+        </div>
       </article>
     </div>
   </section>
 </SiteLayout>
+
+<style is:inline>
+  .page-hero .eyebrow {
+    color: #b8ff6a;
+  }
+
+  .grid.grid-3 {
+    align-items: start;
+  }
+
+  .service-accordion {
+    padding: 0;
+    overflow: hidden;
+    align-self: start;
+  }
+
+  .service-summary {
+    width: 100%;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    padding: 24px;
+    cursor: pointer;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    text-align: left;
+  }
+
+  .service-summary h2 {
+    margin: 0;
+    font-size: 1.45rem;
+    line-height: 1.08;
+  }
+
+  .service-content {
+    display: none;
+    gap: 0;
+    padding: 0 24px 24px;
+  }
+
+  .service-accordion.is-open .service-content {
+    display: grid;
+  }
+
+  .service-content .kicker {
+    margin-bottom: 14px;
+  }
+
+  .service-content .service-intro {
+    color: #5c8dff;
+    margin-top: -6px;
+    margin-bottom: 16px;
+  }
+
+  .service-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 20px;
+  }
+
+  .service-actions .button-secondary {
+    color: #b8ff6a;
+    border-color: #b8ff6a;
+  }
+
+  .service-actions .button-secondary[href="/portfolio/"] {
+    color: #5c8dff;
+    border-color: #5c8dff;
+  }
+</style>
+
+<script is:inline>
+  (() => {
+    const initAccordions = () => {
+      document.addEventListener("click", (event) => {
+        const trigger = event.target.closest("[data-accordion-trigger]");
+        if (!trigger) return;
+
+        const item = trigger.closest("[data-accordion-item]");
+        if (!item) return;
+
+        const willOpen = !item.classList.contains("is-open");
+
+        if (willOpen) {
+          item.classList.add("is-open");
+          trigger.setAttribute("aria-expanded", "true");
+        } else {
+          item.classList.remove("is-open");
+          trigger.setAttribute("aria-expanded", "false");
+        }
+      });
+    };
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initAccordions, { once: true });
+    } else {
+      initAccordions();
+    }
+  })();
+</script>
