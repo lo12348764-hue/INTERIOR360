@@ -73,13 +73,54 @@ import SiteLayout from "../layouts/SiteLayout.astro";
   <section class="section">
     <div class="grid grid-3">
       {services.map((service) => (
-        <article class:list={["surface", "service-accordion", service.title === "Создание концептуального стиля проекта" && "service-accordion-compact"]} data-accordion-item>
+        <article class="surface service-accordion" data-accordion-item>
           <button class="service-summary" type="button" data-accordion-trigger aria-expanded="false">
             <h2>{service.title}</h2>
           </button>
           <div class="service-preview">
             <p class="muted service-intro">{service.description}</p>
-            <div class="service-media-slot" aria-hidden="true"></div>
+            <div class="service-media-slot service-media-slot-filled">
+              {service.title === "Создание концептуального стиля проекта" ? (
+                <img
+                  class="service-media-image"
+                  src="/images/channel/collaje-mat3.jpg"
+                  alt="Коллаж материалов и фактур для концептуального стиля проекта"
+                  loading="lazy"
+                />
+              ) : service.title === "Рабочая документация" ? (
+                <img
+                  class="service-media-image service-media-image-workdoc"
+                  src="/images/channel/workdoc.jpg"
+                  alt="Рабочая документация и чертежи проекта"
+                  loading="lazy"
+                />
+              ) : service.title === "3D Визуализация" ? (
+                <img
+                  class="service-media-image service-media-image-visual"
+                  src="/images/channel/yslygi 3.jpg"
+                  alt="3D визуализация интерьера"
+                  loading="lazy"
+                />
+              ) : service.title === "Стоимость проектных работ по стадиям" ? (
+                <img
+                  class="service-media-image service-media-image-budget"
+                  src="/images/channel/album.jpg"
+                  alt="Стоимость проектных работ по стадиям"
+                  loading="lazy"
+                />
+              ) : service.title === "Подача для девелоперов" ? (
+                <img
+                  class="service-media-image service-media-image-developer"
+                  src="/images/channel/yslygi 6.jpg"
+                  alt="Подача для девелоперов"
+                  loading="lazy"
+                />
+              ) : (
+                <div class="service-media-placeholder" aria-hidden="true">
+                  <span>Stage Preview</span>
+                </div>
+              )}
+            </div>
             <div class="service-actions">
               {service.ctaLabel && service.ctaHref ? (
                 <a class="button-secondary" href={service.ctaHref}>
@@ -98,50 +139,33 @@ import SiteLayout from "../layouts/SiteLayout.astro";
           </div>
         </article>
       ))}
-    </div>
-  </section>
-
-  <section class="section" id="calculate">
-    <div class="grid grid-3">
-      <article class="surface service-accordion" data-accordion-item>
+      <article class="surface service-accordion" data-accordion-item id="calculate">
         <button class="service-summary" type="button" data-accordion-trigger aria-expanded="false">
-          <h2>Структура бюджета реализации</h2>
+          <h2>Структура бюджета реализации и закупочный ориентир</h2>
         </button>
         <div class="service-preview">
           <p class="muted service-intro">
-            Помогает заранее понять структуру расходов и увидеть распределение стоимости по основным блокам реализации.
+            Помогает заранее понять структуру расходов, состав комплектации и ключевые позиции материалов, мебели и оборудования.
           </p>
-          <div class="service-media-slot" aria-hidden="true"></div>
+          <div class="service-media-slot service-media-slot-filled">
+            <img
+              class="service-media-image service-media-image-procurement"
+              src="/images/channel/yslygi 4.jpg"
+              alt="Структура бюджета реализации и закупочный ориентир"
+              loading="lazy"
+            />
+          </div>
           <div class="service-actions">
             <a class="button-secondary" href="/calculator/">Рассчитать стоимость</a>
           </div>
         </div>
         <div class="service-content">
-          <p class="kicker">Смета</p>
+          <p class="kicker">Бюджет и комплектация</p>
           <ul class="list">
             <li>Предварительный диапазон бюджета по проекту</li>
             <li>Разделение на черновые и чистовые работы</li>
             <li>Оценка затрат на материалы, мебель, свет и сантехнику</li>
             <li>Понимание зависимости бюджета от площади и состава работ</li>
-          </ul>
-        </div>
-      </article>
-      <article class="surface service-accordion" data-accordion-item>
-        <button class="service-summary" type="button" data-accordion-trigger aria-expanded="false">
-          <h2>Закупочный ориентир</h2>
-        </button>
-        <div class="service-preview">
-          <p class="muted service-intro">
-            Помогает заранее определить состав материалов, оборудования и предметов, которые войдут в проект и комплектацию.
-          </p>
-          <div class="service-media-slot" aria-hidden="true"></div>
-          <div class="service-actions">
-            <a class="button-secondary" href="/calculator/">Рассчитать стоимость</a>
-          </div>
-        </div>
-        <div class="service-content">
-          <p class="kicker">Материалы</p>
-          <ul class="list">
             <li>Отделочные материалы по помещениям</li>
             <li>Осветительное оборудование и сценарии света</li>
             <li>Сантехника, двери и встроенные элементы</li>
@@ -155,9 +179,16 @@ import SiteLayout from "../layouts/SiteLayout.astro";
         </button>
         <div class="service-preview">
           <p class="muted service-intro">
-            Помогает увидеть последовательность этапов и заранее ориентироваться в сроках реализации интерьера на объекте.
+            Точная координация всех этапов реализации, контроль сроков и бюджета. Дополнительно позволяет синхронизировать работу подрядчиков и поставщиков, оптимизировать логистику материалов и заранее учитывать технологические зависимости.
           </p>
-          <div class="service-media-slot" aria-hidden="true"></div>
+          <div class="service-media-slot service-media-slot-filled">
+            <img
+              class="service-media-image service-media-image-sitework"
+              src="/images/channel/yslygi 9.jpg"
+              alt="Работы на объекте и этапы реализации"
+              loading="lazy"
+            />
+          </div>
           <div class="service-actions">
             <a class="button-secondary" href="/calculator/">Рассчитать стоимость</a>
           </div>
@@ -328,38 +359,13 @@ import SiteLayout from "../layouts/SiteLayout.astro";
 
   .grid.grid-3 {
     align-items: start;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
   .service-accordion {
     padding: 0;
     overflow: hidden;
     align-self: start;
-  }
-
-  .service-accordion.service-accordion-compact {
-    min-height: 0;
-  }
-
-  .service-accordion.service-accordion-compact .service-summary {
-    padding-top: 22px;
-    padding-bottom: 16px;
-  }
-
-  .service-accordion.service-accordion-compact .service-summary h2 {
-    font-size: 1.26rem;
-    line-height: 1.06;
-  }
-
-  .service-accordion.service-accordion-compact .service-preview {
-    padding-top: 0;
-    padding-bottom: 18px;
-  }
-
-  .service-accordion.service-accordion-compact .service-preview .service-intro {
-    margin-top: -4px;
-    margin-bottom: 14px;
-    font-size: 0.98rem;
-    line-height: 1.62;
   }
 
   .service-summary {
@@ -379,8 +385,11 @@ import SiteLayout from "../layouts/SiteLayout.astro";
 
   .service-summary h2 {
     margin: 0;
-    font-size: 1.45rem;
+    font-size: 1.2rem;
     line-height: 1.08;
+    min-height: 2.6em;
+    display: flex;
+    align-items: flex-start;
     transition: color 0.2s ease, text-shadow 0.2s ease;
   }
 
@@ -403,14 +412,80 @@ import SiteLayout from "../layouts/SiteLayout.astro";
     display: grid;
     gap: 0;
     padding: 0 24px 24px;
+    grid-template-rows: auto auto auto;
+    align-content: start;
   }
 
   .service-media-slot {
-    min-height: 140px;
-    margin: 8px 0 18px;
+    overflow: hidden;
+    height: 200px;
+    min-height: 200px;
+    margin: 6px 0 14px;
     border-radius: 18px;
     border: 1px dashed rgba(92, 141, 255, 0.24);
     background: rgba(255, 255, 255, 0.02);
+  }
+
+  .service-media-slot-filled {
+    border-style: solid;
+    background: rgba(255, 255, 255, 0.03);
+    margin-left: -24px;
+    margin-right: -24px;
+    width: calc(100% + 48px);
+    border-radius: 0;
+    margin-bottom: 10px;
+  }
+
+  .service-media-placeholder {
+    display: grid;
+    place-items: center;
+    width: 100%;
+    height: 100%;
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02)),
+      radial-gradient(circle at 20% 20%, rgba(92, 141, 255, 0.18), transparent 32%),
+      radial-gradient(circle at 78% 70%, rgba(184, 255, 106, 0.14), transparent 28%);
+  }
+
+  .service-media-placeholder span {
+    color: rgba(255, 255, 255, 0.48);
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .service-media-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center calc(50% - 100px);
+  }
+
+  .service-media-image-workdoc {
+    object-position: center calc(50% + 30px);
+  }
+
+  .service-media-image-visual {
+    object-position: center calc(50% - 15px);
+  }
+
+  .service-media-image-sitework {
+    object-position: center calc(50% + 100px);
+  }
+
+  .service-media-image-developer {
+    object-position: center calc(50% + 190px);
+  }
+
+  .service-media-image-budget {
+    object-position: center calc(50% + 5px);
+  }
+
+  .service-media-image-procurement {
+    width: calc(100% + 100px);
+    max-width: none;
+    transform: translateX(-100px);
   }
 
   .service-content .kicker {
@@ -421,14 +496,35 @@ import SiteLayout from "../layouts/SiteLayout.astro";
   .service-content .service-intro {
     color: #5c8dff;
     margin-top: -6px;
-    margin-bottom: 16px;
+    margin-bottom: 12px;
+    font-size: 0.88rem;
+    line-height: 1.5;
+    min-height: 4.5em;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 
   .service-actions {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: center;
     gap: 12px;
-    margin-top: 20px;
+    margin-top: 12px;
+  }
+
+  .service-actions .button-secondary {
+    min-height: 40px;
+    padding: 0 14px;
+    font-size: 0.64rem;
+    letter-spacing: 0.08em;
+    white-space: normal;
+    text-align: center;
+  }
+
+  .service-actions .button-secondary:only-child {
+    grid-column: 1 / -1;
   }
 
   .service-actions .button-secondary {
@@ -441,17 +537,160 @@ import SiteLayout from "../layouts/SiteLayout.astro";
     border-color: #5c8dff;
   }
 
+  @media (max-width: 1200px) {
+    .grid.grid-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 900px) {
+    .grid.grid-3 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
   @media (max-width: 720px) {
+    .grid.grid-3 {
+      grid-template-columns: 1fr;
+    }
+
+    .page-hero {
+      gap: 14px;
+    }
+
+    .brief-panel-trigger {
+      min-height: 108px;
+      padding: 18px;
+    }
+
+    .brief-panel-trigger strong {
+      font-size: 1.28rem;
+      line-height: 1.08;
+    }
+
     .brief-modal__dialog {
-      width: calc(100vw - 20px);
-      max-height: calc(100vh - 20px);
-      margin: 10px auto;
-      padding: 22px 18px;
+      width: 100vw;
+      max-height: 100vh;
+      min-height: 100vh;
+      margin: 0;
+      border-radius: 0;
+      padding: 56px 16px 22px;
     }
 
     .brief-modal__grid {
       grid-template-columns: 1fr;
+      gap: 14px;
+      margin-top: 20px;
     }
+
+    .brief-modal__content .lead {
+      font-size: 0.92rem;
+      line-height: 1.65;
+    }
+
+    .brief-modal__grid span {
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+    }
+
+    .brief-modal__grid input,
+    .brief-modal__grid textarea {
+      border-radius: 14px;
+      padding: 14px 15px;
+      font-size: 0.95rem;
+    }
+
+    .brief-modal__upload input[type="file"] {
+      padding: 12px 14px;
+    }
+
+    .brief-modal__upload input[type="file"]::file-selector-button {
+      display: block;
+      width: 100%;
+      margin: 0 0 10px;
+      text-align: center;
+    }
+
+    .brief-modal__actions {
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .brief-modal__actions .button-secondary {
+      width: 100%;
+    }
+
+    .brief-modal__close {
+      top: 12px;
+      right: 12px;
+      width: 40px;
+      height: 40px;
+    }
+
+    .service-summary {
+      padding: 18px 18px 14px;
+    }
+
+    .service-summary h2 {
+      font-size: 1rem;
+      line-height: 1.08;
+      min-height: 0;
+    }
+
+    .service-preview {
+      padding: 0 18px 18px;
+    }
+
+    .service-preview .service-intro,
+    .service-content .service-intro {
+      margin-top: -2px;
+      margin-bottom: 10px;
+      font-size: 0.8rem;
+      line-height: 1.46;
+      min-height: 0;
+    }
+
+    .service-media-slot {
+      height: 140px;
+      min-height: 140px;
+      margin: 2px 0 10px;
+      border-radius: 14px;
+    }
+
+    .service-media-slot-filled {
+      margin-left: -18px;
+      margin-right: -18px;
+      width: calc(100% + 36px);
+      margin-bottom: 8px;
+    }
+
+    .service-actions {
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .service-actions .button-secondary {
+      width: 100%;
+    }
+
+    .service-content {
+      padding: 0 18px 18px;
+    }
+
+    .service-content .list {
+      margin-top: 10px;
+      padding-left: 16px;
+      font-size: 0.8rem;
+      line-height: 1.5;
+    }
+
+    .service-content .kicker {
+      margin-bottom: 10px;
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+    }
+
   }
 </style>
 
@@ -465,14 +704,20 @@ import SiteLayout from "../layouts/SiteLayout.astro";
         const item = trigger.closest("[data-accordion-item]");
         if (!item) return;
 
+        const accordionItems = document.querySelectorAll("[data-accordion-item]");
         const willOpen = !item.classList.contains("is-open");
+
+        accordionItems.forEach((accordionItem) => {
+          accordionItem.classList.remove("is-open");
+          const accordionTrigger = accordionItem.querySelector("[data-accordion-trigger]");
+          if (accordionTrigger) {
+            accordionTrigger.setAttribute("aria-expanded", "false");
+          }
+        });
 
         if (willOpen) {
           item.classList.add("is-open");
           trigger.setAttribute("aria-expanded", "true");
-        } else {
-          item.classList.remove("is-open");
-          trigger.setAttribute("aria-expanded", "false");
         }
       });
     };

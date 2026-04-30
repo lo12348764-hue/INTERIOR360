@@ -233,7 +233,7 @@ const conceptCardContent = {
   </section>
 
   <section class="section">
-    <h2 class="section-title">Дизайн жилых интерьеров</h2>
+    <h2 class="section-title">Жилые пространства, аппартаменты</h2>
     <div class="projects-strip">
       {firstStripImages.map((imageName, index) => (
         <article class="card project-card decor-card">
@@ -363,6 +363,29 @@ const conceptCardContent = {
   .hero-eyebrow {
     text-align: left;
     padding-left: 6px;
+  }
+
+  .page-hero .hero-panel {
+    display: grid;
+    align-content: start;
+    gap: 12px;
+  }
+
+  .page-hero .hero-panel p {
+    margin: 0;
+  }
+
+  .page-hero .hero-panel strong {
+    line-height: 1.22;
+    text-wrap: balance;
+  }
+
+  .page-hero .hero-panel p + strong {
+    margin-top: -2px;
+  }
+
+  .page-hero .hero-panel strong + p {
+    margin-top: 8px;
   }
 
   .page-hero h1 {
@@ -589,6 +612,156 @@ const conceptCardContent = {
 
   .secondary-projects-strip {
     margin-top: 22px;
+  }
+
+  @media (max-width: 740px) {
+    .hero-eyebrow {
+      padding-left: 0;
+    }
+
+    .page-hero .hero-panel {
+      gap: 10px;
+    }
+
+    .page-hero .hero-panel strong + p {
+      margin-top: 6px;
+    }
+
+    .page-hero h1 {
+      font-size: clamp(2.2rem, 10.4vw, 3.2rem);
+    }
+
+    .projects-strip {
+      grid-auto-flow: row;
+      grid-auto-columns: unset;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      overflow: visible;
+      padding-bottom: 0;
+    }
+
+    .project-card {
+      height: auto;
+      grid-template-rows: auto auto;
+    }
+
+    .project-card .media-frame {
+      aspect-ratio: 4 / 5;
+      min-height: 0;
+    }
+
+    .project-card .card-body {
+      padding: 12px 12px 14px;
+      gap: 6px;
+    }
+
+    .project-card .kicker {
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+    }
+
+    .project-card h3 {
+      font-size: 1.02rem !important;
+      line-height: 1.12;
+    }
+
+    .project-card .muted {
+      font-size: 0.78rem;
+      line-height: 1.45;
+    }
+
+    .project-card .card-body .muted:last-of-type {
+      -webkit-line-clamp: 4;
+    }
+
+    .projects-caption {
+      margin-top: 18px;
+      margin-bottom: 10px;
+      font-size: clamp(1.1rem, 5.8vw, 1.45rem);
+      line-height: 1.12;
+    }
+
+    .secondary-projects-strip {
+      margin-top: 12px;
+    }
+
+    .project-card .media.media-lifted {
+      height: calc(100% + 78px);
+      transform: translateY(-78px) !important;
+    }
+
+    .project-card .media.media-lifted-strong {
+      height: calc(100% + 34px);
+      transform: translateY(-34px) !important;
+    }
+
+    .project-card .media.media-lifted-300 {
+      height: calc(100% + 132px);
+      transform: translateX(-2px) translateY(-132px) scale(1.05) !important;
+    }
+
+    .project-card .media.media-lifted-310 {
+      height: calc(100% + 138px);
+      transform: translateX(-2px) translateY(-138px) scale(1.05) !important;
+    }
+
+    .project-card .media.media-lifted-320 {
+      height: calc(100% + 146px);
+      transform: translateX(-2px) translateY(-146px) scale(1.05) !important;
+    }
+
+    .project-card .media.media-lifted-50 {
+      height: calc(100% + 54px);
+      transform: translateY(-54px) !important;
+    }
+
+    .project-card .media.media-lifted-50-wide {
+      height: calc(100% + 86px);
+      transform: translateX(-3px) translateY(-86px) scaleX(1.04) !important;
+    }
+
+    .project-card .media.media-lifted-150 {
+      height: calc(100% + 74px);
+      transform: translateY(-74px) !important;
+    }
+
+    .project-card .media.media-lifted-150-wide {
+      width: calc(100% + 16px);
+      height: calc(100% + 74px);
+      transform: translateX(-12px) translateY(-74px) !important;
+    }
+
+    .project-card .media.media-lifted-100 {
+      height: calc(100% + 82px);
+      transform: translateY(-82px) !important;
+    }
+
+    .project-card .media.media-lifted-100-wide-left {
+      width: calc(100% + 14px);
+      height: calc(100% + 86px);
+      transform: translateX(-14px) translateY(-86px) !important;
+    }
+
+    .project-card .media.media-lifted-100-wide {
+      width: calc(100% + 14px);
+      height: calc(100% + 82px);
+      transform: translateX(-12px) translateY(-82px) !important;
+    }
+
+    .project-card .media.media-wide-20 {
+      width: calc(100% + 14px);
+      transform: translateX(-12px) !important;
+    }
+
+    .project-card .media.media-lifted-10 {
+      height: calc(100% + 14px);
+      transform: translateY(-14px) !important;
+    }
+
+    .project-card .media.media-scaled {
+      height: calc(100% + 72px);
+      transform: translateX(-2px) translateY(-72px) scale(1.05) !important;
+    }
   }
 </style>
 
