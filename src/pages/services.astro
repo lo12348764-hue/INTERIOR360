@@ -16,30 +16,70 @@ import SiteLayout from "../layouts/SiteLayout.astro";
         Здесь можно посмотреть форматы работы, состав услуг и понять, как устроена подача проекта на разных стадиях.
       </p>
     </div>
-    <aside class="hero-panel">
-      <p>Фокус</p>
-      <strong>Подача, которая упрощает согласование и делает проект убедительным</strong>
-      <p>Подходит для</p>
-      <strong>Частных, B2B и девелоперских проектов</strong>
-    </aside>
+    <button class="hero-panel brief-panel-trigger" type="button" data-brief-open aria-haspopup="dialog" aria-controls="project-brief-modal">
+      <strong>Заполнить бриф проекта</strong>
+    </button>
   </section>
+
+  <div class="brief-modal" id="project-brief-modal" data-brief-modal hidden>
+    <div class="brief-modal__backdrop" data-brief-close></div>
+    <div class="brief-modal__dialog surface" role="dialog" aria-modal="true" aria-labelledby="brief-modal-title">
+      <button class="brief-modal__close" type="button" data-brief-close aria-label="Закрыть">×</button>
+      <div class="brief-modal__content">
+        <p class="eyebrow">Brief</p>
+        <h2 id="brief-modal-title">Заполнить бриф проекта</h2>
+        <p class="lead">
+          Коротко опишите задачу, формат проекта и ожидаемый результат, чтобы мы могли быстро собрать понятный сценарий работы.
+        </p>
+        <div class="brief-modal__grid">
+          <label>
+            <span>Имя / компания</span>
+            <input type="text" placeholder="Как к вам обращаться?" />
+          </label>
+          <label>
+            <span>Контакт</span>
+            <input type="text" placeholder="Telegram, WhatsApp, email или телефон" />
+          </label>
+          <label>
+            <span>Формат проекта</span>
+            <input type="text" placeholder="Частный, B2B, девелопмент..." />
+          </label>
+          <label>
+            <span>Площадь / масштаб</span>
+            <input type="text" placeholder="м2, количество помещений или объектов" />
+          </label>
+          <label class="brief-modal__field-wide">
+            <span>Задача проекта</span>
+            <textarea rows="4" placeholder="Что нужно сделать, какой объём работ нужен и какой результат важен?"></textarea>
+          </label>
+          <label class="brief-modal__field-wide">
+            <span>Сроки и комментарии</span>
+            <textarea rows="4" placeholder="Укажите сроки, ожидания по подаче и важные нюансы проекта."></textarea>
+          </label>
+          <label class="brief-modal__field-wide brief-modal__upload">
+            <span>Файлы проекта</span>
+            <input type="file" multiple accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.webp,.zip,.rar,.dwg" />
+            <small>Можно прикрепить референсы, планы, ТЗ, изображения и сопроводительные материалы.</small>
+          </label>
+        </div>
+        <div class="brief-modal__actions">
+          <a class="button-secondary" href="/contact/">Отправить запрос</a>
+          <button class="button-secondary brief-modal__dismiss" type="button" data-brief-close>Закрыть</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <section class="section">
     <div class="grid grid-3">
       {services.map((service) => (
-        <article class="surface service-accordion" data-accordion-item>
+        <article class:list={["surface", "service-accordion", service.title === "Создание концептуального стиля проекта" && "service-accordion-compact"]} data-accordion-item>
           <button class="service-summary" type="button" data-accordion-trigger aria-expanded="false">
             <h2>{service.title}</h2>
           </button>
-          <div class="service-content">
-            <p class="muted service-intro">
-              {service.description}
-            </p>
-            <ul class="list">
-              {service.bullets.map((bullet) => (
-                <li>{bullet}</li>
-              ))}
-            </ul>
+          <div class="service-preview">
+            <p class="muted service-intro">{service.description}</p>
+            <div class="service-media-slot" aria-hidden="true"></div>
             <div class="service-actions">
               {service.ctaLabel && service.ctaHref ? (
                 <a class="button-secondary" href={service.ctaHref}>
@@ -48,6 +88,13 @@ import SiteLayout from "../layouts/SiteLayout.astro";
               ) : null}
               <a class="button-secondary" href="/calculator/">Рассчитать стоимость</a>
             </div>
+          </div>
+          <div class="service-content">
+            <ul class="list">
+              {service.bullets.map((bullet) => (
+                <li>{bullet}</li>
+              ))}
+            </ul>
           </div>
         </article>
       ))}
@@ -58,62 +105,71 @@ import SiteLayout from "../layouts/SiteLayout.astro";
     <div class="grid grid-3">
       <article class="surface service-accordion" data-accordion-item>
         <button class="service-summary" type="button" data-accordion-trigger aria-expanded="false">
-          <h2>Бюджет проекта</h2>
+          <h2>Структура бюджета реализации</h2>
         </button>
-        <div class="service-content">
-          <p class="kicker">Смета</p>
+        <div class="service-preview">
           <p class="muted service-intro">
             Помогает заранее понять структуру расходов и увидеть распределение стоимости по основным блокам реализации.
           </p>
+          <div class="service-media-slot" aria-hidden="true"></div>
+          <div class="service-actions">
+            <a class="button-secondary" href="/calculator/">Рассчитать стоимость</a>
+          </div>
+        </div>
+        <div class="service-content">
+          <p class="kicker">Смета</p>
           <ul class="list">
             <li>Предварительный диапазон бюджета по проекту</li>
             <li>Разделение на черновые и чистовые работы</li>
             <li>Оценка затрат на материалы, мебель, свет и сантехнику</li>
             <li>Понимание зависимости бюджета от площади и состава работ</li>
           </ul>
-          <div class="service-actions">
-            <a class="button-secondary" href="/calculator/">Рассчитать стоимость</a>
-          </div>
         </div>
       </article>
       <article class="surface service-accordion" data-accordion-item>
         <button class="service-summary" type="button" data-accordion-trigger aria-expanded="false">
           <h2>Закупочный ориентир</h2>
         </button>
-        <div class="service-content">
-          <p class="kicker">Материалы</p>
+        <div class="service-preview">
           <p class="muted service-intro">
             Помогает заранее определить состав материалов, оборудования и предметов, которые войдут в проект и комплектацию.
           </p>
+          <div class="service-media-slot" aria-hidden="true"></div>
+          <div class="service-actions">
+            <a class="button-secondary" href="/calculator/">Рассчитать стоимость</a>
+          </div>
+        </div>
+        <div class="service-content">
+          <p class="kicker">Материалы</p>
           <ul class="list">
             <li>Отделочные материалы по помещениям</li>
             <li>Осветительное оборудование и сценарии света</li>
             <li>Сантехника, двери и встроенные элементы</li>
             <li>Мебель, декор и ключевые позиции комплектации</li>
           </ul>
-          <div class="service-actions">
-            <a class="button-secondary" href="/calculator/">Рассчитать стоимость</a>
-          </div>
         </div>
       </article>
       <article class="surface service-accordion" data-accordion-item>
         <button class="service-summary" type="button" data-accordion-trigger aria-expanded="false">
           <h2>Работы на объекте</h2>
         </button>
-        <div class="service-content">
-          <p class="kicker">График</p>
+        <div class="service-preview">
           <p class="muted service-intro">
             Помогает увидеть последовательность этапов и заранее ориентироваться в сроках реализации интерьера на объекте.
           </p>
+          <div class="service-media-slot" aria-hidden="true"></div>
+          <div class="service-actions">
+            <a class="button-secondary" href="/calculator/">Рассчитать стоимость</a>
+          </div>
+        </div>
+        <div class="service-content">
+          <p class="kicker">График</p>
           <ul class="list">
             <li>Подготовка и организация площадки</li>
             <li>Демонтажные и черновые работы</li>
             <li>Инженерные системы и монтаж</li>
             <li>Чистовая отделка, комплектация и финальный этап</li>
           </ul>
-          <div class="service-actions">
-            <a class="button-secondary" href="/calculator/">Рассчитать стоимость</a>
-          </div>
         </div>
       </article>
     </div>
@@ -125,6 +181,151 @@ import SiteLayout from "../layouts/SiteLayout.astro";
     color: #b8ff6a;
   }
 
+  .brief-panel-trigger {
+    width: 100%;
+    cursor: pointer;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.03);
+    transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .brief-panel-trigger:hover {
+    border-color: rgba(255, 255, 255, 0.18);
+    transform: translateY(-2px);
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.2);
+  }
+
+  .brief-panel-trigger strong {
+    display: block;
+    font-size: clamp(1.5rem, 2.4vw, 2.05rem);
+    line-height: 1.08;
+    text-align: left;
+  }
+
+  .brief-modal[hidden] {
+    display: none;
+  }
+
+  .brief-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 80;
+  }
+
+  .brief-modal__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(4, 6, 12, 0.82);
+    backdrop-filter: blur(14px);
+  }
+
+  .brief-modal__dialog {
+    position: relative;
+    z-index: 1;
+    width: min(1120px, calc(100vw - 32px));
+    max-height: calc(100vh - 32px);
+    margin: 16px auto;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 28px;
+  }
+
+  .brief-modal__dialog {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .brief-modal__dialog::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+
+  .brief-modal__close {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    width: 42px;
+    height: 42px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.04);
+    color: #ffffff;
+    font-size: 1.6rem;
+    cursor: pointer;
+  }
+
+  .brief-modal__content h2 {
+    margin-bottom: 10px;
+  }
+
+  .brief-modal__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+    margin-top: 30px;
+  }
+
+  .brief-modal__grid label {
+    display: grid;
+    gap: 10px;
+  }
+
+  .brief-modal__grid span {
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 0.9rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .brief-modal__grid input,
+  .brief-modal__grid textarea {
+    width: 100%;
+    border-radius: 18px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.03);
+    color: #ffffff;
+    padding: 16px 18px;
+    font: inherit;
+    resize: vertical;
+    overflow-x: hidden;
+  }
+
+  .brief-modal__field-wide {
+    grid-column: 1 / -1;
+  }
+
+  .brief-modal__upload input[type="file"] {
+    padding: 14px 16px;
+    cursor: pointer;
+  }
+
+  .brief-modal__upload input[type="file"]::file-selector-button {
+    margin-right: 14px;
+    border: 1px solid rgba(184, 255, 106, 0.45);
+    border-radius: 999px;
+    background: rgba(184, 255, 106, 0.08);
+    color: #b8ff6a;
+    padding: 10px 16px;
+    font: inherit;
+    cursor: pointer;
+  }
+
+  .brief-modal__upload small {
+    color: rgba(255, 255, 255, 0.54);
+    line-height: 1.5;
+  }
+
+  .brief-modal__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 28px;
+  }
+
+  .brief-modal__dismiss {
+    background: transparent;
+  }
+
   .grid.grid-3 {
     align-items: start;
   }
@@ -133,6 +334,32 @@ import SiteLayout from "../layouts/SiteLayout.astro";
     padding: 0;
     overflow: hidden;
     align-self: start;
+  }
+
+  .service-accordion.service-accordion-compact {
+    min-height: 0;
+  }
+
+  .service-accordion.service-accordion-compact .service-summary {
+    padding-top: 22px;
+    padding-bottom: 16px;
+  }
+
+  .service-accordion.service-accordion-compact .service-summary h2 {
+    font-size: 1.26rem;
+    line-height: 1.06;
+  }
+
+  .service-accordion.service-accordion-compact .service-preview {
+    padding-top: 0;
+    padding-bottom: 18px;
+  }
+
+  .service-accordion.service-accordion-compact .service-preview .service-intro {
+    margin-top: -4px;
+    margin-bottom: 14px;
+    font-size: 0.98rem;
+    line-height: 1.62;
   }
 
   .service-summary {
@@ -154,6 +381,12 @@ import SiteLayout from "../layouts/SiteLayout.astro";
     margin: 0;
     font-size: 1.45rem;
     line-height: 1.08;
+    transition: color 0.2s ease, text-shadow 0.2s ease;
+  }
+
+  .service-summary:hover h2 {
+    color: #ffffff;
+    text-shadow: 0 0 18px rgba(255, 255, 255, 0.22);
   }
 
   .service-content {
@@ -166,10 +399,25 @@ import SiteLayout from "../layouts/SiteLayout.astro";
     display: grid;
   }
 
+  .service-preview {
+    display: grid;
+    gap: 0;
+    padding: 0 24px 24px;
+  }
+
+  .service-media-slot {
+    min-height: 140px;
+    margin: 8px 0 18px;
+    border-radius: 18px;
+    border: 1px dashed rgba(92, 141, 255, 0.24);
+    background: rgba(255, 255, 255, 0.02);
+  }
+
   .service-content .kicker {
     margin-bottom: 14px;
   }
 
+  .service-preview .service-intro,
   .service-content .service-intro {
     color: #5c8dff;
     margin-top: -6px;
@@ -191,6 +439,19 @@ import SiteLayout from "../layouts/SiteLayout.astro";
   .service-actions .button-secondary[href="/portfolio/"] {
     color: #5c8dff;
     border-color: #5c8dff;
+  }
+
+  @media (max-width: 720px) {
+    .brief-modal__dialog {
+      width: calc(100vw - 20px);
+      max-height: calc(100vh - 20px);
+      margin: 10px auto;
+      padding: 22px 18px;
+    }
+
+    .brief-modal__grid {
+      grid-template-columns: 1fr;
+    }
   }
 </style>
 
@@ -216,10 +477,48 @@ import SiteLayout from "../layouts/SiteLayout.astro";
       });
     };
 
+    const initBriefModal = () => {
+      const modal = document.querySelector("[data-brief-modal]");
+      const openTrigger = document.querySelector("[data-brief-open]");
+      if (!modal || !openTrigger) return;
+
+      const closeModal = () => {
+        modal.setAttribute("hidden", "");
+        document.body.style.overflow = "";
+      };
+
+      const openModal = () => {
+        modal.removeAttribute("hidden");
+        document.body.style.overflow = "hidden";
+      };
+
+      openTrigger.addEventListener("click", openModal);
+
+      modal.addEventListener("click", (event) => {
+        if (event.target.closest("[data-brief-close]")) {
+          closeModal();
+        }
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && !modal.hasAttribute("hidden")) {
+          closeModal();
+        }
+      });
+    };
+
     if (document.readyState === "loading") {
-      document.addEventListener("DOMContentLoaded", initAccordions, { once: true });
+      document.addEventListener(
+        "DOMContentLoaded",
+        () => {
+          initAccordions();
+          initBriefModal();
+        },
+        { once: true }
+      );
     } else {
       initAccordions();
+      initBriefModal();
     }
   })();
 </script>
