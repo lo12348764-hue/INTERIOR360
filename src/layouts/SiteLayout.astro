@@ -20,12 +20,14 @@ const canonicalUrl = new URL(canonicalPath, siteUrl).toString();
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalUrl} />
+    <link rel="icon" type="image/png" href="/favicon.png" />
     <meta name="robots" content="index,follow" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="INTERIOR.360" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalUrl} />
+    <link rel="stylesheet" href="/styles/site.css" />
     <style is:global>
       :root {
         --bg: #090b0d;
@@ -253,8 +255,10 @@ const canonicalUrl = new URL(canonicalPath, siteUrl).toString();
       .topbar-inner,
       .container,
       .footer-inner {
-        width: min(1320px, calc(100% - 40px));
-        margin: 0 auto;
+        width: 100%;
+        max-width: none;
+        margin: 0;
+        padding-inline: clamp(20px, 3vw, 40px);
       }
 
       .topbar-inner,
@@ -269,12 +273,125 @@ const canonicalUrl = new URL(canonicalPath, siteUrl).toString();
         min-height: 76px;
       }
 
+      .topbar-left {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+
+      .menu-toggle {
+        display: inline-flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 5px;
+        width: 24px;
+        height: 24px;
+        padding: 0;
+        border: 0;
+        border-radius: 0;
+        background: transparent;
+        color: var(--text);
+        cursor: pointer;
+      }
+
+      .menu-toggle span {
+        display: block;
+        width: 100%;
+        height: 1.5px;
+        border-radius: 999px;
+        background: currentColor;
+      }
+
       .brand {
         text-decoration: none;
         font-size: 1.05rem;
         font-weight: 700;
         letter-spacing: 0.18em;
         text-transform: uppercase;
+      }
+
+      .side-nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 30;
+        width: min(360px, 88vw);
+        height: 100vh;
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        background: rgba(7, 10, 14, 0.96);
+        border-right: 1px solid var(--border);
+        box-shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
+        backdrop-filter: blur(24px);
+        transform: translateX(-100%);
+        transition: transform 0.28s ease;
+      }
+
+      .side-nav.is-open {
+        transform: translateX(0);
+      }
+
+      .side-nav-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+      }
+
+      .side-nav-title {
+        margin: 0;
+        font-size: 0.82rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+
+      .side-nav-close {
+        width: 42px;
+        height: 42px;
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.03);
+        color: var(--text);
+        font-size: 1.4rem;
+        line-height: 1;
+        cursor: pointer;
+      }
+
+      .side-nav-links {
+        display: grid;
+        gap: 14px;
+      }
+
+      .side-nav-links a {
+        text-decoration: none;
+        color: var(--text);
+        font-size: 1rem;
+        line-height: 1.4;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .side-nav-links a:hover,
+      .side-nav-links a[aria-current="page"] {
+        color: var(--accent);
+      }
+
+      .side-nav-backdrop {
+        position: fixed;
+        inset: 0;
+        z-index: 20;
+        background: rgba(0, 0, 0, 0.46);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.28s ease;
+      }
+
+      .side-nav-backdrop.is-open {
+        opacity: 1;
+        pointer-events: auto;
       }
 
       .brand-mark,
@@ -305,7 +422,7 @@ const canonicalUrl = new URL(canonicalPath, siteUrl).toString();
       }
 
       main {
-        padding: 56px 0 88px;
+        padding: 44px 0 72px;
       }
 
       .page-hero {
@@ -356,7 +473,7 @@ const canonicalUrl = new URL(canonicalPath, siteUrl).toString();
       }
 
       h1 {
-        font-size: clamp(3rem, 8vw, 6.5rem);
+        font-size: clamp(2.7rem, 6.6vw, 5.7rem);
         text-transform: uppercase;
       }
 
@@ -393,7 +510,8 @@ const canonicalUrl = new URL(canonicalPath, siteUrl).toString();
       }
 
       .section-title {
-        font-size: clamp(2rem, 4vw, 3.25rem);
+        font-size: clamp(1.8rem, 3.4vw, 2.8rem);
+        font-weight: 700;
         margin-bottom: 18px;
       }
 
@@ -662,6 +780,160 @@ const canonicalUrl = new URL(canonicalPath, siteUrl).toString();
         }
       }
 
+      @media (max-width: 740px) {
+        .site-shell::before,
+        .site-shell::after,
+        .site-shell > .bg-overlay {
+          animation: none;
+        }
+
+        .site-shell::before {
+          filter: blur(12px) brightness(0.62) saturate(0.9);
+          transform: scale(1.08);
+        }
+
+        .site-shell::after {
+          filter: blur(76px) saturate(118%);
+          opacity: 0.56;
+          transform: scale(1.04);
+        }
+
+        .topbar-inner,
+        .container,
+        .footer-inner {
+          padding-inline: 16px;
+        }
+
+        .topbar-inner {
+          min-height: 64px;
+          flex-direction: row;
+          align-items: center;
+          justify-content: space-between;
+          gap: 16px;
+        }
+
+        .topbar-left {
+          gap: 12px;
+          min-width: 0;
+        }
+
+        .brand {
+          font-size: 0.92rem;
+          letter-spacing: 0.14em;
+          white-space: nowrap;
+        }
+
+        .nav {
+          display: none;
+        }
+
+        main {
+          padding: 24px 0 48px;
+        }
+
+        .page-hero {
+          gap: 16px;
+          margin-bottom: 28px;
+        }
+
+        .hero-panel,
+        .surface,
+        .card-body,
+        .stat {
+          padding: 18px;
+        }
+
+        .eyebrow,
+        .kicker {
+          margin-bottom: 12px;
+          font-size: 0.68rem;
+          letter-spacing: 0.22em;
+        }
+
+        h1 {
+          font-size: clamp(2rem, 10vw, 3.05rem);
+          line-height: 0.98;
+        }
+
+        .lead {
+          margin-top: 14px;
+          font-size: 0.94rem;
+          line-height: 1.7;
+        }
+
+        .hero-panel strong {
+          font-size: 1.22rem;
+          line-height: 1.24;
+        }
+
+        .hero-panel p {
+          margin-bottom: 8px;
+          font-size: 0.64rem;
+          letter-spacing: 0.14em;
+        }
+
+        .section {
+          margin-top: 20px;
+        }
+
+        .section-title {
+          font-size: clamp(1.45rem, 7vw, 2rem);
+          margin-bottom: 14px;
+          line-height: 1.08;
+        }
+
+        .grid,
+        .grid-2,
+        .grid-3,
+        .grid-visual,
+        .stats {
+          gap: 14px;
+        }
+
+        .button-row,
+        .service-actions {
+          gap: 10px;
+        }
+
+        .button,
+        .button-secondary {
+          width: 100%;
+          min-height: 46px;
+          padding: 0 18px;
+          font-size: 0.7rem;
+          letter-spacing: 0.12em;
+        }
+
+        .stats {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .stat strong {
+          font-size: 1.5rem;
+          margin-bottom: 6px;
+        }
+
+        .side-nav {
+          width: 100vw;
+          padding: 18px 16px 24px;
+          gap: 18px;
+        }
+
+        .side-nav-close {
+          width: 38px;
+          height: 38px;
+        }
+
+        .side-nav-links {
+          gap: 12px;
+        }
+
+        .side-nav-links a {
+          font-size: 0.92rem;
+          letter-spacing: 0.06em;
+        }
+      }
+
       @keyframes borderSheen {
         0% {
           opacity: 0.78;
@@ -803,9 +1075,30 @@ const canonicalUrl = new URL(canonicalPath, siteUrl).toString();
     </svg>
     <div class="site-shell">
       <div class="bg-overlay"></div>
+      <aside class="side-nav" data-side-nav aria-hidden="true">
+        <div class="side-nav-header">
+          <p class="side-nav-title">Разделы сайта</p>
+          <button class="side-nav-close" type="button" aria-label="Закрыть меню" data-side-nav-close>&times;</button>
+        </div>
+        <nav class="side-nav-links" aria-label="Боковая навигация">
+          {navigation.map((item) => (
+            <a href={item.href} aria-current={Astro.url.pathname === item.href ? "page" : undefined}>
+              {item.label}
+            </a>
+          ))}
+        </nav>
+      </aside>
+      <div class="side-nav-backdrop" data-side-nav-backdrop></div>
       <header class="topbar">
         <div class="topbar-inner">
-          <a class="brand" href="/">INTERIOR<span class="brand-mark">.360</span></a>
+          <div class="topbar-left">
+            <button class="menu-toggle" type="button" aria-label="Открыть меню" aria-expanded="false" data-menu-toggle>
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
+            <a class="brand" href="/">INTERIOR<span class="brand-mark">.360</span></a>
+          </div>
           <nav class="nav" aria-label="Основная навигация">
             {navigation.map((item) => (
               <a href={item.href} aria-current={Astro.url.pathname === item.href ? "page" : undefined}>
@@ -832,6 +1125,8 @@ const canonicalUrl = new URL(canonicalPath, siteUrl).toString();
         const cards = document.querySelectorAll(".card");
 
         cards.forEach((card) => {
+          if (card.classList.contains("project-card")) return;
+
           const frame = card.querySelector(".media-frame");
           const media = frame?.querySelector(".media");
 
@@ -893,10 +1188,118 @@ const canonicalUrl = new URL(canonicalPath, siteUrl).toString();
         });
       };
 
+      const setupHorizontalWheelScroll = () => {
+        const strips = document.querySelectorAll(".projects-strip");
+
+        strips.forEach((strip) => {
+          if (!(strip instanceof HTMLElement) || strip.dataset.wheelBound === "true") return;
+
+          strip.dataset.wheelBound = "true";
+          let targetScrollLeft = strip.scrollLeft;
+          let animationFrameId = 0;
+
+          const animateScroll = () => {
+            const distance = targetScrollLeft - strip.scrollLeft;
+
+            if (Math.abs(distance) < 0.5) {
+              strip.scrollLeft = targetScrollLeft;
+              animationFrameId = 0;
+              return;
+            }
+
+            strip.scrollLeft += distance * 0.08;
+            animationFrameId = window.requestAnimationFrame(animateScroll);
+          };
+
+          const ensureAnimation = () => {
+            if (!animationFrameId) {
+              animationFrameId = window.requestAnimationFrame(animateScroll);
+            }
+          };
+
+          strip.addEventListener(
+            "wheel",
+            (event) => {
+              const delta = event.deltaY;
+
+              if (delta === 0) return;
+
+              const maxScrollLeft = strip.scrollWidth - strip.clientWidth;
+              const nextScrollLeft = Math.max(0, Math.min(maxScrollLeft, targetScrollLeft + delta));
+              const canScroll = maxScrollLeft > 0 && nextScrollLeft !== targetScrollLeft;
+
+              if (!canScroll) return;
+
+              event.preventDefault();
+              targetScrollLeft = nextScrollLeft;
+              ensureAnimation();
+            },
+            { passive: false }
+          );
+
+          strip.addEventListener("scroll", () => {
+            if (!animationFrameId) {
+              targetScrollLeft = strip.scrollLeft;
+            }
+          });
+        });
+      };
+
+      const setupSideNav = () => {
+        const toggle = document.querySelector("[data-menu-toggle]");
+        const sideNav = document.querySelector("[data-side-nav]");
+        const closeButton = document.querySelector("[data-side-nav-close]");
+        const backdrop = document.querySelector("[data-side-nav-backdrop]");
+
+        if (
+          !(toggle instanceof HTMLButtonElement) ||
+          !(sideNav instanceof HTMLElement) ||
+          !(backdrop instanceof HTMLElement)
+        ) {
+          return;
+        }
+
+        const setOpen = (isOpen) => {
+          sideNav.classList.toggle("is-open", isOpen);
+          backdrop.classList.toggle("is-open", isOpen);
+          toggle.setAttribute("aria-expanded", String(isOpen));
+          sideNav.setAttribute("aria-hidden", String(!isOpen));
+          document.body.style.overflow = isOpen ? "hidden" : "";
+        };
+
+        toggle.addEventListener("click", () => {
+          const isOpen = !sideNav.classList.contains("is-open");
+          setOpen(isOpen);
+        });
+
+        closeButton?.addEventListener("click", () => setOpen(false));
+        backdrop.addEventListener("click", () => setOpen(false));
+
+        sideNav.querySelectorAll("a").forEach((link) => {
+          link.addEventListener("click", () => setOpen(false));
+        });
+
+        document.addEventListener("keydown", (event) => {
+          if (event.key === "Escape") {
+            setOpen(false);
+          }
+        });
+      };
+
       if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", setupCardParallax, { once: true });
+        document.addEventListener(
+          "DOMContentLoaded",
+          () => {
+            setupCardParallax();
+            setupHorizontalWheelScroll();
+            setupSideNav();
+          },
+          { once: true }
+        );
       } else {
         setupCardParallax();
+        setupHorizontalWheelScroll();
+        setupSideNav();
       }
     </script>
   </body>

@@ -1,6 +1,27 @@
-﻿---
+---
 import { contactChannels } from "../data/site";
 import SiteLayout from "../layouts/SiteLayout.astro";
+
+const featuredWorks = [
+  {
+    title: "Резиденция у реки",
+    category: "Жилой интерьер",
+    image: "/images/channel/living-light.jpg",
+    href: "/portfolio/rezidenciya-u-reki/",
+  },
+  {
+    title: "Лобби «Аурум»",
+    category: "Девелопмент",
+    image: "/images/channel/lobby-classic.jpg",
+    href: "/portfolio/lobbi-aurum/",
+  },
+  {
+    title: "Пентхаус «Фрейм»",
+    category: "Премиум-сегмент",
+    image: "/images/channel/living-premium.jpg",
+    href: "/portfolio/penthaus-freym/",
+  },
+];
 ---
 
 <SiteLayout
@@ -13,17 +34,63 @@ import SiteLayout from "../layouts/SiteLayout.astro";
       <p class="eyebrow">Contact</p>
       <h1>Контакты</h1>
       <p class="lead">
-        Контакты вынесены на отдельную страницу, чтобы можно было направлять трафик сразу в точку обращения:
-        из рекламы, мессенджеров, карточек компании и социальных сетей.
+        Обсудим ваш проект. Бесплатная консультация, ответ в течение 24 часов.
+        Свяжитесь любым удобным способом — и мы предложим формат работы под вашу задачу.
       </p>
     </div>
-    <aside class="hero-panel">
-      <p>Ответ</p>
-      <strong>В течение 24 часов</strong>
-      <p>Формат</p>
-      <strong>Письмо, звонок или Telegram</strong>
-    </aside>
+    <button class="hero-panel brief-panel-trigger" type="button" data-brief-open aria-haspopup="dialog" aria-controls="project-brief-modal">
+      <strong>Заполнить бриф проекта</strong>
+    </button>
   </section>
+
+  <div class="brief-modal" id="project-brief-modal" data-brief-modal hidden>
+    <div class="brief-modal__backdrop" data-brief-close></div>
+    <div class="brief-modal__dialog surface" role="dialog" aria-modal="true" aria-labelledby="brief-modal-title">
+      <button class="brief-modal__close" type="button" data-brief-close aria-label="Закрыть">×</button>
+      <div class="brief-modal__content">
+        <p class="eyebrow">Brief</p>
+        <h2 id="brief-modal-title">Заполнить бриф проекта</h2>
+        <p class="lead">
+          Коротко опишите задачу, формат проекта и ожидаемый результат, чтобы мы могли быстро собрать понятный сценарий работы.
+        </p>
+        <div class="brief-modal__grid">
+          <label>
+            <span>Имя / компания</span>
+            <input type="text" placeholder="Как к вам обращаться?" />
+          </label>
+          <label>
+            <span>Контакт</span>
+            <input type="text" placeholder="Telegram, WhatsApp, email или телефон" />
+          </label>
+          <label>
+            <span>Формат проекта</span>
+            <input type="text" placeholder="Частный, B2B, девелопмент..." />
+          </label>
+          <label>
+            <span>Площадь / масштаб</span>
+            <input type="text" placeholder="м2, количество помещений или объектов" />
+          </label>
+          <label class="brief-modal__field-wide">
+            <span>Задача проекта</span>
+            <textarea rows="4" placeholder="Что нужно сделать, какой объём работ нужен и какой результат важен?"></textarea>
+          </label>
+          <label class="brief-modal__field-wide">
+            <span>Сроки и комментарии</span>
+            <textarea rows="4" placeholder="Укажите сроки, ожидания по подаче и важные нюансы проекта."></textarea>
+          </label>
+          <label class="brief-modal__field-wide brief-modal__upload">
+            <span>Файлы проекта</span>
+            <input type="file" multiple accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.webp,.zip,.rar,.dwg" />
+            <small>Можно прикрепить референсы, планы, ТЗ, изображения и сопроводительные материалы.</small>
+          </label>
+        </div>
+        <div class="brief-modal__actions">
+          <a class="button-secondary" href="/contact/">Отправить запрос</a>
+          <button class="button-secondary brief-modal__dismiss" type="button" data-brief-close>Закрыть</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <section class="grid grid-2">
     <div class="surface">
@@ -42,16 +109,160 @@ import SiteLayout from "../layouts/SiteLayout.astro";
       </div>
     </div>
     <div class="surface">
-      <h2 style="font-size: 2rem; margin-bottom: 18px;">Что прислать в первом сообщении</h2>
-      <ul class="list" style="margin-top: 0;">
-        <li>тип объекта и площадь</li>
-        <li>чертежи, планировки или 3D-модель</li>
-        <li>референсы по стилю и атмосфере</li>
-        <li>нужное количество ракурсов и сроки</li>
-      </ul>
-      <p class="muted">
-        Так мы быстрее оценим объём, предложим формат работы и подскажем реалистичный график.
+      <h2 style="font-size: 2rem; margin-bottom: 18px;">Посмотрите, что мы делаем</h2>
+      <div class="contact-portfolio">
+        {featuredWorks.map((work) => (
+          <a href={work.href} class="contact-portfolio-card">
+            <div class="contact-portfolio-img">
+              <img src={work.image} alt={work.title} loading="lazy" />
+            </div>
+            <div class="contact-portfolio-info">
+              <span class="contact-portfolio-category">{work.category}</span>
+              <strong>{work.title}</strong>
+            </div>
+          </a>
+        ))}
+      </div>
+      <p class="muted" style="margin-top: 18px;">
+        Хотите так же? Расскажите о вашем проекте — и мы предложим решение.
       </p>
     </div>
   </section>
+
+  <style>
+    .brief-panel-trigger {
+      width: 100%;
+      cursor: pointer;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.03);
+      transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .brief-panel-trigger:hover {
+      border-color: rgba(255, 255, 255, 0.18);
+      transform: translateY(-2px);
+      box-shadow: 0 16px 32px rgba(0, 0, 0, 0.2);
+    }
+
+    .brief-panel-trigger strong {
+      display: block;
+      font-size: clamp(1.5rem, 2.4vw, 2.05rem);
+      line-height: 1.08;
+      text-align: left;
+    }
+
+    .contact-portfolio {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .contact-portfolio-card {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      padding: 10px;
+      border-radius: 12px;
+      text-decoration: none;
+      color: inherit;
+      transition: background 0.3s ease, transform 0.3s ease;
+      border: 1px solid transparent;
+    }
+
+    .contact-portfolio-card:hover {
+      background: rgba(255, 255, 255, 0.04);
+      border-color: rgba(92, 141, 255, 0.2);
+      transform: translateX(6px);
+    }
+
+    .contact-portfolio-img {
+      width: 80px;
+      height: 80px;
+      border-radius: 10px;
+      overflow: hidden;
+      flex-shrink: 0;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .contact-portfolio-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease, filter 0.3s ease;
+    }
+
+    .contact-portfolio-card:hover .contact-portfolio-img img {
+      transform: scale(1.12);
+      filter: brightness(1.1) contrast(1.05);
+    }
+
+    .contact-portfolio-info {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .contact-portfolio-category {
+      font-size: 0.75rem;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .contact-portfolio-info strong {
+      font-size: 1rem;
+      line-height: 1.3;
+    }
+
+    @media (max-width: 900px) {
+      .contact-portfolio-card {
+        padding: 8px;
+      }
+
+      .contact-portfolio-img {
+        width: 64px;
+        height: 64px;
+      }
+    }
+  </style>
+
+  <script>
+    (() => {
+      const initBriefModal = () => {
+        const modal = document.querySelector("[data-brief-modal]");
+        const openTrigger = document.querySelector("[data-brief-open]");
+        if (!modal || !openTrigger) return;
+
+        const closeModal = () => {
+          modal.setAttribute("hidden", "");
+          document.body.style.overflow = "";
+        };
+
+        const openModal = () => {
+          modal.removeAttribute("hidden");
+          document.body.style.overflow = "hidden";
+        };
+
+        openTrigger.addEventListener("click", openModal);
+
+        modal.addEventListener("click", (event) => {
+          if (event.target.closest("[data-brief-close]")) {
+            closeModal();
+          }
+        });
+
+        document.addEventListener("keydown", (event) => {
+          if (event.key === "Escape" && !modal.hasAttribute("hidden")) {
+            closeModal();
+          }
+        });
+      };
+
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initBriefModal, { once: true });
+      } else {
+        initBriefModal();
+      }
+    })();
+  </script>
 </SiteLayout>

@@ -1,60 +1,173 @@
-﻿---
+---
 import { studioStats } from "../data/site";
 import SiteLayout from "../layouts/SiteLayout.astro";
 ---
 
 <SiteLayout
   title="О студии | INTERIOR.360"
-  description="О студии INTERIOR.360: опыт, подход к визуализации и показатели команды."
+  description="О студии INTERIOR.360: сильная подача интерьеров, понятный процесс и визуализация, которая помогает согласовывать и продавать проект."
   canonicalPath="/about/"
 >
-  <section class="page-hero">
+  <section class="page-hero about-hero">
     <div>
       <p class="eyebrow">About</p>
-      <h1>О студии</h1>
+      <h1>Студия, которая превращает интерьер в убедительную визуальную систему</h1>
       <p class="lead">
-        INTERIOR.360 создаёт фотореалистичные изображения, которые помогают согласовывать решения,
-        продавать идеи и собирать сильную визуальную подачу для проектов интерьера.
+        INTERIOR.360 создаёт не просто красивые изображения, а подачу, которая помогает согласовывать решения,
+        презентовать проект клиенту, усиливать архитектурную идею и готовить пространство к реализации.
       </p>
     </div>
-    <aside class="hero-panel">
-      <p>Подход</p>
-      <strong>Сначала смысл, потом картинка</strong>
-      <p>Инструменты</p>
-      <strong>3ds Max, Corona, V-Ray, Photoshop</strong>
-    </aside>
+    <button class="hero-panel brief-panel-trigger" type="button" data-brief-open aria-haspopup="dialog" aria-controls="project-brief-modal">
+      <strong>Заполнить бриф проекта</strong>
+    </button>
+  </section>
+
+  <div class="brief-modal" id="project-brief-modal" data-brief-modal hidden>
+    <div class="brief-modal__backdrop" data-brief-close></div>
+    <div class="brief-modal__dialog surface" role="dialog" aria-modal="true" aria-labelledby="brief-modal-title">
+      <button class="brief-modal__close" type="button" data-brief-close aria-label="Закрыть">×</button>
+      <div class="brief-modal__content">
+        <p class="eyebrow">Brief</p>
+        <h2 id="brief-modal-title">Заполнить бриф проекта</h2>
+        <p class="lead">
+          Коротко опишите задачу, формат проекта и ожидаемый результат, чтобы мы могли быстро собрать понятный сценарий работы.
+        </p>
+        <div class="brief-modal__grid">
+          <label>
+            <span>Имя / компания</span>
+            <input type="text" placeholder="Как к вам обращаться?" />
+          </label>
+          <label>
+            <span>Контакт</span>
+            <input type="text" placeholder="Telegram, WhatsApp, email или телефон" />
+          </label>
+          <label>
+            <span>Формат проекта</span>
+            <input type="text" placeholder="Частный, B2B, девелопмент..." />
+          </label>
+          <label>
+            <span>Площадь / масштаб</span>
+            <input type="text" placeholder="м2, количество помещений или объектов" />
+          </label>
+          <label class="brief-modal__field-wide">
+            <span>Задача проекта</span>
+            <textarea rows="4" placeholder="Что нужно сделать, какой объём работ нужен и какой результат важен?"></textarea>
+          </label>
+          <label class="brief-modal__field-wide">
+            <span>Сроки и комментарии</span>
+            <textarea rows="4" placeholder="Укажите сроки, ожидания по подаче и важные нюансы проекта."></textarea>
+          </label>
+          <label class="brief-modal__field-wide brief-modal__upload">
+            <span>Файлы проекта</span>
+            <input type="file" multiple accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.webp,.zip,.rar,.dwg" />
+            <small>Можно прикрепить референсы, планы, ТЗ, изображения и сопроводительные материалы.</small>
+          </label>
+        </div>
+        <div class="brief-modal__actions">
+          <a class="button-secondary" href="/contact/">Отправить запрос</a>
+          <button class="button-secondary brief-modal__dismiss" type="button" data-brief-close>Закрыть</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="section about-showcase">
+    <div class="about-showcase-main card">
+      <div class="media-frame">
+        <div class="media-motion">
+          <img class="media" src="/images/channel/living-premium.jpg" alt="Премиальная визуализация интерьера" />
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="kicker">Визуальный язык</p>
+        <h2>Собираем подачу, которая выглядит дорого и работает на решение задачи</h2>
+        <p class="muted">
+          Для нас важны не только свет, материалы и атмосфера, но и то, как кадр будет считываться клиентом,
+          партнёром, инвестором или отделом продаж.
+        </p>
+      </div>
+    </div>
+
+    <div class="about-showcase-side">
+      <article class="surface about-note">
+        <p class="kicker">Позиционирование</p>
+        <h3>Эстетика, логика и коммерческий смысл в одном проекте</h3>
+        <p class="muted">
+          Визуализация должна не украшать проект, а объяснять его, усиливать и делать убедительным на каждом этапе.
+        </p>
+      </article>
+
+      <article class="card about-mini-card">
+        <div class="media-frame">
+          <div class="media-motion">
+            <img class="media" src="/images/channel/dining-minimal.jpg" alt="Светлая интерьерная сцена" />
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="kicker">Результат</p>
+          <p class="muted">
+            Финальный материал выглядит цельно, презентабельно и готов к согласованию, публикации и продаже.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="about-manifesto surface">
+      <p class="kicker">Манифест студии</p>
+      <h2>Мы не делаем визуализацию отдельно от проекта. Мы собираем инструмент, который помогает проекту двигаться дальше.</h2>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">Почему выбирают INTERIOR.360</h2>
+    <div class="grid grid-3">
+      <article class="surface about-feature">
+        <p class="kicker">01</p>
+        <h3>Понимаем задачу, а не только картинку</h3>
+        <p class="muted">
+          Сначала разбираем, для чего создаётся подача: согласование, продажа, презентация бренда или подготовка к реализации.
+        </p>
+      </article>
+      <article class="surface about-feature">
+        <p class="kicker">02</p>
+        <h3>Собираем цельную визуальную систему</h3>
+        <p class="muted">
+          Следим за тем, чтобы ракурсы, свет, материалы и атмосфера работали как единый язык проекта, а не как набор случайных кадров.
+        </p>
+      </article>
+      <article class="surface about-feature">
+        <p class="kicker">03</p>
+        <h3>Делаем результат, с которым удобно работать</h3>
+        <p class="muted">
+          На выходе клиент получает понятный и презентабельный материал, который легко показывать, обсуждать и использовать дальше.
+        </p>
+      </article>
+    </div>
   </section>
 
   <section class="section">
     <div class="grid grid-2">
-      <div class="surface">
-        <h2 style="font-size: 2rem; margin-bottom: 16px;">Что важно для нас</h2>
-        <p class="muted">
-          Мы не делаем изображения ради декоративного эффекта. Каждая сцена должна решать задачу:
-          убедить инвестора, согласовать интерьер, усилить презентацию или помочь отделу продаж.
-        </p>
-        <p class="muted">
-          Поэтому на отдельной странице о студии мы объясняем не только кто мы, но и как именно думаем
-          о результате для клиента.
-        </p>
-      </div>
-      <article class="card">
-        <div class="media-frame">
-          <div class="media-motion">
-            <img
-              class="media"
-              src="/images/channel/arches-lounge.jpg"
-              alt="Команда студии за работой"
-            />
-          </div>
-        </div>
-        <div class="card-body">
-          <p class="kicker">Команда</p>
-          <p class="muted">
-            Работаем с жилыми и коммерческими пространствами, собираем понятный production и следим,
-            чтобы подача была убедительной не только для профессионального сообщества, но и для конечного клиента.
-          </p>
-        </div>
+      <article class="surface">
+        <p class="kicker">Подход</p>
+        <h2 style="font-size: 2rem; margin-top: 10px;">Как мы строим работу</h2>
+        <ul class="list">
+          <li>Погружаемся в задачу, контекст проекта и формат финальной подачи</li>
+          <li>Формируем визуальную логику: стиль, атмосферу, материалы и акценты</li>
+          <li>Прорабатываем ракурсы, световую среду и композицию пространства</li>
+          <li>Собираем финальный комплект материалов для согласования, презентации и реализации</li>
+        </ul>
+      </article>
+      <article class="surface">
+        <p class="kicker">Для клиента</p>
+        <h2 style="font-size: 2rem; margin-top: 10px;">Что это даёт на практике</h2>
+        <ul class="list">
+          <li>Меньше правок и повторных согласований</li>
+          <li>Более точное понимание будущего пространства</li>
+          <li>Уверенную презентацию проекта перед заказчиком или партнёрами</li>
+          <li>Визуальную основу для запуска, публикации или продаж</li>
+        </ul>
       </article>
     </div>
   </section>
@@ -70,6 +183,175 @@ import SiteLayout from "../layouts/SiteLayout.astro";
       ))}
     </div>
   </section>
+
+  <section class="section">
+    <div class="about-cta surface">
+      <div>
+        <p class="kicker">Следующий шаг</p>
+        <h2>Если вам нужна подача, которая выглядит сильно и работает на результат, мы можем подключиться к проекту</h2>
+      </div>
+      <p class="muted">
+        Работаем с частными интерьерами, коммерческими пространствами, бренд-средой и материалами для девелоперов.
+        Подбираем формат работы под задачу проекта и собираем подачу, которая действительно помогает двигаться дальше.
+      </p>
+      <div class="button-row">
+        <a class="button" href="/contact/">Обсудить проект</a>
+        <a class="button-secondary" href="/services/">Смотреть услуги</a>
+      </div>
+    </div>
+  </section>
 </SiteLayout>
 
+<style>
+  .about-hero {
+    align-items: stretch;
+  }
 
+  .brief-panel-trigger {
+    width: 100%;
+    cursor: pointer;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.03);
+    transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .brief-panel-trigger:hover {
+    border-color: rgba(255, 255, 255, 0.18);
+    transform: translateY(-2px);
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.2);
+  }
+
+  .brief-panel-trigger strong {
+    display: block;
+    font-size: clamp(1.5rem, 2.4vw, 2.05rem);
+    line-height: 1.08;
+    text-align: left;
+  }
+
+  .about-panel {
+    background:
+      linear-gradient(180deg, rgba(215, 181, 132, 0.18), rgba(24, 20, 17, 0.92)),
+      radial-gradient(circle at top, rgba(255, 232, 201, 0.28), transparent 58%);
+  }
+
+  .about-showcase {
+    display: grid;
+    gap: 24px;
+    grid-template-columns: 1.45fr 0.95fr;
+  }
+
+  .about-showcase-main,
+  .about-showcase-side {
+    min-width: 0;
+  }
+
+  .about-showcase-main .media-frame {
+    min-height: 420px;
+  }
+
+  .about-showcase-main .media {
+    min-height: 420px;
+    object-fit: cover;
+  }
+
+  .about-showcase-main h2,
+  .about-manifesto h2,
+  .about-cta h2 {
+    font-size: clamp(2rem, 3vw, 3rem);
+    line-height: 1.08;
+    margin: 10px 0 0;
+  }
+
+  .about-showcase-side {
+    display: grid;
+    gap: 24px;
+    align-content: stretch;
+  }
+
+  .about-note,
+  .about-mini-card {
+    height: 100%;
+  }
+
+  .about-note h3,
+  .about-feature h3 {
+    margin: 10px 0 0;
+    font-size: 1.45rem;
+  }
+
+  .about-mini-card .media-frame {
+    min-height: 230px;
+  }
+
+  .about-mini-card .media {
+    min-height: 230px;
+    object-fit: cover;
+  }
+
+  .about-manifesto {
+    text-align: center;
+    gap: 14px;
+    background:
+      linear-gradient(180deg, rgba(255, 248, 236, 0.05), rgba(0, 0, 0, 0.08)),
+      radial-gradient(circle at top, rgba(225, 192, 144, 0.12), transparent 60%);
+  }
+
+  .about-cta {
+    display: grid;
+    gap: 18px;
+    background:
+      linear-gradient(180deg, rgba(215, 181, 132, 0.12), rgba(18, 15, 12, 0.9)),
+      radial-gradient(circle at right top, rgba(255, 232, 201, 0.18), transparent 45%);
+  }
+
+  @media (max-width: 900px) {
+    .about-showcase {
+      grid-template-columns: 1fr;
+    }
+
+    .about-showcase-main .media-frame,
+    .about-showcase-main .media {
+      min-height: 320px;
+    }
+  }
+</style>
+
+<script>
+  (() => {
+    const initBriefModal = () => {
+      const modal = document.querySelector("[data-brief-modal]");
+      const openTrigger = document.querySelector("[data-brief-open]");
+      if (!modal || !openTrigger) return;
+
+      const closeModal = () => {
+        modal.setAttribute("hidden", "");
+        document.body.style.overflow = "";
+      };
+
+      const openModal = () => {
+        modal.removeAttribute("hidden");
+        document.body.style.overflow = "hidden";
+      };
+
+      openTrigger.addEventListener("click", openModal);
+
+      modal.addEventListener("click", (event) => {
+        if (event.target.closest("[data-brief-close]")) {
+          closeModal();
+        }
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && !modal.hasAttribute("hidden")) {
+          closeModal();
+        }
+      });
+    };
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initBriefModal, { once: true });
+    } else {
+      initBriefModal();
+    }
+  })();
+</script>
