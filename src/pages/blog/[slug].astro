@@ -1,4 +1,4 @@
-﻿---
+---
 import { getCollection, render } from "astro:content";
 import SiteLayout from "../../layouts/SiteLayout.astro";
 
@@ -36,12 +36,9 @@ const formatBlogDate = (date: Date) =>
         {formatBlogDate(post.data.date)} · {post.data.readingTime} · {post.data.author}
       </p>
     </div>
-    <aside class="hero-panel">
-      <p>Раздел</p>
-      <strong>Блог INTERIOR.360</strong>
-      <p>Назад</p>
-      <strong><a href="/blog/" style="text-decoration: none;">Ко всем статьям</a></strong>
-    </aside>
+    <button class="hero-panel brief-panel-trigger" type="button" data-brief-open aria-haspopup="dialog" aria-controls="project-brief-modal">
+      <strong>Заполнить бриф проекта</strong>
+    </button>
   </section>
 
   <img

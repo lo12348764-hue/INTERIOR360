@@ -43,55 +43,6 @@ const featuredWorks = [
     </button>
   </section>
 
-  <div class="brief-modal" id="project-brief-modal" data-brief-modal hidden>
-    <div class="brief-modal__backdrop" data-brief-close></div>
-    <div class="brief-modal__dialog surface" role="dialog" aria-modal="true" aria-labelledby="brief-modal-title">
-      <button class="brief-modal__close" type="button" data-brief-close aria-label="Закрыть">×</button>
-      <div class="brief-modal__content">
-        <p class="eyebrow">Brief</p>
-        <h2 id="brief-modal-title">Заполнить бриф проекта</h2>
-        <p class="lead">
-          Коротко опишите задачу, формат проекта и ожидаемый результат, чтобы мы могли быстро собрать понятный сценарий работы.
-        </p>
-        <div class="brief-modal__grid">
-          <label>
-            <span>Имя / компания</span>
-            <input type="text" placeholder="Как к вам обращаться?" />
-          </label>
-          <label>
-            <span>Контакт</span>
-            <input type="text" placeholder="Telegram, WhatsApp, email или телефон" />
-          </label>
-          <label>
-            <span>Формат проекта</span>
-            <input type="text" placeholder="Частный, B2B, девелопмент..." />
-          </label>
-          <label>
-            <span>Площадь / масштаб</span>
-            <input type="text" placeholder="м2, количество помещений или объектов" />
-          </label>
-          <label class="brief-modal__field-wide">
-            <span>Задача проекта</span>
-            <textarea rows="4" placeholder="Что нужно сделать, какой объём работ нужен и какой результат важен?"></textarea>
-          </label>
-          <label class="brief-modal__field-wide">
-            <span>Сроки и комментарии</span>
-            <textarea rows="4" placeholder="Укажите сроки, ожидания по подаче и важные нюансы проекта."></textarea>
-          </label>
-          <label class="brief-modal__field-wide brief-modal__upload">
-            <span>Файлы проекта</span>
-            <input type="file" multiple accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.webp,.zip,.rar,.dwg" />
-            <small>Можно прикрепить референсы, планы, ТЗ, изображения и сопроводительные материалы.</small>
-          </label>
-        </div>
-        <div class="brief-modal__actions">
-          <a class="button-secondary" href="/contact/">Отправить запрос</a>
-          <button class="button-secondary brief-modal__dismiss" type="button" data-brief-close>Закрыть</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <section class="grid grid-2">
     <div class="surface">
       <h2 style="font-size: 2rem; margin-bottom: 18px;">Как связаться</h2>
@@ -130,43 +81,28 @@ const featuredWorks = [
   </section>
 
   <style>
-    .brief-panel-trigger {
-      width: 100%;
-      cursor: pointer;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      background: rgba(255, 255, 255, 0.03);
-      transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .brief-panel-trigger:hover {
-      border-color: rgba(255, 255, 255, 0.18);
-      transform: translateY(-2px);
-      box-shadow: 0 16px 32px rgba(0, 0, 0, 0.2);
-    }
-
-    .brief-panel-trigger strong {
-      display: block;
-      font-size: clamp(1.5rem, 2.4vw, 2.05rem);
-      line-height: 1.08;
-      text-align: left;
-    }
-
     .contact-portfolio {
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
       gap: 12px;
+      flex: 1;
+      align-self: stretch;
     }
 
     .contact-portfolio-card {
       display: flex;
-      gap: 14px;
-      align-items: center;
+      flex-direction: column;
+      gap: 8px;
+      align-items: flex-start;
       padding: 10px;
       border-radius: 12px;
       text-decoration: none;
       color: inherit;
       transition: background 0.3s ease, transform 0.3s ease;
       border: 1px solid transparent;
+      flex: 1;
+      min-width: 0;
+      height: 100%;
     }
 
     .contact-portfolio-card:hover {
@@ -176,8 +112,9 @@ const featuredWorks = [
     }
 
     .contact-portfolio-img {
-      width: 80px;
-      height: 80px;
+      width: 100%;
+      flex: 1;
+      min-height: 120px;
       border-radius: 10px;
       overflow: hidden;
       flex-shrink: 0;
@@ -219,50 +156,13 @@ const featuredWorks = [
         padding: 8px;
       }
 
+      .contact-portfolio {
+        flex-direction: column;
+      }
+
       .contact-portfolio-img {
-        width: 64px;
-        height: 64px;
+        height: 140px;
       }
     }
   </style>
-
-  <script>
-    (() => {
-      const initBriefModal = () => {
-        const modal = document.querySelector("[data-brief-modal]");
-        const openTrigger = document.querySelector("[data-brief-open]");
-        if (!modal || !openTrigger) return;
-
-        const closeModal = () => {
-          modal.setAttribute("hidden", "");
-          document.body.style.overflow = "";
-        };
-
-        const openModal = () => {
-          modal.removeAttribute("hidden");
-          document.body.style.overflow = "hidden";
-        };
-
-        openTrigger.addEventListener("click", openModal);
-
-        modal.addEventListener("click", (event) => {
-          if (event.target.closest("[data-brief-close]")) {
-            closeModal();
-          }
-        });
-
-        document.addEventListener("keydown", (event) => {
-          if (event.key === "Escape" && !modal.hasAttribute("hidden")) {
-            closeModal();
-          }
-        });
-      };
-
-      if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", initBriefModal, { once: true });
-      } else {
-        initBriefModal();
-      }
-    })();
-  </script>
 </SiteLayout>

@@ -23,12 +23,9 @@ const { item } = Astro.props;
       <p class="lead">{item.description}</p>
       <p class="project-location">{item.location}</p>
     </div>
-    <aside class="hero-panel">
-      <p>&#1055;&#1088;&#1086;&#1077;&#1082;&#1090;</p>
-      <strong>{item.title}</strong>
-      <p>&#1051;&#1086;&#1082;&#1072;&#1094;&#1080;&#1103;</p>
-      <strong>{item.location}</strong>
-    </aside>
+    <button class="hero-panel brief-panel-trigger" type="button" data-brief-open aria-haspopup="dialog" aria-controls="project-brief-modal">
+      <strong>Заполнить бриф проекта</strong>
+    </button>
   </section>
 
   <section class="card project-showcase">

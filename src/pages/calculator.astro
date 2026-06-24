@@ -12,20 +12,418 @@ import SiteLayout from "../layouts/SiteLayout.astro";
       <p class="eyebrow">Calculator</p>
       <h1>Калькулятор проекта</h1>
       <p class="lead">
-        Отдельный раздел для быстрого расчёта стоимости, этапов проекта и ориентиров по комплектации и реализации.
+        Выберите нужные услуги, укажите параметры — и получите ориентировочный расчёт стоимости проекта.
       </p>
     </div>
-    <aside class="hero-panel">
-      <p>Фокус</p>
-      <strong>Понять бюджет, объём работ и структуру проекта ещё до консультации</strong>
-      <p>Подходит для</p>
-      <strong>Частных, B2B и девелоперских проектов</strong>
-    </aside>
+    <button class="hero-panel brief-panel-trigger" type="button" data-brief-open aria-haspopup="dialog" aria-controls="project-brief-modal">
+      <strong>Заполнить бриф проекта</strong>
+    </button>
+  </section>
+
+  <section class="calc-section">
+    <div class="calc-grid">
+      <div class="surface calc-form">
+        <h2>Параметры проекта</h2>
+
+        <div class="calc-field">
+          <label>Тип объекта</label>
+          <select id="objectType">
+            <option value="apartment">Квартира</option>
+            <option value="house">Частный дом</option>
+            <option value="office">Офис</option>
+            <option value="commercial">Коммерческое пространство</option>
+            <option value="hospitality">Гостиница / Ресторан</option>
+          </select>
+        </div>
+
+        <div class="calc-field">
+          <label>Площадь, м²</label>
+          <input type="number" id="area" value="80" min="10" max="1000" />
+        </div>
+
+        <div class="calc-field">
+          <label>Количество помещений</label>
+          <input type="number" id="rooms" value="4" min="1" max="50" />
+        </div>
+
+        <div class="calc-field">
+          <label>Уровень отделки</label>
+          <select id="finishLevel">
+            <option value="standard">Стандарт</option>
+            <option value="premium" selected>Премиум</option>
+            <option value="luxury">Люкс</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="surface calc-services">
+        <h2>Выберите услуги</h2>
+        <div class="calc-services-list">
+          <label class="calc-checkbox">
+            <input type="checkbox" id="service-concept" checked />
+            <span class="calc-checkbox-mark"></span>
+            <div>
+              <strong>Концептуальный стиль</strong>
+              <p class="muted">Коллажи, материалы, атмосфера</p>
+            </div>
+          </label>
+
+          <label class="calc-checkbox">
+            <input type="checkbox" id="service-docs" />
+            <span class="calc-checkbox-mark"></span>
+            <div>
+              <strong>Рабочая документация</strong>
+              <p class="muted">Чертежи, планы, спецификации</p>
+            </div>
+          </label>
+
+          <label class="calc-checkbox">
+            <input type="checkbox" id="service-3d" checked />
+            <span class="calc-checkbox-mark"></span>
+            <div>
+              <strong>3D Визуализация</strong>
+              <p class="muted">Фотореалистичные рендеры</p>
+            </div>
+          </label>
+
+          <label class="calc-checkbox">
+            <input type="checkbox" id="service-animation" />
+            <span class="calc-checkbox-mark"></span>
+            <div>
+              <strong>Анимация / Walkthrough</strong>
+              <p class="muted">Видео-прогулка по проекту</p>
+            </div>
+          </label>
+
+          <label class="calc-checkbox">
+            <input type="checkbox" id="service-developer" />
+            <span class="calc-checkbox-mark"></span>
+            <div>
+              <strong>Подача для девелоперов</strong>
+              <p class="muted">Маркетинговые материалы</p>
+            </div>
+          </label>
+
+          <label class="calc-checkbox">
+            <input type="checkbox" id="service-supervision" />
+            <span class="calc-checkbox-mark"></span>
+            <div>
+              <strong>Авторский надзор</strong>
+              <p class="muted">Контроль реализации на объекте</p>
+            </div>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="surface calc-result" id="calcResult">
+      <div class="calc-result-header">
+        <h2>Ориентировочный расчёт</h2>
+        <p class="muted">Точная стоимость определяется после брифа</p>
+      </div>
+      <div class="calc-result-grid" id="calcBreakdown"></div>
+      <div class="calc-result-total">
+        <span>ИТОГО</span>
+        <strong id="calcTotal">0 ₽</strong>
+      </div>
+      <div class="calc-result-actions">
+        <button class="button" type="button" data-brief-open>Заполнить бриф проекта</button>
+        <a class="button-secondary" href="/contact/">Связаться с нами</a>
+      </div>
+    </div>
   </section>
 </SiteLayout>
 
 <style is:inline>
-  .page-hero .eyebrow {
-    color: #b8ff6a;
+  .calc-section {
+    display: grid;
+    gap: 24px;
+  }
+
+  .calc-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  .calc-form h2,
+  .calc-services h2 {
+    margin-bottom: 20px;
+    font-size: clamp(1.4rem, 2.4vw, 1.8rem);
+    line-height: 1.1;
+  }
+
+  .calc-field {
+    display: grid;
+    gap: 8px;
+    margin-bottom: 18px;
+  }
+
+  .calc-field label {
+    color: var(--muted);
+    font-size: 0.76rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+  }
+
+  .calc-field select,
+  .calc-field input {
+    width: 100%;
+    padding: 16px 18px;
+    border-radius: 10px;
+    border: 1px solid rgba(156, 202, 255, 0.2);
+    background: rgba(255, 255, 255, 0.03);
+    color: var(--text);
+    font: inherit;
+    font-size: 1rem;
+    transition: border-color 0.2s ease;
+  }
+
+  .calc-field select:focus,
+  .calc-field input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 18px rgba(92, 141, 255, 0.14);
+  }
+
+  .calc-field select option {
+    background: #0a0c10;
+    color: var(--text);
+  }
+
+  .calc-services-list {
+    display: grid;
+    gap: 12px;
+  }
+
+  .calc-checkbox {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 16px;
+    border-radius: 10px;
+    border: 1px solid rgba(156, 202, 255, 0.18);
+    background: rgba(255, 255, 255, 0.02);
+    cursor: pointer;
+    transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .calc-checkbox:hover {
+    border-color: rgba(156, 202, 255, 0.34);
+    background: rgba(255, 255, 255, 0.04);
+    box-shadow: 0 0 18px rgba(92, 141, 255, 0.1);
+  }
+
+  .calc-checkbox input {
+    display: none;
+  }
+
+  .calc-checkbox-mark {
+    width: 22px;
+    height: 22px;
+    border-radius: 6px;
+    border: 2px solid rgba(156, 202, 255, 0.3);
+    flex-shrink: 0;
+    margin-top: 2px;
+    transition: background 0.2s ease, border-color 0.2s ease;
+    position: relative;
+  }
+
+  .calc-checkbox input:checked + .calc-checkbox-mark {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .calc-checkbox input:checked + .calc-checkbox-mark::after {
+    content: "";
+    position: absolute;
+    top: 3px;
+    left: 6px;
+    width: 6px;
+    height: 10px;
+    border: solid #fff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+
+  .calc-checkbox strong {
+    display: block;
+    font-size: 1rem;
+    line-height: 1.2;
+    margin-bottom: 4px;
+  }
+
+  .calc-checkbox .muted {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .calc-result {
+    padding: 32px;
+  }
+
+  .calc-result-header {
+    margin-bottom: 24px;
+  }
+
+  .calc-result-header h2 {
+    margin-bottom: 6px;
+    font-size: clamp(1.4rem, 2.4vw, 1.8rem);
+    line-height: 1.1;
+  }
+
+  .calc-result-grid {
+    display: grid;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .calc-result-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .calc-result-row span {
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+
+  .calc-result-row strong {
+    font-size: 1rem;
+    color: var(--text);
+  }
+
+  .calc-result-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+    border-top: 2px solid var(--accent);
+    margin-bottom: 24px;
+  }
+
+  .calc-result-total span {
+    font-size: 0.76rem;
+    text-transform: uppercase;
+    letter-spacing: 0.28em;
+    color: var(--muted);
+  }
+
+  .calc-result-total strong {
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    color: var(--accent);
+  }
+
+  .calc-result-actions {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+
+  @media (max-width: 740px) {
+    .calc-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .calc-result {
+      padding: 20px;
+    }
+
+    .calc-result-actions {
+      flex-direction: column;
+    }
+
+    .calc-result-actions .button,
+    .calc-result-actions .button-secondary {
+      width: 100%;
+    }
   }
 </style>
+
+<script>
+  const prices = {
+    concept: { base: 75000, perM2: 750, perRoom: 14000 },
+    docs: { base: 110000, perM2: 1100, perRoom: 18000 },
+    "3d": { base: 55000, perM2: 850, perRoom: 16000 },
+    animation: { base: 140000, perM2: 1400, perRoom: 23000 },
+    developer: { base: 95000, perM2: 950, perRoom: 15000 },
+    supervision: { base: 75000, perM2: 550, perRoom: 11000 },
+  };
+
+  const multipliers = {
+    standard: 0.8,
+    premium: 1,
+    luxury: 1.4,
+  };
+
+  const serviceNames = {
+    concept: "Концептуальный стиль",
+    docs: "Рабочая документация",
+    "3d": "3D Визуализация",
+    animation: "Анимация / Walkthrough",
+    developer: "Подача для девелоперов",
+    supervision: "Авторский надзор",
+  };
+
+  function formatPrice(n) {
+    return new Intl.NumberFormat("ru-RU").format(Math.round(n)) + " ₽";
+  }
+
+  function calculate() {
+    const area = parseFloat(document.getElementById("area").value) || 80;
+    const rooms = parseInt(document.getElementById("rooms").value) || 4;
+    const finish = document.getElementById("finishLevel").value;
+    const multiplier = multipliers[finish];
+
+    const services = [
+      "concept",
+      "docs",
+      "3d",
+      "animation",
+      "developer",
+      "supervision",
+    ];
+
+    let total = 0;
+    const breakdown = [];
+
+    services.forEach((key) => {
+      const checkbox = document.getElementById(`service-${key}`);
+      if (checkbox && checkbox.checked) {
+        const p = prices[key];
+        const cost = (p.base + p.perM2 * area + p.perRoom * rooms) * multiplier;
+        total += cost;
+        breakdown.push({ name: serviceNames[key], cost });
+      }
+    });
+
+    const breakdownEl = document.getElementById("calcBreakdown");
+    breakdownEl.innerHTML = breakdown
+      .map(
+        (item) => `
+      <div class="calc-result-row">
+        <span>${item.name}</span>
+        <strong>${formatPrice(item.cost)}</strong>
+      </div>
+    `
+      )
+      .join("");
+
+    document.getElementById("calcTotal").textContent = formatPrice(total);
+  }
+
+  document.querySelectorAll("#objectType, #area, #rooms, #finishLevel").forEach((el) => {
+    el.addEventListener("input", calculate);
+    el.addEventListener("change", calculate);
+  });
+
+  document.querySelectorAll('.calc-checkbox input[type="checkbox"]').forEach((el) => {
+    el.addEventListener("change", calculate);
+  });
+
+  calculate();
+</script>

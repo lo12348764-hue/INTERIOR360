@@ -1,4 +1,4 @@
-﻿---
+---
 import { getCollection } from "astro:content";
 import BlogCard from "../../components/BlogCard.astro";
 import SiteLayout from "../../layouts/SiteLayout.astro";
@@ -29,12 +29,9 @@ const formatBlogDate = (date: Date) =>
         которую можно развивать для SEO и экспертной коммуникации.
       </p>
     </div>
-    <aside class="hero-panel">
-      <p>Материалов</p>
-      <strong>{posts.length}</strong>
-      <p>Формат</p>
-      <strong>Полноценные страницы статей</strong>
-    </aside>
+    <button class="hero-panel brief-panel-trigger" type="button" data-brief-open aria-haspopup="dialog" aria-controls="project-brief-modal">
+      <strong>Заполнить бриф проекта</strong>
+    </button>
   </section>
 
   <section class="grid grid-visual">

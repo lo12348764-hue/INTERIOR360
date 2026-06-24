@@ -11,22 +11,15 @@ import SiteLayout from "../layouts/SiteLayout.astro";
   <section class="page-hero about-hero">
     <div>
       <p class="eyebrow">About</p>
-      <h1>Студия, которая превращает интерьер в убедительную визуальную систему</h1>
+      <h1 style="font-size: clamp(1.8rem, 3.8vw, 3rem); line-height: 1.1;">Студия, которая превращает интерьер в убедительную визуальную систему</h1>
       <p class="lead">
         INTERIOR.360 создаёт не просто красивые изображения, а подачу, которая помогает согласовывать решения,
         презентовать проект клиенту, усиливать архитектурную идею и готовить пространство к реализации.
       </p>
-      <div class="button-row">
-        <a class="button" href="/portfolio/">Смотреть портфолио</a>
-        <a class="button-secondary" href="/services/">Узнать об услугах</a>
-      </div>
     </div>
-    <aside class="hero-panel about-panel">
-      <p>Для кого</p>
-      <strong>Частные интерьеры, B2B-пространства, девелоперские проекты и презентации для продаж</strong>
-      <p>Что получает клиент</p>
-      <strong>Понятную структуру работы, сильную визуальную подачу и результат, который удобно согласовывать и показывать</strong>
-    </aside>
+    <button class="hero-panel brief-panel-trigger" type="button" data-brief-open aria-haspopup="dialog" aria-controls="project-brief-modal">
+      <strong>Заполнить бриф проекта</strong>
+    </button>
   </section>
 
   <section class="section about-showcase">
@@ -162,7 +155,7 @@ import SiteLayout from "../layouts/SiteLayout.astro";
 
 <style>
   .about-hero {
-    align-items: stretch;
+    align-items: end;
   }
 
   .about-panel {

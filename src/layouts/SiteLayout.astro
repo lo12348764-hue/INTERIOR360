@@ -1,4 +1,4 @@
-﻿---
+---
 import { navigation } from "../data/site";
 
 interface Props {
@@ -932,6 +932,217 @@ const canonicalUrl = new URL(canonicalPath, siteUrl).toString();
           font-size: 0.92rem;
           letter-spacing: 0.06em;
         }
+
+        .brief-panel-trigger {
+          min-height: 108px;
+          padding: 18px;
+        }
+
+        .brief-panel-trigger strong {
+          font-size: 1.28rem;
+          line-height: 1.08;
+        }
+
+        .brief-modal__dialog {
+          width: 100vw;
+          max-height: 100vh;
+          min-height: 100vh;
+          margin: 0;
+          border-radius: 0;
+          padding: 56px 16px 22px;
+        }
+
+        .brief-modal__grid {
+          grid-template-columns: 1fr;
+          gap: 14px;
+          margin-top: 20px;
+        }
+
+        .brief-modal__content .lead {
+          font-size: 0.92rem;
+          line-height: 1.65;
+        }
+
+        .brief-modal__grid span {
+          font-size: 0.72rem;
+          letter-spacing: 0.12em;
+        }
+
+        .brief-modal__grid input,
+        .brief-modal__grid textarea {
+          border-radius: 14px;
+          padding: 14px 15px;
+          font-size: 0.95rem;
+        }
+
+        .brief-modal__upload input[type="file"] {
+          padding: 12px 14px;
+        }
+
+        .brief-modal__upload input[type="file"]::file-selector-button {
+          display: block;
+          width: 100%;
+          margin: 0 0 10px;
+          text-align: center;
+        }
+
+        .brief-modal__actions {
+          gap: 10px;
+          margin-top: 20px;
+        }
+
+        .brief-modal__actions .button-secondary {
+          width: 100%;
+        }
+
+        .brief-modal__close {
+          top: 12px;
+          right: 12px;
+          width: 40px;
+          height: 40px;
+        }
+      }
+
+      .brief-panel-trigger {
+        width: 100%;
+        cursor: pointer;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(255, 255, 255, 0.03);
+        transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .brief-panel-trigger:hover {
+        border-color: rgba(255, 255, 255, 0.18);
+        transform: translateY(-2px);
+        box-shadow: 0 16px 32px rgba(0, 0, 0, 0.2);
+      }
+
+      .brief-panel-trigger strong {
+        display: block;
+        font-size: clamp(1.5rem, 2.4vw, 2.05rem);
+        line-height: 1.08;
+        text-align: left;
+      }
+
+      .brief-modal[hidden] {
+        display: none;
+      }
+
+      .brief-modal {
+        position: fixed;
+        inset: 0;
+        z-index: 80;
+      }
+
+      .brief-modal__backdrop {
+        position: absolute;
+        inset: 0;
+        background: rgba(4, 6, 12, 0.82);
+        backdrop-filter: blur(14px);
+      }
+
+      .brief-modal__dialog {
+        position: relative;
+        z-index: 1;
+        width: min(1120px, calc(100vw - 32px));
+        max-height: calc(100vh - 32px);
+        margin: 16px auto;
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding: 28px;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+      }
+
+      .brief-modal__dialog::-webkit-scrollbar {
+        width: 0;
+        height: 0;
+      }
+
+      .brief-modal__close {
+        position: absolute;
+        top: 18px;
+        right: 18px;
+        width: 42px;
+        height: 42px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(255, 255, 255, 0.04);
+        color: #ffffff;
+        font-size: 1.6rem;
+        cursor: pointer;
+      }
+
+      .brief-modal__content h2 {
+        margin-bottom: 10px;
+      }
+
+      .brief-modal__grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+        margin-top: 30px;
+      }
+
+      .brief-modal__grid label {
+        display: grid;
+        gap: 10px;
+      }
+
+      .brief-modal__grid span {
+        color: rgba(255, 255, 255, 0.72);
+        font-size: 0.9rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .brief-modal__grid input,
+      .brief-modal__grid textarea {
+        width: 100%;
+        border-radius: 18px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(255, 255, 255, 0.03);
+        color: #ffffff;
+        padding: 16px 18px;
+        font: inherit;
+        resize: vertical;
+        overflow-x: hidden;
+      }
+
+      .brief-modal__field-wide {
+        grid-column: 1 / -1;
+      }
+
+      .brief-modal__upload input[type="file"] {
+        padding: 14px 16px;
+        cursor: pointer;
+      }
+
+      .brief-modal__upload input[type="file"]::file-selector-button {
+        margin-right: 14px;
+        border: 1px solid rgba(184, 255, 106, 0.45);
+        border-radius: 999px;
+        background: rgba(184, 255, 106, 0.08);
+        color: #b8ff6a;
+        padding: 10px 16px;
+        font: inherit;
+        cursor: pointer;
+      }
+
+      .brief-modal__upload small {
+        color: rgba(255, 255, 255, 0.54);
+        line-height: 1.5;
+      }
+
+      .brief-modal__actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 28px;
+      }
+
+      .brief-modal__dismiss {
+        background: transparent;
       }
 
       @keyframes borderSheen {
@@ -1120,6 +1331,56 @@ const canonicalUrl = new URL(canonicalPath, siteUrl).toString();
         </div>
       </footer>
     </div>
+
+    <div class="brief-modal" id="project-brief-modal" data-brief-modal hidden>
+      <div class="brief-modal__backdrop" data-brief-close></div>
+      <div class="brief-modal__dialog surface" role="dialog" aria-modal="true" aria-labelledby="brief-modal-title">
+        <button class="brief-modal__close" type="button" data-brief-close aria-label="Закрыть">×</button>
+        <div class="brief-modal__content">
+          <p class="eyebrow">Brief</p>
+          <h2 id="brief-modal-title">Заполнить бриф проекта</h2>
+          <p class="lead">
+            Коротко опишите задачу, формат проекта и ожидаемый результат, чтобы мы могли быстро собрать понятный сценарий работы.
+          </p>
+          <div class="brief-modal__grid">
+            <label>
+              <span>Имя / компания</span>
+              <input type="text" placeholder="Как к вам обращаться?" />
+            </label>
+            <label>
+              <span>Контакт</span>
+              <input type="text" placeholder="Telegram, WhatsApp, email или телефон" />
+            </label>
+            <label>
+              <span>Формат проекта</span>
+              <input type="text" placeholder="Частный, B2B, девелопмент..." />
+            </label>
+            <label>
+              <span>Площадь / масштаб</span>
+              <input type="text" placeholder="м2, количество помещений или объектов" />
+            </label>
+            <label class="brief-modal__field-wide">
+              <span>Задача проекта</span>
+              <textarea rows="4" placeholder="Что нужно сделать, какой объём работ нужен и какой результат важен?"></textarea>
+            </label>
+            <label class="brief-modal__field-wide">
+              <span>Сроки и комментарии</span>
+              <textarea rows="4" placeholder="Укажите сроки, ожидания по подаче и важные нюансы проекта."></textarea>
+            </label>
+            <label class="brief-modal__field-wide brief-modal__upload">
+              <span>Файлы проекта</span>
+              <input type="file" multiple accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.webp,.zip,.rar,.dwg" />
+              <small>Можно прикрепить референсы, планы, ТЗ, изображения и сопроводительные материалы.</small>
+            </label>
+          </div>
+          <div class="brief-modal__actions">
+            <a class="button-secondary" href="/contact/">Отправить запрос</a>
+            <button class="button-secondary brief-modal__dismiss" type="button" data-brief-close>Закрыть</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <script>
       const setupCardParallax = () => {
         const cards = document.querySelectorAll(".card");
@@ -1245,6 +1506,39 @@ const canonicalUrl = new URL(canonicalPath, siteUrl).toString();
         });
       };
 
+      const setupBriefModal = () => {
+        const modal = document.querySelector("[data-brief-modal]");
+        if (!modal) return;
+
+        const openTriggers = document.querySelectorAll("[data-brief-open]");
+
+        const closeModal = () => {
+          modal.setAttribute("hidden", "");
+          document.body.style.overflow = "";
+        };
+
+        const openModal = () => {
+          modal.removeAttribute("hidden");
+          document.body.style.overflow = "hidden";
+        };
+
+        openTriggers.forEach((trigger) => {
+          trigger.addEventListener("click", openModal);
+        });
+
+        modal.addEventListener("click", (event) => {
+          if (event.target.closest("[data-brief-close]")) {
+            closeModal();
+          }
+        });
+
+        document.addEventListener("keydown", (event) => {
+          if (event.key === "Escape" && !modal.hasAttribute("hidden")) {
+            closeModal();
+          }
+        });
+      };
+
       const setupSideNav = () => {
         const toggle = document.querySelector("[data-menu-toggle]");
         const sideNav = document.querySelector("[data-side-nav]");
@@ -1293,6 +1587,7 @@ const canonicalUrl = new URL(canonicalPath, siteUrl).toString();
             setupCardParallax();
             setupHorizontalWheelScroll();
             setupSideNav();
+            setupBriefModal();
           },
           { once: true }
         );
@@ -1300,6 +1595,7 @@ const canonicalUrl = new URL(canonicalPath, siteUrl).toString();
         setupCardParallax();
         setupHorizontalWheelScroll();
         setupSideNav();
+        setupBriefModal();
       }
     </script>
   </body>

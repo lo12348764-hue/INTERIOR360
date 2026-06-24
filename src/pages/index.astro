@@ -1,4 +1,4 @@
-﻿---
+---
 import { portfolioItems, studioStats } from "../data/site";
 import SiteLayout from "../layouts/SiteLayout.astro";
 
@@ -116,7 +116,7 @@ const secondStripContent = {
   },
 };
 
-const thirdStripImages = ["3.1.jpg"];
+const thirdStripImages = ["3.1.jpg", "3.1.jpg", "3.1.jpg", "3.1.jpg", "3.1.jpg", "3.1.jpg", "3.1.jpg"];
 
 const decorImages = [
   "4.1.jpg",
@@ -219,17 +219,10 @@ const conceptCardContent = {
     <div>
       <p class="eyebrow hero-eyebrow">Design & Project Bureau</p>
       <h1>СТУДИЯ ДИЗАЙНА ИНТЕРЬЕРА</h1>
-      <div class="button-row">
-        <a class="button" href="/services/">Узнать об услугах</a>
-        <a class="button-secondary" href="/services/">Рассчитать проект</a>
-      </div>
     </div>
-    <aside class="hero-panel">
-      <p>Почему выбирают нас</p>
-      <strong>Показываем проект так, чтобы решение было принять проще</strong>
-      <p>Что получает клиент</p>
-      <strong>Чёткую подачу, понятный процесс и уверенный результат</strong>
-    </aside>
+    <button class="hero-panel brief-panel-trigger" type="button" data-brief-open aria-haspopup="dialog" aria-controls="project-brief-modal">
+      <strong>Заполнить бриф проекта</strong>
+    </button>
   </section>
 
   <section class="section">

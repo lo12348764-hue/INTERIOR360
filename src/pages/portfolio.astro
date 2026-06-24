@@ -1,4 +1,4 @@
-﻿---
+---
 import { portfolioItems } from "../data/site";
 import SiteLayout from "../layouts/SiteLayout.astro";
 ---
@@ -17,12 +17,9 @@ import SiteLayout from "../layouts/SiteLayout.astro";
         Здесь можно развивать кейсы, фильтры и посадки под разные сегменты.
       </p>
     </div>
-    <aside class="hero-panel">
-      <p>В подборке</p>
-      <strong>{portfolioItems.length} проектов</strong>
-      <p>Форматы</p>
-      <strong>Жилые, коммерческие, девелоперские</strong>
-    </aside>
+    <button class="hero-panel brief-panel-trigger" type="button" data-brief-open aria-haspopup="dialog" aria-controls="project-brief-modal">
+      <strong>Заполнить бриф проекта</strong>
+    </button>
   </section>
 
   <section class="grid grid-2">
