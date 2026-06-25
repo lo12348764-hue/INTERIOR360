@@ -1,6 +1,69 @@
 ---
 import { studioStats } from "../data/site";
 import SiteLayout from "../layouts/SiteLayout.astro";
+
+const team = [
+  {
+    name: "Марина",
+    role: "Основатель / Архитектор",
+    image: "/images/channel/living-premium.jpg",
+    description: "Создаёт концепции, управляет проектами и следит за тем, чтобы каждая подача работала на задачу клиента.",
+  },
+  {
+    name: "Алексей",
+    role: "3D-художник",
+    image: "/images/channel/dining-minimal.jpg",
+    description: "Строит сцены, прорабатывает свет, материалы и добивается фотореалистичной подачи.",
+  },
+  {
+    name: "Дарья",
+    role: "Дизайнер интерьеров",
+    image: "/images/channel/arches-lounge.jpg",
+    description: "Формирует визуальную логику проекта: от коллажей до финальных визуализаций.",
+  },
+];
+
+const cases = [
+  {
+    title: "Резиденция у реки",
+    category: "Жилой интерьер",
+    before: "/images/channel/living-light.jpg",
+    after: "/images/channel/living-premium.jpg",
+    description: "Превращение чертежей в атмосферную визуализацию, которая помогла согласовать проект с заказчиком за 2 дня.",
+  },
+  {
+    title: "Лобби «Аурум»",
+    category: "Девелопмент",
+    before: "/images/channel/lobby-classic.jpg",
+    after: "/images/channel/lobby-classic.jpg",
+    description: "Маркетинговая подача для офиса продаж: серия изображений для буклетов и лендинга.",
+  },
+  {
+    title: "Кухня «Ателье»",
+    category: "Предметная подача",
+    before: "/images/channel/dining-minimal.jpg",
+    after: "/images/channel/accent-seating.jpg",
+    description: "Детализированная проработка материалов и текстур для каталога мебельного бренда.",
+  },
+];
+
+const reviews = [
+  {
+    text: "INTERIOR.360 помогли нам презентовать проект инвесторам. Визуализации были настолько реалистичными, что решение о финансировании приняли сразу.",
+    author: "Андрей К.",
+    company: "Девелоперская компания «Горизонт»",
+  },
+  {
+    text: "Впервые работаю со студией, где понимают не только эстетику, но и бизнес-задачу. Результат превзошёл ожидания.",
+    author: "Елена М.",
+    company: "Архитектурное бюро Studio M",
+  },
+  {
+    text: "Быстро, качественно, с вниманием к деталям. Рекомендую для тех, кому важен результат, а не просто картинки.",
+    author: "Дмитрий В.",
+    company: "Шоурум «Материалы и текстуры»",
+  },
+];
 ---
 
 <SiteLayout
@@ -11,7 +74,7 @@ import SiteLayout from "../layouts/SiteLayout.astro";
   <section class="page-hero about-hero">
     <div>
       <p class="eyebrow">About</p>
-      <h1 style="font-size: clamp(1.8rem, 3.8vw, 3rem); line-height: 1.1;">Студия, которая превращает интерьер в убедительную визуальную систему</h1>
+      <h1 class="about-title">Студия, которая превращает интерьер в убедительную визуальную систему</h1>
       <p class="lead">
         INTERIOR.360 создаёт не просто красивые изображения, а подачу, которая помогает согласовывать решения,
         презентовать проект клиенту, усиливать архитектурную идею и готовить пространство к реализации.
@@ -20,55 +83,6 @@ import SiteLayout from "../layouts/SiteLayout.astro";
     <button class="hero-panel brief-panel-trigger" type="button" data-brief-open aria-haspopup="dialog" aria-controls="project-brief-modal">
       <strong>Заполнить бриф проекта</strong>
     </button>
-  </section>
-
-  <section class="section about-showcase">
-    <div class="about-showcase-main card">
-      <div class="media-frame">
-        <div class="media-motion">
-          <img class="media" src="/images/channel/living-premium.jpg" alt="Премиальная визуализация интерьера" />
-        </div>
-      </div>
-      <div class="card-body">
-        <p class="kicker">Визуальный язык</p>
-        <h2>Собираем подачу, которая выглядит дорого и работает на решение задачи</h2>
-        <p class="muted">
-          Для нас важны не только свет, материалы и атмосфера, но и то, как кадр будет считываться клиентом,
-          партнёром, инвестором или отделом продаж.
-        </p>
-      </div>
-    </div>
-
-    <div class="about-showcase-side">
-      <article class="surface about-note">
-        <p class="kicker">Позиционирование</p>
-        <h3>Эстетика, логика и коммерческий смысл в одном проекте</h3>
-        <p class="muted">
-          Визуализация должна не украшать проект, а объяснять его, усиливать и делать убедительным на каждом этапе.
-        </p>
-      </article>
-
-      <article class="card about-mini-card">
-        <div class="media-frame">
-          <div class="media-motion">
-            <img class="media" src="/images/channel/dining-minimal.jpg" alt="Светлая интерьерная сцена" />
-          </div>
-        </div>
-        <div class="card-body">
-          <p class="kicker">Результат</p>
-          <p class="muted">
-            Финальный материал выглядит цельно, презентабельно и готов к согласованию, публикации и продаже.
-          </p>
-        </div>
-      </article>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="about-manifesto surface">
-      <p class="kicker">Манифест студии</p>
-      <h2>Мы не делаем визуализацию отдельно от проекта. Мы собираем инструмент, который помогает проекту двигаться дальше.</h2>
-    </div>
   </section>
 
   <section class="section">
@@ -99,10 +113,101 @@ import SiteLayout from "../layouts/SiteLayout.astro";
   </section>
 
   <section class="section">
+    <h2 class="section-title">Почему мы?</h2>
+    <div class="about-why-grid">
+      <article class="surface about-why-item">
+        <h3>Почему не фрилансер?</h3>
+        <p class="muted">
+          Фрилансер делает одну картинку. Мы — систему: от концепции до комплекта материалов, которые работают вместе.
+          За каждым проектом стоит команда, а не один человек, который может исчезнуть на полпути.
+        </p>
+      </article>
+      <article class="surface about-why-item">
+        <h3>Почему не типовая студия?</h3>
+        <p class="muted">
+          Мы не делаем шаблонные решения. Каждый проект — это отдельная задача, отдельная атмосфера и отдельная стратегия подачи.
+          Не подгоняем под стиль, а создаём язык проекта.
+        </p>
+      </article>
+      <article class="surface about-why-item">
+        <h3>Почему важно начинать с нас?</h3>
+        <p class="muted">
+          Когда визуализация продумана до начала реализации — меньше правок, меньше сюрпризов и точнее результат.
+          Мы помогаем принять решения до того, как они станут дорогими.
+        </p>
+      </article>
+      <article class="surface about-why-item">
+        <h3>Как выглядит результат?</h3>
+        <p class="muted">
+          Комплект фотореалистичных визуализаций, рабочая документация или маркетинговые материалы — всё готово к согласованию,
+          презентации и запуску. Никаких «почти готово».
+        </p>
+      </article>
+      <article class="surface about-why-item">
+        <h3>Сколько это стоит?</h3>
+        <p class="muted">
+          Зависит от объёма и формата. Базовая визуализация — от 55 000 ₽, полный цикл — от 200 000 ₽.
+          Точную стоимость считаем после брифа, обычно в течение 24 часов.
+        </p>
+      </article>
+      <article class="surface about-why-item">
+        <h3>Как начать?</h3>
+        <p class="muted">
+          Заполните бриф проекта или напишите в Telegram. Мы изучим задачу, предложим формат работы и рассчитаем стоимость.
+          Без предоплаты до согласования объёма.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="grid grid-3">
+      {cases.map((item) => (
+        <article class="surface about-case">
+          <div class="about-case-images">
+            <div class="about-case-img">
+              <img src={item.before} alt={item.title} loading="lazy" />
+              <span class="about-case-label">Было</span>
+            </div>
+            <div class="about-case-img">
+              <img src={item.after} alt={item.title} loading="lazy" />
+              <span class="about-case-label">Стало</span>
+            </div>
+          </div>
+          <div class="about-case-info">
+            <p class="kicker">{item.category}</p>
+            <h3>{item.title}</h3>
+            <p class="muted">{item.description}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">Видео о студии</h2>
+    <div class="about-video surface">
+      <video
+        class="about-video-player"
+        src="/images/channel/animation-walkthrough.mp4"
+        autoplay
+        loop
+        muted
+        playsinline
+      ></video>
+      <div class="about-video-overlay">
+        <p class="kicker">Процесс работы</p>
+        <h3>Как мы создаём визуализации</h3>
+        <p class="muted">От идеи до финального рендера — полный цикл создания проекта</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
     <div class="grid grid-2">
       <article class="surface">
         <p class="kicker">Подход</p>
-        <h2 style="font-size: 2rem; margin-top: 10px;">Как мы строим работу</h2>
+        <h2 class="about-section-title">Как мы строим работу</h2>
         <ul class="list">
           <li>Погружаемся в задачу, контекст проекта и формат финальной подачи</li>
           <li>Формируем визуальную логику: стиль, атмосферу, материалы и акценты</li>
@@ -112,7 +217,7 @@ import SiteLayout from "../layouts/SiteLayout.astro";
       </article>
       <article class="surface">
         <p class="kicker">Для клиента</p>
-        <h2 style="font-size: 2rem; margin-top: 10px;">Что это даёт на практике</h2>
+        <h2 class="about-section-title">Что это даёт на практике</h2>
         <ul class="list">
           <li>Меньше правок и повторных согласований</li>
           <li>Более точное понимание будущего пространства</li>
@@ -120,6 +225,39 @@ import SiteLayout from "../layouts/SiteLayout.astro";
           <li>Визуальную основу для запуска, публикации или продаж</li>
         </ul>
       </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">Команда</h2>
+    <div class="grid grid-3">
+      {team.map((member) => (
+        <article class="surface about-team-card">
+          <div class="about-team-img">
+            <img src={member.image} alt={member.name} loading="lazy" />
+          </div>
+          <div class="about-team-info">
+            <h3>{member.name}</h3>
+            <p class="kicker">{member.role}</p>
+            <p class="muted">{member.description}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">Отзывы клиентов</h2>
+    <div class="about-reviews">
+      {reviews.map((review) => (
+        <article class="surface about-review">
+          <p class="about-review-text">"{review.text}"</p>
+          <div class="about-review-author">
+            <strong>{review.author}</strong>
+            <span>{review.company}</span>
+          </div>
+        </article>
+      ))}
     </div>
   </section>
 
@@ -133,6 +271,7 @@ import SiteLayout from "../layouts/SiteLayout.astro";
         </div>
       ))}
     </div>
+    <p class="about-stats-note muted">Каждая цифра — это реальные проекты и доверие клиентов, которые возвращаются снова</p>
   </section>
 
   <section class="section">
@@ -146,8 +285,8 @@ import SiteLayout from "../layouts/SiteLayout.astro";
         Подбираем формат работы под задачу проекта и собираем подачу, которая действительно помогает двигаться дальше.
       </p>
       <div class="button-row">
-        <a class="button" href="/contact/">Обсудить проект</a>
-        <a class="button-secondary" href="/services/">Смотреть услуги</a>
+        <a class="button" href="/calculator/">Рассчитать проект</a>
+        <a class="button-secondary" href="/contact/">Обсудить проект</a>
       </div>
     </div>
   </section>
@@ -158,30 +297,9 @@ import SiteLayout from "../layouts/SiteLayout.astro";
     align-items: end;
   }
 
-  .about-panel {
-    background:
-      linear-gradient(180deg, rgba(215, 181, 132, 0.18), rgba(24, 20, 17, 0.92)),
-      radial-gradient(circle at top, rgba(255, 232, 201, 0.28), transparent 58%);
-  }
-
-  .about-showcase {
-    display: grid;
-    gap: 24px;
-    grid-template-columns: 1.45fr 0.95fr;
-  }
-
-  .about-showcase-main,
-  .about-showcase-side {
-    min-width: 0;
-  }
-
-  .about-showcase-main .media-frame {
-    min-height: 420px;
-  }
-
-  .about-showcase-main .media {
-    min-height: 420px;
-    object-fit: cover;
+  .about-title {
+    font-size: clamp(1.8rem, 3.8vw, 3rem);
+    line-height: 1.1;
   }
 
   .about-showcase-main h2,
@@ -192,38 +310,180 @@ import SiteLayout from "../layouts/SiteLayout.astro";
     margin: 10px 0 0;
   }
 
-  .about-showcase-side {
-    display: grid;
-    gap: 24px;
-    align-content: stretch;
-  }
-
-  .about-note,
-  .about-mini-card {
-    height: 100%;
-  }
-
   .about-note h3,
   .about-feature h3 {
     margin: 10px 0 0;
     font-size: 1.45rem;
   }
 
-  .about-mini-card .media-frame {
-    min-height: 230px;
+  .about-section-title {
+    font-size: 2rem;
+    margin-top: 10px;
   }
 
-  .about-mini-card .media {
-    min-height: 230px;
+  .about-case {
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .about-case-images {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+  }
+
+  .about-case-img {
+    position: relative;
+    height: 160px;
+    overflow: hidden;
+  }
+
+  .about-case-img img {
+    width: 100%;
+    height: 100%;
     object-fit: cover;
   }
 
-  .about-manifesto {
+  .about-case-label {
+    position: absolute;
+    bottom: 8px;
+    left: 8px;
+    padding: 4px 10px;
+    border-radius: 6px;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--text);
+  }
+
+  .about-case-info {
+    padding: 20px;
+  }
+
+  .about-case-info h3 {
+    margin: 6px 0 8px;
+    font-size: 1.2rem;
+    line-height: 1.15;
+  }
+
+  .about-video {
+    padding: 0;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .about-video-player {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    display: block;
+  }
+
+  .about-video-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 40px 32px 32px;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+  }
+
+  .about-video-overlay h3 {
+    margin: 6px 0 8px;
+    font-size: 1.6rem;
+  }
+
+  .about-team-card {
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .about-team-img {
+    height: 200px;
+    overflow: hidden;
+  }
+
+  .about-team-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+
+  .about-team-card:hover .about-team-img img {
+    transform: scale(1.05);
+  }
+
+  .about-team-info {
+    padding: 20px;
+  }
+
+  .about-team-info h3 {
+    margin: 0 0 4px;
+    font-size: 1.2rem;
+    line-height: 1.2;
+  }
+
+  .about-team-info .kicker {
+    margin-bottom: 10px;
+  }
+
+  .about-reviews {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .about-review {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .about-review-text {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--muted);
+    font-style: italic;
+    margin-bottom: 20px;
+  }
+
+  .about-review-author strong {
+    display: block;
+    font-size: 0.95rem;
+    margin-bottom: 2px;
+  }
+
+  .about-review-author span {
+    font-size: 0.82rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .about-stats-note {
     text-align: center;
-    gap: 14px;
-    background:
-      linear-gradient(180deg, rgba(255, 248, 236, 0.05), rgba(0, 0, 0, 0.08)),
-      radial-gradient(circle at top, rgba(225, 192, 144, 0.12), transparent 60%);
+    margin-top: 16px;
+    font-size: 0.95rem;
+  }
+
+  .about-why-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .about-why-item h3 {
+    margin: 0 0 12px;
+    font-size: 1.2rem;
+    line-height: 1.2;
+  }
+
+  .about-why-item .muted {
+    margin: 0;
+    line-height: 1.7;
   }
 
   .about-cta {
@@ -235,13 +495,16 @@ import SiteLayout from "../layouts/SiteLayout.astro";
   }
 
   @media (max-width: 900px) {
-    .about-showcase {
+    .about-reviews {
       grid-template-columns: 1fr;
     }
 
-    .about-showcase-main .media-frame,
-    .about-showcase-main .media {
-      min-height: 320px;
+    .about-video-player {
+      height: 260px;
+    }
+
+    .about-why-grid {
+      grid-template-columns: 1fr;
     }
   }
 </style>

@@ -1,0 +1,148 @@
+---
+import { projects } from "../../data/projects";
+import SiteLayout from "../../layouts/SiteLayout.astro";
+
+export async function getStaticPaths() {
+  return projects.map((project) => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+---
+
+<SiteLayout
+  title={`${project.title} | INTERIOR.360`}
+  description={project.description}
+  canonicalPath={`/project/${project.slug}/`}
+>
+  <section class="page-hero">
+    <div>
+      <p class="eyebrow">{project.category}</p>
+      <h1>{project.title}</h1>
+      <p class="lead">{project.description}</p>
+    </div>
+    <button class="hero-panel brief-panel-trigger" type="button" data-brief-open aria-haspopup="dialog" aria-controls="project-brief-modal">
+      <strong>Заполнить бриф проекта</strong>
+    </button>
+  </section>
+
+  <section class="project-showcase">
+    <div class="project-main-image card">
+      <div class="media-frame">
+        <div class="media-motion">
+          <img class="media" src={project.image} alt={project.title} />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="grid grid-2">
+      <article class="surface">
+        <p class="kicker">О проекте</p>
+        <h2 class="project-section-title">Описание</h2>
+        <p class="muted project-details-text">{project.details}</p>
+      </article>
+      <article class="surface">
+        <p class="kicker">Параметры</p>
+        <h2 class="project-section-title">Характеристики</h2>
+        <div class="project-specs">
+          <div class="project-spec">
+            <span>Площадь</span>
+            <strong>{project.area}</strong>
+          </div>
+          <div class="project-spec">
+            <span>Локация</span>
+            <strong>{project.location}</strong>
+          </div>
+          <div class="project-spec">
+            <span>Год</span>
+            <strong>{project.year}</strong>
+          </div>
+          <div class="project-spec">
+            <span>Категория</span>
+            <strong>{project.category}</strong>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="about-cta surface">
+      <div>
+        <p class="kicker">Нравится этот проект?</p>
+        <h2>Расскажите о вашей задаче — и мы предложим решение</h2>
+      </div>
+      <p class="muted">
+        Каждый проект начинается с брифа. Заполните его — и мы рассчитаем стоимость и сроки для вашего интерьера.
+      </p>
+      <div class="button-row">
+        <button class="button" type="button" data-brief-open>Заполнить бриф проекта</button>
+        <a class="button-secondary" href="/contact/">Связаться с нами</a>
+      </div>
+    </div>
+  </section>
+</SiteLayout>
+
+<style>
+  .project-showcase {
+    margin-bottom: 28px;
+  }
+
+  .project-main-image .media-frame {
+    aspect-ratio: 16 / 9;
+  }
+
+  .project-section-title {
+    font-size: clamp(1.4rem, 2.4vw, 1.8rem);
+    margin-top: 10px;
+    margin-bottom: 16px;
+  }
+
+  .project-details-text {
+    line-height: 1.8;
+    font-size: 1.05rem;
+  }
+
+  .project-specs {
+    display: grid;
+    gap: 16px;
+    margin-top: 16px;
+  }
+
+  .project-spec {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .project-spec span {
+    color: var(--muted);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .project-spec strong {
+    font-size: 1rem;
+  }
+
+  .about-cta {
+    display: grid;
+    gap: 18px;
+    background:
+      linear-gradient(180deg, rgba(215, 181, 132, 0.12), rgba(18, 15, 12, 0.9)),
+      radial-gradient(circle at right top, rgba(255, 232, 201, 0.18), transparent 45%);
+  }
+
+  @media (max-width: 740px) {
+    .project-main-image .media-frame {
+      aspect-ratio: 4 / 3;
+    }
+  }
+</style>

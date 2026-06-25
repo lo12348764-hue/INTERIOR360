@@ -34,7 +34,7 @@ const formatBlogDate = (date: Date) =>
     </button>
   </section>
 
-  <section class="grid grid-visual">
+  <section class="blog-grid">
     {posts.map((post) => (
       <BlogCard
         post={post}
@@ -51,4 +51,69 @@ const formatBlogDate = (date: Date) =>
       />
     ))}
   </section>
+
+  <style>
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    .blog-grid :global(.card) {
+      height: auto;
+      display: grid;
+      grid-template-rows: 200px auto;
+    }
+
+    .blog-grid :global(.media-frame) {
+      aspect-ratio: auto;
+    }
+
+    .blog-grid :global(.media) {
+      height: 200px;
+    }
+
+    .blog-grid :global(.card-body) {
+      padding: 20px;
+    }
+
+    .blog-grid :global(h3) {
+      font-size: 1.2rem !important;
+      margin: 10px 0 !important;
+      line-height: 1.3;
+    }
+
+    .blog-grid :global(.muted) {
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .blog-grid :global(.button-secondary) {
+      margin-top: 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 0 18px;
+      border-radius: 999px;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 0.7rem;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--text);
+      transition: border-color 0.2s ease;
+    }
+
+    .blog-grid :global(.button-secondary:hover) {
+      border-color: var(--accent);
+    }
+
+    @media (max-width: 740px) {
+      .blog-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </SiteLayout>

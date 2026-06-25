@@ -1,5 +1,6 @@
 export const navigation = [
   { href: "/", label: "Главная" },
+  { href: "/portfolio/", label: "Портфолио" },
   { href: "/services/", label: "Услуги" },
   { href: "/calculator/", label: "Калькулятор" },
   { href: "/about/", label: "О студии" },
@@ -155,7 +156,7 @@ export const services = [
     ],
   },
   {
-    title: "Анимация и walkthrough",
+    title: "Панорама и румтур",
     description:
       "Помогает показать пространство в движении, передать атмосферу и объяснить логику восприятия интерьера через маршрут и сценарий.",
     ctaLabel: "Смотреть примеры",
