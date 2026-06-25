@@ -218,7 +218,8 @@ const conceptCardContent = {
   <section class="page-hero">
     <div>
       <p class="eyebrow hero-eyebrow">Design & Project Bureau</p>
-      <h1>СТУДИЯ ДИЗАЙНА ИНТЕРЬЕРА</h1>
+      <h1 style="font-size: clamp(2rem, 5vw, 4rem);">Студия дизайна интерьера</h1>
+      <p class="hero-subtitle">панорамы и румтуры</p>
     </div>
     <button class="hero-panel brief-panel-trigger" type="button" data-brief-open aria-haspopup="dialog" aria-controls="project-brief-modal">
       <strong>Заполнить бриф проекта</strong>
@@ -383,6 +384,14 @@ const conceptCardContent = {
 
   .page-hero h1 {
     font-size: clamp(2.7rem, 7vw, 5.8rem);
+  }
+
+  .hero-subtitle {
+    margin-top: 8px;
+    font-size: clamp(1rem, 2vw, 1.4rem);
+    color: var(--accent);
+    text-transform: lowercase;
+    letter-spacing: 0.08em;
   }
 
   .projects-strip {

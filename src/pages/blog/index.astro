@@ -1,6 +1,5 @@
 ---
 import { getCollection } from "astro:content";
-import BlogCard from "../../components/BlogCard.astro";
 import SiteLayout from "../../layouts/SiteLayout.astro";
 
 const posts = (await getCollection("blog", ({ data }) => !data.draft)).sort(
@@ -13,6 +12,9 @@ const formatBlogDate = (date: Date) =>
     month: "long",
     year: "numeric",
   }).format(date);
+
+const formatDayOfWeek = (date: Date) =>
+  new Intl.DateTimeFormat("ru-RU", { weekday: "long" }).format(date);
 ---
 
 <SiteLayout
@@ -25,8 +27,7 @@ const formatBlogDate = (date: Date) =>
       <p class="eyebrow">Блог</p>
       <h1>Блог студии</h1>
       <p class="lead">
-        Блог теперь живёт как самостоятельный раздел. Это уже не фрагмент лендинга, а отдельная контентная зона,
-        которую можно развивать для SEO и экспертной коммуникации.
+        Полезные статьи о дизайне интерьера, 3D-визуализации и процессе работы над проектами.
       </p>
     </div>
     <button class="hero-panel brief-panel-trigger" type="button" data-brief-open aria-haspopup="dialog" aria-controls="project-brief-modal">
@@ -34,86 +35,108 @@ const formatBlogDate = (date: Date) =>
     </button>
   </section>
 
-  <section class="blog-grid">
+  <section class="blog-list">
     {posts.map((post) => (
-      <BlogCard
-        post={post}
-        dateFormatter={(date) => `${formatBlogDate(date)} · ${post.data.readingTime}`}
-        articleClass="card"
-        wrapperClass="media-frame"
-        imageClass="media"
-        contentClass="card-body"
-        metaClass="muted"
-        categoryClass="kicker"
-        excerptClass="muted"
-        linkClass="button-secondary"
-        readMoreLabel="Читать статью"
-      />
+      <a href={`/blog/${post.slug}/`} class="blog-list-item">
+        <div class="blog-list-date">
+          <span class="blog-list-day">{formatDayOfWeek(post.data.date)}</span>
+          <span class="blog-list-full">{formatBlogDate(post.data.date)}</span>
+        </div>
+        <div class="blog-list-content">
+          <h2 class="blog-list-title">{post.data.title}</h2>
+          <p class="blog-list-excerpt">{post.data.excerpt}</p>
+        </div>
+      </a>
     ))}
   </section>
-
-  <style>
-    .blog-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 24px;
-    }
-
-    .blog-grid :global(.card) {
-      height: auto;
-      display: grid;
-      grid-template-rows: 200px auto;
-    }
-
-    .blog-grid :global(.media-frame) {
-      aspect-ratio: auto;
-    }
-
-    .blog-grid :global(.media) {
-      height: 200px;
-    }
-
-    .blog-grid :global(.card-body) {
-      padding: 20px;
-    }
-
-    .blog-grid :global(h3) {
-      font-size: 1.2rem !important;
-      margin: 10px 0 !important;
-      line-height: 1.3;
-    }
-
-    .blog-grid :global(.muted) {
-      font-size: 0.9rem;
-      line-height: 1.6;
-    }
-
-    .blog-grid :global(.button-secondary) {
-      margin-top: 14px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 40px;
-      padding: 0 18px;
-      border-radius: 999px;
-      text-decoration: none;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      font-size: 0.7rem;
-      border: 1px solid var(--border);
-      background: rgba(255, 255, 255, 0.03);
-      color: var(--text);
-      transition: border-color 0.2s ease;
-    }
-
-    .blog-grid :global(.button-secondary:hover) {
-      border-color: var(--accent);
-    }
-
-    @media (max-width: 740px) {
-      .blog-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
 </SiteLayout>
+
+<style>
+  .blog-list {
+    display: grid;
+    gap: 0;
+  }
+
+  .blog-list-item {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 24px;
+    padding: 24px 0;
+    border-bottom: 1px solid var(--border);
+    text-decoration: none;
+    color: inherit;
+    transition: background 0.2s ease;
+  }
+
+  .blog-list-item:first-child {
+    border-top: 1px solid var(--border);
+  }
+
+  .blog-list-item:hover {
+    background: rgba(255, 255, 255, 0.02);
+  }
+
+  .blog-list-date {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding-top: 4px;
+  }
+
+  .blog-list-day {
+    font-size: 0.82rem;
+    color: var(--muted);
+    text-transform: capitalize;
+  }
+
+  .blog-list-full {
+    font-size: 0.9rem;
+    color: var(--text);
+  }
+
+  .blog-list-content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .blog-list-title {
+    margin: 0;
+    font-size: 1.4rem;
+    line-height: 1.2;
+    transition: color 0.2s ease;
+  }
+
+  .blog-list-item:hover .blog-list-title {
+    color: var(--accent);
+  }
+
+  .blog-list-excerpt {
+    margin: 0;
+    color: var(--muted);
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 740px) {
+    .blog-list-item {
+      grid-template-columns: 1fr;
+      gap: 8px;
+      padding: 18px 0;
+    }
+
+    .blog-list-date {
+      flex-direction: row;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .blog-list-title {
+      font-size: 1.2rem;
+    }
+
+    .blog-list-excerpt {
+      font-size: 0.9rem;
+    }
+  }
+</style>
