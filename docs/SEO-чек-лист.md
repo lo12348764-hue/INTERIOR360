@@ -1,445 +1,168 @@
-# SEO-чек-лист: полное руководство (2026–2027)
+# SEO-чек-лист: техническая оптимизация HTML (2026–2027)
 
-> Практическое руководство по SEO-оптимизации HTML-документа с точки зрения специалиста с 20-летним стажем. Обновлено с учётом трендов 2026–2027 гг.
+> Руководство для автоматической генерации или проверки HTML-кода. Каждый пункт критичен для органического продвижения, индексации и пользовательского опыта.
 
 ---
 
-## 1. Критически важное
+## 1. Глобальная структура и безопасность (Critical)
 
-Без этих элементов корректная индексация невозможна.
+Без этих элементов сайт может быть исключён из индекса или помечен как небезопасный.
 
-### `<title>` — заголовок страницы
-
-- **Длина:** 50-60 символов (для всех поисковиков, включая Яндекс)
-- **Правило:** Ключевое слово в начале, бренд в конце
-- **Уникальность:** Каждая страница — свой заголовок
+- [ ] **Протокол HTTPS**: Все ресурсы загружаются по защищённому протоколу. Отсутствуют смешанные контент (Mixed Content).
+- [ ] **Doctype**: В начале документа указан `<!DOCTYPE html>`.
+- [ ] **Язык документа**: У тега `<html>` задан атрибут `lang` (например, `lang="ru"`).
+- [ ] **Charset**: Указана кодировка `<meta charset="UTF-8">`.
+- [ ] **Viewport**: `<meta name="viewport" content="width=device-width, initial-scale=1.0" />` (обязательно для Mobile-First Indexing).
 
 ```html
-<title>3D-визуализация интерьера | INTERIOR.360</title>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>...</title>
+</head>
 ```
 
-### `<meta name="description">` — описание
+---
 
-- **Длина:** 150-160 символов
-- **Назначение:** Влияет на CTR в выдаче (не на позиции напрямую)
-- **Правило:** Призыв к действию + ключевые слова
+## 2. Мета-теги и управление индексацией
+
+Фундамент взаимодействия с поисковыми роботами.
+
+### Основные мета-теги
+
+| Мета-тег | Длина | Правила |
+|----------|-------|---------|
+| `<title>` | 50–60 символов | Структура: `[Ключевое слово] \| [Бренд]`. Уникален для каждой страницы |
+| `<meta description>` | 150–160 символов | Содержит призыв к действию (CTA) и ключевые слова |
+| `<link rel="canonical">` | — | Указывает на основную версию страницы. Присутствует на каждой странице |
+
+### Управление роботами
+
+- [ ] **Robots Meta**: `<meta name="robots" content="index, follow" />` для основных страниц.
+- [ ] Использование `noindex` только для служебных, дублей или приватных разделов.
 
 ```html
-<meta name="description" content="Создаём фотореалистичные 3D-визуализации интерьеров. Рассчитайте стоимость проекта онлайн." />
-```
-
-### `<link rel="canonical">` — канонический URL
-
-Решает проблему дублей страниц.
-
-```html
+<title>3D-визуализация интерьеров | INTERIOR.360</title>
+<meta name="description" content="Создаём фотореалистичные 3D-визуализации интерьеров. Рассчитайте стоимость онлайн." />
 <link rel="canonical" href="https://interior360.example/services/" />
-```
-
-**Правила:**
-- Обязательно на каждой странице
-- Указывает на саму себя (если нет дублей)
-- Указывает на основную версию (при дублях)
-
----
-
-## 2. Безопасность и протоколы (Критично)
-
-### HTTPS — обязательное требование
-
-В 2026 году отсутствие HTTPS является:
-- Фактором ранжирования (Google, Яндекс)
-- Причиной блокировки в браузерах (предупреждение "Небезопасно")
-- Препятствием для сбора данных аналитики
-
-```html
-<!-- Все ссылки должны использовать HTTPS -->
-<link rel="canonical" href="https://interior360.example/page/" />
-<meta property="og:url" content="https://interior360.example/page/" />
-```
-
-**Чек-лист:**
-- [ ] Сайт работает по HTTPS (валидный сертификат)
-- [ ] Все внутренние ссылки используют HTTPS
-- [ ] Настроен редирект HTTP → HTTPS (301)
-- [ ] Нет смешанного контента (Mixed Content)
-
----
-
-## 3. Техническая SEO-основа
-
-### `<meta name="viewport">` — мобильная адаптивность
-
-С 2019 года Google индексирует мобильную версию первой (Mobile-First Indexing).
-
-```html
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-```
-
-### `<meta name="robots">` — управление индексацией
-
-| Значение | Поведение |
-|----------|-----------|
-| `index, follow` | Индексировать, переходить по ссылкам (по умолчанию) |
-| `noindex, follow` | Не индексировать, но переходить |
-| `noindex, nofollow` | Полная изоляция страницы |
-| `noarchive` | Не кешировать |
-| `nosnippet` | Не показывать сниппет |
-
-```html
 <meta name="robots" content="index,follow" />
 ```
 
-### `<html lang="ru">` — язык документа
-
-Обязательно для мультиязычных сайтов. Помогает поисковикам определить целевую аудиторию.
-
-```html
-<html lang="ru">
-<html lang="en">
-```
-
-### robots.txt и sitemap.xml
-
-**robots.txt** — файл, указывающий поисковикам, какие страницы индексировать:
-
-```
-User-agent: *
-Allow: /
-Disallow: /admin/
-Disallow: /private/
-
-Sitemap: https://interior360.example/sitemap.xml
-```
-
-**sitemap.xml** — карта сайта для быстрой индексации:
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://interior360.example/</loc>
-    <lastmod>2026-01-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-  </url>
-</urlset>
-```
-
-**Чек-лист:**
-- [ ] robots.txt не блокирует важные ресурсы (CSS, JS, изображения)
-- [ ] sitemap.xml сгенерирован и актуален
-- [ ] sitemap.xml добавлен в Яндекс.Вебмастер / Google Search Console
-
 ---
 
-## 4. Семантическая вёрстка
+## 3. Семантическая вёрстка и доступность (HTML5 & a11y)
 
-Влияет на понимание контента поисковиками.
+Поисковики используют структуру для понимания контекста контента.
 
-### Заголовки `<h1>`-`<h6>`
+### Заголовки (Headings)
 
-| Правило | Описание |
-|---------|----------|
-| Один `<h1>` | Один заголовок первого уровня на страницу |
-| Ключевое слово | `<h1>` содержит основное ключевое слово |
-| Иерархия | Нельзя пропускать уровни (из `<h1>` сразу в `<h4>`) |
-| Уникальность | Заголовки не дублируют `<title>` |
+- Только один `<h1>` на страницу, содержащий главный ключ.
+- Строгая иерархия: `<h1>` → `<h2>` → `<h3>`. Пропуск уровней запрещён.
+- Текст заголовков не должен полностью дублировать `<title>`.
 
-```html
-<h1>3D-визуализация интерьеров</h1>
-  <h2>Наши услуги</h2>
-    <h3>Концептуальный стиль</h3>
-    <h3>3D-визуализация</h3>
-  <h2>Портфолио</h2>
-```
+### Семантические контейнеры
 
-### Семантические теги HTML5
+| Тег | Назначение |
+|-----|-----------|
+| `<header>` | Шапка страницы (лого, навигация) |
+| `<nav>` | Основное меню (обязательно для него) |
+| `<main>` | Основной контент (только один раз на страницу) |
+| `<article>` | Самостоятельная единица (статья, пост) |
+| `<section>` | Тематическая группировка |
+| `<aside>` | Дополнительная информация |
+| `<footer>` | Подвал (контакты, копирайт) |
 
-| Тег | Назначение | Пример использования |
-|-----|-----------|---------------------|
-| `<header>` | Шапка страницы | Логотип, навигация |
-| `<nav>` | Навигация | Меню сайта |
-| `<main>` | Основной контент | Единственный на страницу |
-| `<article>` | Самостоятельная единица | Статья блога, пост |
-| `<section>` | Тематическая группировка | Секция "Услуги", "О нас" |
-| `<aside>` | Дополнительная информация | Боковая панель, виджеты |
-| `<footer>` | Подвал | Контакты, копирайт |
-| `<figure>` + `<figcaption>` | Изображения с подписями | Фото проекта |
+### Навигация
+
+- Основное меню обёрнуто в `<nav>`.
+- Ссылки имеют понятные тексты анкоров (не "кликните здесь").
 
 ```html
+<header>
+  <nav aria-label="Основная навигация">
+    <a href="/">Главная</a>
+    <a href="/services/">Услуги</a>
+  </nav>
+</header>
 <main>
   <article>
-    <h1>Заголовок статьи</h1>
-    <section>
-      <h2>Введение</h2>
-      <p>Текст...</p>
-    </section>
-    <figure>
-      <img src="photo.jpg" alt="Описание" />
-      <figcaption>Подпись к изображению</figcaption>
-    </figure>
+    <h1>Заголовок</h1>
+    <section><h2>Подзаголовок</h2></section>
   </article>
 </main>
+<footer>...</footer>
 ```
 
 ---
 
-## 5. Производительность и современные форматы
+## 4. Оптимизация изображений и медиа (Core Web Vitals)
 
-### Конвертация изображений в WebP/AVIF
+Критично для показателей LCP и CLS.
 
-Современные форматы уменьшают вес файлов на 25-50% без потери качества.
+- [ ] **Атрибуты размеров**: У всех тегов `<img>` явно указаны `width` и `height`.
+- [ ] **Alt-текст**: У каждого информативного изображения есть `alt` (50–125 символов). Декоративные — `alt=""`.
+- [ ] **Lazy Loading**: Для изображений ниже первого экрана — `loading="lazy"`.
+- [ ] **Современные форматы**: Предпочтение WebP или AVIF. Использование `<picture>` для `srcset`.
+- [ ] **Подписи**: Изображения с важным контекстом обернуты в `<figure>` с `<figcaption>`.
 
 ```html
 <picture>
   <source srcset="image.avif" type="image/avif" />
   <source srcset="image.webp" type="image/webp" />
-  <img src="image.jpg" alt="Описание" width="800" height="600" />
+  <img src="image.jpg" alt="Светлая гостиная в скандинавском стиле" width="800" height="600" loading="lazy" />
 </picture>
+
+<figure>
+  <img src="project.jpg" alt="Проект кухни" width="1200" height="800" />
+  <figcaption>Кухня-гостиная в проекте «Ателье»</figcaption>
+</figure>
 ```
-
-**Чек-лист:**
-- [ ] Изображения конвертированы в WebP/AVIF
-- [ ] Fallback на JPG/PNG для старых браузеров
-- [ ] Сжатие изображений (lossy/lossless)
-
-### Preload критических ресурсов
-
-Улучшает LCP (Largest Contentful Paint).
-
-```html
-<!-- Шрифты -->
-<link rel="preload" href="/fonts/main.woff2" as="font" type="font/woff2" crossorigin />
-
-<!-- Критические изображения (первый экран) -->
-<link rel="preload" href="/images/hero.jpg" as="image" />
-
-<!-- Критический CSS -->
-<link rel="preload" href="/styles/critical.css" as="style" />
-```
-
-### Preconnect к внешним доменам
-
-```html
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://cdn.example.com" crossorigin />
-```
-
-**Чек-лист:**
-- [ ] Preload для шрифтов и критических изображений
-- [ ] Preconnect к внешним CDN
-- [ ] Нет render-blocking ресурсов
 
 ---
 
-## 6. Доступность (Accessibility / a11y)
+## 5. Социальные сети и сниппеты (Open Graph & Twitter Cards)
 
-Поисковые системы все учитывают доступность сайта. Доступные сайты получают преимущество в ранжировании.
+Влияет на CTR при распространении ссылок в мессенджерах и соцсетях.
 
-### ARIA-атрибуты для интерактивных элементов
+### Open Graph
 
-```html
-<!-- Кнопки без текста -->
-<button aria-label="Открыть меню">
-  <svg>...</svg>
-</button>
+- [ ] `og:title`, `og:description`, `og:url`, `og:type`.
+- [ ] `og:image`: Размер 1200×630 px, формат JPG/PNG/WebP, без мелкого текста.
 
-<!-- Навигация -->
-<nav aria-label="Основная навигация">...</nav>
+### Twitter Card
 
-<!-- Модальные окна -->
-<div role="dialog" aria-modal="true" aria-labelledby="title">...</div>
-
-<!-- Формы -->
-<label for="email">Email</label>
-<input type="email" id="email" aria-required="true" />
-```
-
-### Контрастность цветов
-
-Соотношение контрастности текста:
-- **Обычный текст:** минимум 4.5:1
-- **Крупный текст (18px+):** минимум 3:1
-- **Интерактивные элементы:** минимум 3:1
-
-### Клавиатурная навигация
-
-```css
-/* Видимый фокус для клавиатурных пользователей */
-:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
-}
-```
-
-**Чек-лист:**
-- [ ] `aria-label` на кнопках без текста
-- [ ] `aria-label` на иконках и SVG
-- [ ] Контрастность текста ≥ 4.5:1
-- [ ] Фокус виден при навигации клавиатурой
-- [ ] Формы имеют связанные `<label>`
-
----
-
-## 7. Мобильная адаптация (углубление)
-
-### Tap targets — размер кликабельных элементов
-
-Google требует размер кликабельных элементов не менее **48×48 px** с отступом **8 px**.
-
-```css
-/* Минимальный размер кнопок */
-button, a, input[type="checkbox"] {
-  min-width: 48px;
-  min-height: 48px;
-}
-
-/* Отступы между кликабельными элементами */
-.nav a {
-  padding: 12px 8px;
-}
-```
-
-**Чек-лист:**
-- [ ] Размер кликабельных элементов ≥ 48×48 px
-- [ ] Отступы между кликабельными элементами ≥ 8 px
-- [ ] Нет перекрывающихся ссылок/кнопок
-
----
-
-## 8. E-E-A-T (Experience, Expertise, Authoritativeness, Trustworthiness)
-
-Для коммерческих сайтов и YMYL (Your Money Your Life) ниш важно подтверждение экспертности.
-
-### Разметка авторства
-
-```json
-{
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "headline": "Заголовок статьи",
-  "author": {
-    "@type": "Person",
-    "name": "Марина Иванова",
-    "jobTitle": "Архитектор-дизайнер",
-    "url": "https://interior360.example/about/#marina",
-    "sameAs": [
-      "https://instagram.com/marina_design",
-      "https://t.me/marina_design"
-    ]
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "INTERIOR.360",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://interior360.example/logo.png"
-    }
-  }
-}
-```
-
-### Отзывы и рейтинги
-
-```json
-{
-  "@context": "https://schema.org",
-  "@type": "LocalBusiness",
-  "name": "INTERIOR.360",
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "4.9",
-    "reviewCount": "47"
-  },
-  "review": [
-    {
-      "@type": "Review",
-      "author": {"@type": "Person", "name": "Андрей К."},
-      "reviewBody": "Отличная работа, все сроки соблюдены.",
-      "reviewRating": {"@type": "Rating", "ratingValue": "5"}
-    }
-  ]
-}
-```
-
-**Чек-лист:**
-- [ ] Разметка автора статей (Article → author)
-- [ ] Ссылки на профили экспертов (sameAs)
-- [ ] Разметка отзывов (Review)
-- [ ] Разметка рейтинга (aggregateRating)
-
----
-
-## 9. Изображения
-
-Важны для Image Search и Core Web Vitals.
-
-### `alt` — текстовое описание (обязательно!)
+- [ ] `twitter:card` (summary_large_image), `twitter:title`, `twitter:image`.
 
 ```html
-<img src="interior.jpg" alt="Светлая гостиная с мебелью в скандинавском стиле" />
-```
-
-**Правила:**
-- Описывает содержание изображения
-- Содержит ключевые слова естественно
-- Длина: 50-125 символов
-- Для декоративных: `alt=""`
-
-### `loading="lazy"` — ленивая загрузка
-
-```html
-<img src="photo.jpg" alt="..." loading="lazy" />
-```
-
-**Правило:** Применяйте к изображениям ниже первого экрана.
-
-### `width` и `height` — предотвращают CLS
-
-```html
-<img src="photo.jpg" width="800" height="600" alt="..." />
-```
-
-**Почему важно:** Без этих атрибутов браузер не знает размер изображения до загрузки, что вызывает «прыжки» контента (CLS).
-
----
-
-## 10. Для социальных сетей и поисковых выдач
-
-### Open Graph (влияют на кликабельность в соцсетях)
-
-```html
-<meta property="og:title" content="Заголовок страницы" />
-<meta property="og:description" content="Краткое описание" />
-<meta property="og:image" content="https://site.ru/og-image.jpg" />
-<meta property="og:url" content="https://site.ru/page/" />
+<meta property="og:title" content="3D-визуализация интерьеров" />
+<meta property="og:description" content="Создаём фотореалистичные визуализации для вашего проекта." />
+<meta property="og:image" content="https://interior360.example/og-image.jpg" />
+<meta property="og:url" content="https://interior360.example/" />
 <meta property="og:type" content="website" />
-<meta property="og:site_name" content="Название сайта" />
-```
 
-**Рекомендации по `og:image`:**
-- Размер: 1200×630 пикселей
-- Формат: JPG, PNG, WebP
-- Без текста на изображении (или минимальный)
-- Уникальное для каждой страницы
-
-### Twitter Card (для Twitter/X)
-
-```html
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Заголовок" />
-<meta name="twitter:description" content="Описание" />
-<meta name="twitter:image" content="https://site.ru/twitter-image.jpg" />
+<meta name="twitter:title" content="3D-визуализация интерьеров" />
+<meta name="twitter:image" content="https://interior360.example/og-image.jpg" />
 ```
 
 ---
 
-## 11. Структурная разметка (Schema.org)
+## 6. Структурная разметка (Schema.org / JSON-LD)
 
-Влияет на появление расширенных сниппетов в выдаче.
+Помогает формировать расширенные сниппеты (Rich Snippets).
 
-### Для бизнеса (LocalBusiness)
+- [ ] **Формат**: JSON-LD внутри `<script type="application/ld+json">`.
+- [ ] **Типы разметки**:
+
+| Тип | Где использовать |
+|-----|-----------------|
+| `LocalBusiness` / `Organization` | Главная, контакты |
+| `Article` / `BlogPosting` | Статьи блога |
+| `BreadcrumbList` | Навигационная цепочка |
+| `ImageObject` | Портфолио, галереи |
+| `Product` | Карточки товаров (если есть) |
 
 ```json
 {
@@ -454,67 +177,36 @@ button, a, input[type="checkbox"] {
     "addressLocality": "Москва",
     "addressCountry": "RU"
   },
-  "openingHours": "Mo-Fr 10:00-19:00",
-  "image": "https://interior360.example/images/logo.jpg",
-  "priceRange": "$$"
-}
-```
-
-### Для статей (Article)
-
-```json
-{
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "headline": "Заголовок статьи",
-  "datePublished": "2026-01-15",
-  "dateModified": "2026-01-15",
-  "author": {
-    "@type": "Person",
-    "name": "Автор"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "INTERIOR.360"
-  }
-}
-```
-
-### Для хлебных крошек (BreadcrumbList)
-
-```json
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    { "@type": "ListItem", "position": 1, "name": "Главная", "item": "https://site.ru/" },
-    { "@type": "ListItem", "position": 2, "name": "Услуги", "item": "https://site.ru/services/" }
-  ]
-}
-```
-
-### Для изображений (ImageObject — важно для визуальных ниш)
-
-```json
-{
-  "@context": "https://schema.org",
-  "@type": "ImageObject",
-  "contentUrl": "https://interior360.example/images/project.jpg",
-  "license": "https://creativecommons.org/licenses/by/4.0/",
-  "acquireLicensePage": "https://interior360.example/license",
-  "copyrightYear": 2026,
-  "creator": {
-    "@type": "Organization",
-    "name": "INTERIOR.360"
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.9",
+    "reviewCount": "47"
   }
 }
 ```
 
 ---
 
-## 12. Для мультиязычных сайтов
+## 7. Производительность и ресурсы
 
-### `hreflang` — связь между версиями
+- [ ] **Preload**: Критические шрифты или CSS предзагружаются через `<link rel="preload">`.
+- [ ] **CSS/JS**: Стили не блокируют рендеринг. JS-скрипты имеют `defer` или `async`.
+- [ ] **Favicon**: Присутствует фавиконка различных форматов (ico, png, svg) для разных устройств.
+- [ ] **Preconnect**: К внешним CDN и доменам.
+
+```html
+<link rel="preload" href="/fonts/main.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="icon" type="image/png" href="/favicon.png" />
+<script defer src="/script.js"></script>
+```
+
+---
+
+## 8. Мультиязычность (если применимо)
+
+- [ ] **Hreflang**: Для каждой языковой версии проставлены взаимные ссылки `<link rel="alternate" hreflang="...">`.
+- [ ] Присутствует версия `x-default`.
 
 ```html
 <link rel="alternate" hreflang="ru" href="https://site.ru/page/" />
@@ -522,108 +214,70 @@ button, a, input[type="checkbox"] {
 <link rel="alternate" hreflang="x-default" href="https://site.ru/page/" />
 ```
 
-**Правила:**
-- Каждая страница ссылается на все языковые версии (включая саму себя)
-- `x-default` — версия по умолчанию для неопределённых языков
-- Обратные ссылки обязательны (если A ссылается на B, B должен ссылаться на A)
+---
+
+## 9. Доступность (a11y)
+
+- [ ] **ARIA-атрибуты**: На кнопках без текста — `aria-label`.
+- [ ] **Контрастность**: Текст ≥ 4.5:1, крупный текст ≥ 3:1.
+- [ ] **Фокус**: Видимый фокус при навигации клавиатурой.
+- [ ] **Формы**: Связанные `<label>` с `<input>`.
+
+```html
+<button aria-label="Открыть меню">
+  <svg>...</svg>
+</button>
+
+<label for="email">Email</label>
+<input type="email" id="email" aria-required="true" />
+```
 
 ---
 
-## 13. Чек-лист для проверки
+## 10. Мобильная адаптация
 
-### Безопасность
+- [ ] **Tap targets**: Размер кликабельных элементов ≥ 48×48 px.
+- [ ] **Отступы**: Между кликабельными элементами ≥ 8 px.
 
-- [ ] Сайт работает по HTTPS (валидный сертификат)
-- [ ] Настроен редирект HTTP → HTTPS
-- [ ] Нет смешанного контента (Mixed Content)
-
-### В `<head>`
-
-- [ ] `<title>` (50-60 символов, уникальный)
-- [ ] `<meta name="description">` (150-160 символов)
-- [ ] `<meta name="robots" content="index,follow">`
-- [ ] `<link rel="canonical">`
-- [ ] `<meta name="viewport">`
-- [ ] `<html lang="ru">`
-- [ ] `<meta property="og:title">`
-- [ ] `<meta property="og:description">`
-- [ ] `<meta property="og:image">`
-- [ ] `<meta property="og:url">`
-- [ ] Schema.org разметка
-
-### На странице
-
-- [ ] Один `<h1>` с ключевым словом
-- [ ] Иерархия заголовков `<h2>`-`<h6>`
-- [ ] Семантические теги (`<header>`, `<nav>`, `<main>`, `<article>`, `<section>`, `<footer>`)
-- [ ] `alt` на всех изображениях
-- [ ] `width`/`height` на ключевых изображениях
-- [ ] `loading="lazy"` на изображениях ниже первого экрана
-- [ ] Изображения в WebP/AVIF с fallback
-
-### Производительность
-
-- [ ] Preload для шрифтов и критических изображений
-- [ ] Preconnect к внешним CDN
-- [ ] Нет render-blocking ресурсов
-
-### Доступность
-
-- [ ] `aria-label` на кнопках без текста
-- [ ] Контрастность текста ≥ 4.5:1
-- [ ] Фокус виден при навигации клавиатурой
-- [ ] Формы имеют связанные `<label>`
-
-### Мобильная адаптация
-
-- [ ] Размер кликабельных элементов ≥ 48×48 px
-- [ ] Отступы между кликабельными элементами ≥ 8 px
-
-### E-E-A-T
-
-- [ ] Разметка автора статей
-- [ ] Ссылки на профили экспертов
-- [ ] Разметка отзывов и рейтинга
-
-### Файлы
-
-- [ ] robots.txt не блокирует важные ресурсы
-- [ ] sitemap.xml сгенерирован и актуален
-- [ ] sitemap.xml добавлен в Яндекс.Вебмастер / Google Search Console
-
-### Для мультиязычности
-
-- [ ] `<link rel="alternate" hreflang="ru">`
-- [ ] `<link rel="alternate" hreflang="en">`
-- [ ] `<link rel="alternate" hreflang="x-default">`
+```css
+button, a, input[type="checkbox"] {
+  min-width: 48px;
+  min-height: 48px;
+}
+```
 
 ---
 
-## 14. Типичные ошибки
+## 11. Чек-лист быстрой проверки
+
+| Элемент | Статус | Комментарий |
+|---------|--------|-------------|
+| **HTTPS Valid** | ⬜ | Сертификат активен, нет Mixed Content |
+| **Unique Title** | ⬜ | Нет дублей в рамках сайта |
+| **H1 Present** | ⬜ | Один на страницу, с ключевым словом |
+| **Images Alt** | ⬜ | Заполнены у всех контентных img |
+| **CLS Safe** | ⬜ | Width/height заданы у изображений |
+| **Schema Valid** | ⬜ | Ошибок в валидаторе Google нет |
+| **Mobile Friendly** | ⬜ | Viewport настроен, элементы не мелкие |
+| **OG Tags** | ⬜ | og:image заполнен (1200×630) |
+| **Hreflang** | ⬜ | Взаимные ссылки между версиями |
+| **robots.txt** | ⬜ | Не блокирует важные ресурсы |
+| **sitemap.xml** | ⬜ | Актуален, добавлен в Search Console |
+
+---
+
+## 12. Типичные ошибки
 
 | Ошибка | Последствие |
 |--------|------------|
-| Дубли `<title>` на разных страницах | Понижение в выдаче |
+| Дубли `<title>` | Понижение в выдаче |
 | Пустой `alt` у информативных изображений | Потеря трафика из Image Search |
 | Отсутствие `canonical` | Индексация дублей |
 | `og:image` не указан | Пустой превью в соцсетях |
-| Пропуск уровней заголовков | Нарушение семантики |
-| `<h1>` повторяет `<title>` | Дублирование сигнала |
-| Нет `viewport` | Исключение из мобильной индексации |
 | Блокировка CSS/JS в robots.txt | Google не может оценить мобильную версию |
 | HTTP вместо HTTPS | Понижение + предупреждение в браузере |
+| Пропуск уровней заголовков | Нарушение семантики |
 
 ---
 
-## 15. Приоритеты для проекта INTERIOR360
-
-| Приоритет | Задача | Влияние |
-|-----------|--------|---------|
-| 0 (Срочно) | Проверить HTTPS и robots.txt | Безопасность, индексация |
-| 1 | Добавить Schema.org (LocalBusiness + ImageObject) | Расширенные сниппеты, E-E-A-T |
-| 2 | Оптимизировать изображения (WebP, width/height, alt) | CLS, Core Web Vitals, Image Search |
-| 3 | Настроить Open Graph для портфолио | Соцсети (Instagram, Telegram, VK) |
-| 4 | Добавить Twitter Card | Twitter/X |
-| 5 | Проверить уникальность `<title>` и `<description>` | Позиции в выдаче |
-| 6 | Добавить ARIA-атрибуты | Доступность, SEO |
-| 7 | Настроить preload/preconnect | Производительность |
+*Примечание для агента: При генерации кода всегда отдавай приоритет семантической чистоте и скорости загрузки. Избегай inline-стилей для крупных блоков и избыточной вложенности div-ов.*
