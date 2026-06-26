@@ -1,43 +1,45 @@
 ---
 import { getCollection } from "astro:content";
-import SiteLayout from "../../layouts/SiteLayout.astro";
+import SiteLayout from "../../../layouts/SiteLayout.astro";
+import { useTranslations } from "../../../i18n";
 
-const posts = (await getCollection("blog", ({ data }) => !data.draft && (!data.locale || data.locale === "ru"))).sort(
+const t = useTranslations("en");
+
+const posts = (await getCollection("blog", ({ data }) => !data.draft && data.locale === "en")).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
 );
 
 const formatBlogDate = (date: Date) =>
-  new Intl.DateTimeFormat("ru-RU", {
+  new Intl.DateTimeFormat("en-US", {
     day: "numeric",
     month: "long",
     year: "numeric",
   }).format(date);
 
 const formatDayOfWeek = (date: Date) =>
-  new Intl.DateTimeFormat("ru-RU", { weekday: "long" }).format(date);
+  new Intl.DateTimeFormat("en-US", { weekday: "long" }).format(date);
 ---
 
 <SiteLayout
-  title="Блог | INTERIOR.360"
-  description="Блог студии INTERIOR.360 о 3D-визуализации, интерьерах и рабочем процессе."
-  canonicalPath="/blog/"
+  title="Blog | INTERIOR.360"
+  description="INTERIOR.360 blog about 3D visualization, interiors and work process."
+  canonicalPath="/en/blog/"
+  locale="en"
 >
   <section class="page-hero">
     <div>
       <p class="eyebrow">Blog</p>
-      <h1 data-i18n="blog.title">Блог студии</h1>
-      <p class="lead" data-i18n="blog.lead">
-        Полезные статьи о дизайне интерьера, 3D-визуализации и процессе работы над проектами.
-      </p>
+      <h1>{t("blog.title")}</h1>
+      <p class="lead">{t("blog.lead")}</p>
     </div>
     <button class="hero-panel brief-panel-trigger" type="button" data-brief-open aria-haspopup="dialog" aria-controls="project-brief-modal">
-      <strong data-i18n="hero.brief">Заполнить бриф проекта</strong>
+      <strong>{t("hero.brief")}</strong>
     </button>
   </section>
 
   <section class="blog-list">
     {posts.map((post) => (
-      <a href={`/blog/${post.slug}/`} class="blog-list-item">
+      <a href={`/en/blog/${post.slug}/`} class="blog-list-item">
         <div class="blog-list-date">
           <span class="blog-list-day">{formatDayOfWeek(post.data.date)}</span>
           <span class="blog-list-full">{formatBlogDate(post.data.date)}</span>

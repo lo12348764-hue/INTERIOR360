@@ -12,6 +12,7 @@ const blog = defineCollection({
     author: z.string().default("INTERIOR.360"),
     readingTime: z.string(),
     draft: z.boolean().default(false),
+    locale: z.string().default("ru"),
   }),
 });
 

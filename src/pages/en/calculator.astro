@@ -1,70 +1,72 @@
 ---
-import SiteLayout from "../layouts/SiteLayout.astro";
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import { useTranslations } from "../../i18n";
+
+const t = useTranslations("en");
 ---
 
 <SiteLayout
-  title="Калькулятор | INTERIOR.360"
-  description="Калькулятор INTERIOR.360: быстрый расчёт стоимости проекта и структуры работ."
-  canonicalPath="/calculator/"
+  title="Calculator | INTERIOR.360"
+  description="INTERIOR.360 calculator: quick project cost estimation and work structure."
+  canonicalPath="/en/calculator/"
+  locale="en"
 >
   <section class="page-hero">
     <div>
       <p class="eyebrow">Calculator</p>
-      <h1 data-i18n="calculator.title">Калькулятор проекта</h1>
-      <p class="lead" data-i18n="calculator.lead">
-        Выберите нужные услуги, укажите параметры — и получите ориентировочный расчёт стоимости проекта.
-      </p>
+      <h1>{t("calculator.title")}</h1>
+      <p class="lead">{t("calculator.lead")}</p>
     </div>
     <button class="hero-panel brief-panel-trigger" type="button" data-brief-open aria-haspopup="dialog" aria-controls="project-brief-modal">
-      <strong data-i18n="hero.brief">Заполнить бриф проекта</strong>
+      <strong>{t("hero.brief")}</strong>
     </button>
   </section>
 
   <section class="calc-section">
     <div class="calc-grid">
       <div class="surface calc-form">
-        <h2>Параметры проекта</h2>
+        <h2>Project Parameters</h2>
 
         <div class="calc-field">
-          <label>Тип объекта</label>
+          <label>Object Type</label>
           <select id="objectType">
-            <option value="apartment">Квартира</option>
-            <option value="house">Частный дом</option>
-            <option value="office">Офис</option>
-            <option value="commercial">Коммерческое пространство</option>
-            <option value="hospitality">Гостиница / Ресторан</option>
+            <option value="apartment">Apartment</option>
+            <option value="house">Private House</option>
+            <option value="office">Office</option>
+            <option value="commercial">Commercial Space</option>
+            <option value="hospitality">Hotel / Restaurant</option>
           </select>
         </div>
 
         <div class="calc-field">
-          <label>Площадь, м²</label>
+          <label>Area, sq.m</label>
           <input type="number" id="area" value="80" min="10" max="1000" />
         </div>
 
         <div class="calc-field">
-          <label>Количество помещений</label>
+          <label>Number of Rooms</label>
           <input type="number" id="rooms" value="4" min="1" max="50" />
         </div>
 
         <div class="calc-field">
-          <label>Уровень отделки</label>
+          <label>Finish Level</label>
           <select id="finishLevel">
-            <option value="standard">Стандарт</option>
-            <option value="premium" selected>Премиум</option>
-            <option value="luxury">Люкс</option>
+            <option value="standard">Standard</option>
+            <option value="premium" selected>Premium</option>
+            <option value="luxury">Luxury</option>
           </select>
         </div>
       </div>
 
       <div class="surface calc-services">
-        <h2>Выберите услуги</h2>
+        <h2>Select Services</h2>
         <div class="calc-services-list">
           <label class="calc-checkbox">
             <input type="checkbox" id="service-concept" checked />
             <span class="calc-checkbox-mark"></span>
             <div>
-              <strong>Концептуальный стиль</strong>
-              <p class="muted">Коллажи, материалы, атмосфера</p>
+              <strong>Concept Style</strong>
+              <p class="muted">Collages, materials, atmosphere</p>
             </div>
           </label>
 
@@ -72,8 +74,8 @@ import SiteLayout from "../layouts/SiteLayout.astro";
             <input type="checkbox" id="service-docs" />
             <span class="calc-checkbox-mark"></span>
             <div>
-              <strong>Рабочая документация</strong>
-              <p class="muted">Чертежи, планы, спецификации</p>
+              <strong>Working Documentation</strong>
+              <p class="muted">Drawings, plans, specifications</p>
             </div>
           </label>
 
@@ -81,8 +83,8 @@ import SiteLayout from "../layouts/SiteLayout.astro";
             <input type="checkbox" id="service-3d" checked />
             <span class="calc-checkbox-mark"></span>
             <div>
-              <strong>3D Визуализация</strong>
-              <p class="muted">Фотореалистичные рендеры</p>
+              <strong>3D Visualization</strong>
+              <p class="muted">Photorealistic renders</p>
             </div>
           </label>
 
@@ -90,8 +92,8 @@ import SiteLayout from "../layouts/SiteLayout.astro";
             <input type="checkbox" id="service-animation" />
             <span class="calc-checkbox-mark"></span>
             <div>
-              <strong>Анимация / Walkthrough</strong>
-              <p class="muted">Видео-прогулка по проекту</p>
+              <strong>Animation / Walkthrough</strong>
+              <p class="muted">Project video walkthrough</p>
             </div>
           </label>
 
@@ -99,8 +101,8 @@ import SiteLayout from "../layouts/SiteLayout.astro";
             <input type="checkbox" id="service-developer" />
             <span class="calc-checkbox-mark"></span>
             <div>
-              <strong>Подача для девелоперов</strong>
-              <p class="muted">Маркетинговые материалы</p>
+              <strong>Developer Presentation</strong>
+              <p class="muted">Marketing materials</p>
             </div>
           </label>
 
@@ -108,8 +110,8 @@ import SiteLayout from "../layouts/SiteLayout.astro";
             <input type="checkbox" id="service-supervision" />
             <span class="calc-checkbox-mark"></span>
             <div>
-              <strong>Авторский надзор</strong>
-              <p class="muted">Контроль реализации на объекте</p>
+              <strong>Author Supervision</strong>
+              <p class="muted">On-site implementation control</p>
             </div>
           </label>
         </div>
@@ -118,17 +120,17 @@ import SiteLayout from "../layouts/SiteLayout.astro";
 
     <div class="surface calc-result" id="calcResult">
       <div class="calc-result-header">
-        <h2>Ориентировочный расчёт</h2>
-        <p class="muted">Точная стоимость определяется после брифа</p>
+        <h2>Estimated Calculation</h2>
+        <p class="muted">Final cost is determined after the brief</p>
       </div>
       <div class="calc-result-grid" id="calcBreakdown"></div>
       <div class="calc-result-total">
-        <span>ИТОГО</span>
+        <span>TOTAL</span>
         <strong id="calcTotal">0 ₽</strong>
       </div>
       <div class="calc-result-actions">
-        <button class="button" type="button" data-brief-open>Заполнить бриф проекта</button>
-        <a class="button-secondary" href="/contact/">Связаться с нами</a>
+        <button class="button" type="button" data-brief-open>Fill project brief</button>
+        <a class="button-secondary" href="/en/contact/">Contact us</a>
       </div>
     </div>
   </section>
@@ -361,12 +363,12 @@ import SiteLayout from "../layouts/SiteLayout.astro";
   };
 
   const serviceNames = {
-    concept: "Концептуальный стиль",
-    docs: "Рабочая документация",
-    "3d": "3D Визуализация",
-    animation: "Анимация / Walkthrough",
-    developer: "Подача для девелоперов",
-    supervision: "Авторский надзор",
+    concept: "Concept Style",
+    docs: "Working Documentation",
+    "3d": "3D Visualization",
+    animation: "Animation / Walkthrough",
+    developer: "Developer Presentation",
+    supervision: "Author Supervision",
   };
 
   function formatPrice(n) {

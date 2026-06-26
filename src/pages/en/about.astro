@@ -1,0 +1,511 @@
+---
+import { studioStats } from "../../data/site";
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import { useTranslations } from "../../i18n";
+
+const t = useTranslations("en");
+
+const team = [
+  {
+    name: "Marina",
+    role: "Founder / Architect",
+    image: "/images/channel/living-premium.jpg",
+    description: "Creates concepts, manages projects, and ensures every presentation serves the client's goal.",
+  },
+  {
+    name: "Alexey",
+    role: "3D Artist",
+    image: "/images/channel/dining-minimal.jpg",
+    description: "Builds scenes, refines lighting and materials, and achieves photorealistic presentation.",
+  },
+  {
+    name: "Daria",
+    role: "Interior Designer",
+    image: "/images/channel/arches-lounge.jpg",
+    description: "Shapes the visual logic of the project: from collages to final visualizations.",
+  },
+];
+
+const cases = [
+  {
+    title: "Riverside Residence",
+    category: "Residential Interior",
+    before: "/images/channel/living-light.jpg",
+    after: "/images/channel/living-premium.jpg",
+    description: "Transforming drawings into an atmospheric visualization that helped align the project with the client in 2 days.",
+  },
+  {
+    title: "Aurum Lobby",
+    category: "Development",
+    before: "/images/channel/lobby-classic.jpg",
+    after: "/images/channel/lobby-classic.jpg",
+    description: "Marketing presentation for the sales office: a series of images for brochures and a landing page.",
+  },
+  {
+    title: "Kitchen Atelier",
+    category: "Product Presentation",
+    before: "/images/channel/dining-minimal.jpg",
+    after: "/images/channel/accent-seating.jpg",
+    description: "Detailed material and texture work for a furniture brand catalog.",
+  },
+];
+
+const reviews = [
+  {
+    text: "INTERIOR.360 helped us present the project to investors. The visualizations were so realistic that the funding decision was made immediately.",
+    author: "Andrey K.",
+    company: "Horizon Development Company",
+  },
+  {
+    text: "First time working with a studio that understands not only aesthetics but also the business goal. The result exceeded expectations.",
+    author: "Elena M.",
+    company: "Architecture Bureau Studio M",
+  },
+  {
+    text: "Fast, high quality, with attention to detail. Recommended for those who value results, not just pictures.",
+    author: "Dmitry V.",
+    company: "Materials & Textures Showroom",
+  },
+];
+---
+
+<SiteLayout
+  title="About | INTERIOR.360"
+  description="About INTERIOR.360 studio: strong interior presentation, clear process, and visualization that helps align and sell projects."
+  canonicalPath="/en/about/"
+  locale="en"
+>
+  <section class="page-hero about-hero">
+    <div>
+      <p class="eyebrow">About</p>
+      <h1 class="about-title">{t("about.title")}</h1>
+      <p class="lead">{t("about.lead")}</p>
+    </div>
+    <button class="hero-panel brief-panel-trigger" type="button" data-brief-open aria-haspopup="dialog" aria-controls="project-brief-modal">
+      <strong>{t("hero.brief")}</strong>
+    </button>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">Why Choose INTERIOR.360</h2>
+    <div class="grid grid-3">
+      <article class="surface about-feature">
+        <p class="kicker">01</p>
+        <h3>We Understand the Goal, Not Just the Image</h3>
+        <p class="muted">
+          First, we analyze why the presentation is being created: for approval, sales, brand presentation, or preparation for implementation.
+        </p>
+      </article>
+      <article class="surface about-feature">
+        <p class="kicker">02</p>
+        <h3>We Build a Cohesive Visual System</h3>
+        <p class="muted">
+          We ensure that angles, lighting, materials, and atmosphere work as a unified project language, not as a set of random frames.
+        </p>
+      </article>
+      <article class="surface about-feature">
+        <p class="kicker">03</p>
+        <h3>We Deliver Results That Are Easy to Work With</h3>
+        <p class="muted">
+          The client receives clear and presentable materials that are easy to show, discuss, and use going forward.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">Why Us?</h2>
+    <div class="about-why-grid">
+      <article class="surface about-why-item">
+        <h3>Why Not a Freelancer?</h3>
+        <p class="muted">
+          A freelancer makes one image. We build a system: from concept to a complete set of materials that work together.
+          Every project has a team behind it, not one person who might disappear halfway.
+        </p>
+      </article>
+      <article class="surface about-why-item">
+        <h3>Why Not a Typical Studio?</h3>
+        <p class="muted">
+          We don't do template solutions. Every project is a separate task, a separate atmosphere, and a separate presentation strategy.
+          We don't fit into a style — we create the project's own language.
+        </p>
+      </article>
+      <article class="surface about-why-item">
+        <h3>Why Is It Important to Start with Us?</h3>
+        <p class="muted">
+          When visualization is thought through before implementation begins — fewer revisions, fewer surprises, and a more accurate result.
+          We help make decisions before they become expensive.
+        </p>
+      </article>
+      <article class="surface about-why-item">
+        <h3>What Does the Result Look Like?</h3>
+        <p class="muted">
+          A complete set of photorealistic visualizations, working documentation, or marketing materials — all ready for approval,
+          presentation, and launch. No "almost done."
+        </p>
+      </article>
+      <article class="surface about-why-item">
+        <h3>How Much Does It Cost?</h3>
+        <p class="muted">
+          It depends on the scope and format. Basic visualization starts at 55,000 ₽, full cycle starts at 200,000 ₽.
+          We calculate the exact cost after the brief, usually within 24 hours.
+        </p>
+      </article>
+      <article class="surface about-why-item">
+        <h3>How to Get Started?</h3>
+        <p class="muted">
+          Fill out the project brief or write to Telegram. We'll review the task, propose a work format, and calculate the cost.
+          No prepayment until the scope is agreed upon.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="grid grid-3">
+      {cases.map((item) => (
+        <article class="surface about-case">
+          <div class="about-case-images">
+            <div class="about-case-img">
+              <img src={item.before} alt={item.title} loading="lazy" />
+              <span class="about-case-label">Before</span>
+            </div>
+            <div class="about-case-img">
+              <img src={item.after} alt={item.title} loading="lazy" />
+              <span class="about-case-label">After</span>
+            </div>
+          </div>
+          <div class="about-case-info">
+            <p class="kicker">{item.category}</p>
+            <h3>{item.title}</h3>
+            <p class="muted">{item.description}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">Studio Video</h2>
+    <div class="about-video surface">
+      <video
+        class="about-video-player"
+        src="/images/channel/animation-walkthrough.mp4"
+        autoplay
+        loop
+        muted
+        playsinline
+      ></video>
+      <div class="about-video-overlay">
+        <p class="kicker">Work Process</p>
+        <h3>How We Create Visualizations</h3>
+        <p class="muted">From idea to final render — the full project creation cycle</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="grid grid-2">
+      <article class="surface">
+        <p class="kicker">Approach</p>
+        <h2 class="about-section-title">How We Build Our Work</h2>
+        <ul class="list">
+          <li>We dive into the task, project context, and the format of the final presentation</li>
+          <li>We form the visual logic: style, atmosphere, materials, and accents</li>
+          <li>We refine angles, lighting environment, and spatial composition</li>
+          <li>We assemble the final set of materials for approval, presentation, and implementation</li>
+        </ul>
+      </article>
+      <article class="surface">
+        <p class="kicker">For the Client</p>
+        <h2 class="about-section-title">What This Means in Practice</h2>
+        <ul class="list">
+          <li>Fewer revisions and repeated approvals</li>
+          <li>A more accurate understanding of the future space</li>
+          <li>Confident project presentation to the client or partners</li>
+          <li>A visual foundation for launch, publication, or sales</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">Team</h2>
+    <div class="grid grid-3">
+      {team.map((member) => (
+        <article class="surface about-team-card">
+          <div class="about-team-img">
+            <img src={member.image} alt={member.name} loading="lazy" />
+          </div>
+          <div class="about-team-info">
+            <h3>{member.name}</h3>
+            <p class="kicker">{member.role}</p>
+            <p class="muted">{member.description}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">Client Reviews</h2>
+    <div class="about-reviews">
+      {reviews.map((review) => (
+        <article class="surface about-review">
+          <p class="about-review-text">"{review.text}"</p>
+          <div class="about-review-author">
+            <strong>{review.author}</strong>
+            <span>{review.company}</span>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">Numbers</h2>
+    <div class="stats">
+      {studioStats.map((stat) => (
+        <div class="stat">
+          <strong>{stat.value}</strong>
+          <span>{stat.label}</span>
+        </div>
+      ))}
+    </div>
+    <p class="about-stats-note muted">Every number represents real projects and the trust of clients who return again</p>
+  </section>
+
+  <section class="section">
+    <div class="about-cta surface">
+      <div>
+        <p class="kicker">Next Step</p>
+        <h2>If you need a presentation that looks strong and delivers results, we can join your project</h2>
+      </div>
+      <p class="muted">
+        We work with private interiors, commercial spaces, brand environments, and developer materials.
+        We select the work format to match the project's needs and assemble a presentation that truly helps you move forward.
+      </p>
+      <div class="button-row">
+        <a class="button" href="/en/calculator/">Calculate Project</a>
+        <a class="button-secondary" href="/en/contact/">Discuss Project</a>
+      </div>
+    </div>
+  </section>
+</SiteLayout>
+
+<style>
+  .about-hero {
+    align-items: end;
+  }
+
+  .about-title {
+    font-size: clamp(1.8rem, 3.8vw, 3rem);
+    line-height: 1.1;
+  }
+
+  .about-showcase-main h2,
+  .about-manifesto h2,
+  .about-cta h2 {
+    font-size: clamp(2rem, 3vw, 3rem);
+    line-height: 1.08;
+    margin: 10px 0 0;
+  }
+
+  .about-note h3,
+  .about-feature h3 {
+    margin: 10px 0 0;
+    font-size: 1.45rem;
+  }
+
+  .about-section-title {
+    font-size: 2rem;
+    margin-top: 10px;
+  }
+
+  .about-case {
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .about-case-images {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+  }
+
+  .about-case-img {
+    position: relative;
+    height: 160px;
+    overflow: hidden;
+  }
+
+  .about-case-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .about-case-label {
+    position: absolute;
+    bottom: 8px;
+    left: 8px;
+    padding: 4px 10px;
+    border-radius: 6px;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--text);
+  }
+
+  .about-case-info {
+    padding: 20px;
+  }
+
+  .about-case-info h3 {
+    margin: 6px 0 8px;
+    font-size: 1.2rem;
+    line-height: 1.15;
+  }
+
+  .about-video {
+    padding: 0;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .about-video-player {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    display: block;
+  }
+
+  .about-video-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 40px 32px 32px;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+  }
+
+  .about-video-overlay h3 {
+    margin: 6px 0 8px;
+    font-size: 1.6rem;
+  }
+
+  .about-team-card {
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .about-team-img {
+    height: 200px;
+    overflow: hidden;
+  }
+
+  .about-team-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+
+  .about-team-card:hover .about-team-img img {
+    transform: scale(1.05);
+  }
+
+  .about-team-info {
+    padding: 20px;
+  }
+
+  .about-team-info h3 {
+    margin: 0 0 4px;
+    font-size: 1.2rem;
+    line-height: 1.2;
+  }
+
+  .about-team-info .kicker {
+    margin-bottom: 10px;
+  }
+
+  .about-reviews {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .about-review {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .about-review-text {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--muted);
+    font-style: italic;
+    margin-bottom: 20px;
+  }
+
+  .about-review-author strong {
+    display: block;
+    font-size: 0.95rem;
+    margin-bottom: 2px;
+  }
+
+  .about-review-author span {
+    font-size: 0.82rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .about-stats-note {
+    text-align: center;
+    margin-top: 16px;
+    font-size: 0.95rem;
+  }
+
+  .about-why-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .about-why-item h3 {
+    margin: 0 0 12px;
+    font-size: 1.2rem;
+    line-height: 1.2;
+  }
+
+  .about-why-item .muted {
+    margin: 0;
+    line-height: 1.7;
+  }
+
+  .about-cta {
+    display: grid;
+    gap: 18px;
+    background:
+      linear-gradient(180deg, rgba(215, 181, 132, 0.12), rgba(18, 15, 12, 0.9)),
+      radial-gradient(circle at right top, rgba(255, 232, 201, 0.18), transparent 45%);
+  }
+
+  @media (max-width: 900px) {
+    .about-reviews {
+      grid-template-columns: 1fr;
+    }
+
+    .about-video-player {
+      height: 260px;
+    }
+
+    .about-why-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

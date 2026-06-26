@@ -1,29 +1,31 @@
 ---
-import { portfolioItems } from "../data/site";
-import SiteLayout from "../layouts/SiteLayout.astro";
+import { portfolioItems } from "../../data/site";
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import { useTranslations } from "../../i18n";
+
+const t = useTranslations("en");
 ---
 
 <SiteLayout
-  title="Портфолио | INTERIOR.360"
-  description="Портфолио студии INTERIOR.360: жилые, коммерческие и девелоперские проекты 3D-визуализации."
-  canonicalPath="/portfolio/"
+  title="Portfolio | INTERIOR.360"
+  description="INTERIOR.360 portfolio: residential, commercial, and developer 3D visualization projects."
+  canonicalPath="/en/portfolio/"
+  locale="en"
 >
   <section class="page-hero">
     <div>
       <p class="eyebrow">Portfolio</p>
-      <h1 data-i18n="portfolio.title">Портфолио студии</h1>
-      <p class="lead" data-i18n="portfolio.lead">
-        Проекты студии INTERIOR.360: жилые, коммерческие и девелоперские пространства.
-      </p>
+      <h1>{t("portfolio.title")}</h1>
+      <p class="lead">{t("portfolio.lead")}</p>
     </div>
     <button class="hero-panel brief-panel-trigger" type="button" data-brief-open aria-haspopup="dialog" aria-controls="project-brief-modal">
-      <strong data-i18n="hero.brief">Заполнить бриф проекта</strong>
+      <strong>{t("hero.brief")}</strong>
     </button>
   </section>
 
   <section class="grid grid-2">
     {portfolioItems.map((item) => (
-      <a class="card portfolio-card-link" href={`/portfolio/${item.slug}/`} aria-label={`Открыть проект ${item.title}`}>
+      <a class="card portfolio-card-link" href={`/en/portfolio/${item.slug}/`} aria-label={`Open project ${item.title}`}>
         <div class="media-frame">
           <div class="media-motion">
             <img class="media" src={item.image} alt={item.title} loading="lazy" />

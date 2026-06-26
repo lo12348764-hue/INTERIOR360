@@ -1,25 +1,32 @@
 ---
 import { navigation } from "../data/site";
+import { useTranslations, type Locale } from "../i18n";
 
 interface Props {
   title: string;
   description: string;
   canonicalPath?: string;
+  locale?: Locale;
 }
 
-const { title, description, canonicalPath = "/" } = Astro.props;
+const { title, description, canonicalPath = "/", locale = "ru" } = Astro.props;
+const t = useTranslations(locale);
 const siteUrl = Astro.site ?? new URL("https://interior360.example");
 const canonicalUrl = new URL(canonicalPath, siteUrl).toString();
+const alternateLocale = locale === "ru" ? "en" : "ru";
+const alternatePath = locale === "ru" ? `/en${canonicalPath}` : canonicalPath.replace(/^\/en/, "") || "/";
 ---
 
 <!DOCTYPE html>
-<html lang="ru">
+<html lang={locale} data-lang={locale}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalUrl} />
+    <link rel="alternate" hreflang={alternateLocale} href={new URL(alternatePath, siteUrl).toString()} />
+    <link rel="alternate" hreflang={locale} href={canonicalUrl} />
     <link rel="icon" type="image/png" href="/favicon.png" />
     <meta name="robots" content="index,follow" />
     <meta property="og:type" content="website" />
@@ -421,6 +428,28 @@ const canonicalUrl = new URL(canonicalPath, siteUrl).toString();
         color: var(--text);
       }
 
+      .lang-toggle {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        padding: 6px 12px;
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.03);
+        color: var(--text);
+        font-size: 0.72rem;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        cursor: pointer;
+        text-decoration: none;
+        transition: border-color 0.2s ease, background 0.2s ease;
+      }
+
+      .lang-toggle:hover {
+        border-color: var(--accent);
+        background: rgba(92, 141, 255, 0.1);
+      }
+
       main {
         padding: 44px 0 72px;
       }
@@ -759,6 +788,148 @@ const canonicalUrl = new URL(canonicalPath, siteUrl).toString();
         color: var(--muted);
       }
 
+      .brief-panel-trigger {
+        width: 100%;
+        cursor: pointer;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(255, 255, 255, 0.03);
+        transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .brief-panel-trigger:hover {
+        border-color: rgba(255, 255, 255, 0.18);
+        transform: translateY(-2px);
+        box-shadow: 0 16px 32px rgba(0, 0, 0, 0.2);
+      }
+
+      .brief-panel-trigger strong {
+        display: block;
+        font-size: clamp(1.5rem, 2.4vw, 2.05rem);
+        line-height: 1.08;
+        text-align: left;
+      }
+
+      .brief-modal[hidden] {
+        display: none;
+      }
+
+      .brief-modal {
+        position: fixed;
+        inset: 0;
+        z-index: 80;
+      }
+
+      .brief-modal__backdrop {
+        position: absolute;
+        inset: 0;
+        background: rgba(4, 6, 12, 0.82);
+        backdrop-filter: blur(14px);
+      }
+
+      .brief-modal__dialog {
+        position: relative;
+        z-index: 1;
+        width: min(1120px, calc(100vw - 32px));
+        max-height: calc(100vh - 32px);
+        margin: 16px auto;
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding: 28px;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+      }
+
+      .brief-modal__dialog::-webkit-scrollbar {
+        width: 0;
+        height: 0;
+      }
+
+      .brief-modal__close {
+        position: absolute;
+        top: 18px;
+        right: 18px;
+        width: 42px;
+        height: 42px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(255, 255, 255, 0.04);
+        color: #ffffff;
+        font-size: 1.6rem;
+        cursor: pointer;
+      }
+
+      .brief-modal__content h2 {
+        margin-bottom: 10px;
+      }
+
+      .brief-modal__grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+        margin-top: 30px;
+      }
+
+      .brief-modal__grid label {
+        display: grid;
+        gap: 10px;
+      }
+
+      .brief-modal__grid span {
+        color: rgba(255, 255, 255, 0.72);
+        font-size: 0.9rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .brief-modal__grid input,
+      .brief-modal__grid textarea {
+        width: 100%;
+        border-radius: 18px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(255, 255, 255, 0.03);
+        color: #ffffff;
+        padding: 16px 18px;
+        font: inherit;
+        resize: vertical;
+        overflow-x: hidden;
+      }
+
+      .brief-modal__field-wide {
+        grid-column: 1 / -1;
+      }
+
+      .brief-modal__upload input[type="file"] {
+        padding: 14px 16px;
+        cursor: pointer;
+      }
+
+      .brief-modal__upload input[type="file"]::file-selector-button {
+        margin-right: 14px;
+        border: 1px solid rgba(184, 255, 106, 0.45);
+        border-radius: 999px;
+        background: rgba(184, 255, 106, 0.08);
+        color: #b8ff6a;
+        padding: 10px 16px;
+        font: inherit;
+        cursor: pointer;
+      }
+
+      .brief-modal__upload small {
+        color: rgba(255, 255, 255, 0.54);
+        line-height: 1.5;
+      }
+
+      .brief-modal__actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 28px;
+      }
+
+      .brief-modal__dismiss {
+        background: transparent;
+      }
+
       @media (max-width: 900px) {
         .page-hero,
         .grid-2,
@@ -1003,148 +1174,6 @@ const canonicalUrl = new URL(canonicalPath, siteUrl).toString();
         }
       }
 
-      .brief-panel-trigger {
-        width: 100%;
-        cursor: pointer;
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        background: rgba(255, 255, 255, 0.03);
-        transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
-      }
-
-      .brief-panel-trigger:hover {
-        border-color: rgba(255, 255, 255, 0.18);
-        transform: translateY(-2px);
-        box-shadow: 0 16px 32px rgba(0, 0, 0, 0.2);
-      }
-
-      .brief-panel-trigger strong {
-        display: block;
-        font-size: clamp(1.5rem, 2.4vw, 2.05rem);
-        line-height: 1.08;
-        text-align: left;
-      }
-
-      .brief-modal[hidden] {
-        display: none;
-      }
-
-      .brief-modal {
-        position: fixed;
-        inset: 0;
-        z-index: 80;
-      }
-
-      .brief-modal__backdrop {
-        position: absolute;
-        inset: 0;
-        background: rgba(4, 6, 12, 0.82);
-        backdrop-filter: blur(14px);
-      }
-
-      .brief-modal__dialog {
-        position: relative;
-        z-index: 1;
-        width: min(1120px, calc(100vw - 32px));
-        max-height: calc(100vh - 32px);
-        margin: 16px auto;
-        overflow-y: auto;
-        overflow-x: hidden;
-        padding: 28px;
-        scrollbar-width: none;
-        -ms-overflow-style: none;
-      }
-
-      .brief-modal__dialog::-webkit-scrollbar {
-        width: 0;
-        height: 0;
-      }
-
-      .brief-modal__close {
-        position: absolute;
-        top: 18px;
-        right: 18px;
-        width: 42px;
-        height: 42px;
-        border-radius: 999px;
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        background: rgba(255, 255, 255, 0.04);
-        color: #ffffff;
-        font-size: 1.6rem;
-        cursor: pointer;
-      }
-
-      .brief-modal__content h2 {
-        margin-bottom: 10px;
-      }
-
-      .brief-modal__grid {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 18px;
-        margin-top: 30px;
-      }
-
-      .brief-modal__grid label {
-        display: grid;
-        gap: 10px;
-      }
-
-      .brief-modal__grid span {
-        color: rgba(255, 255, 255, 0.72);
-        font-size: 0.9rem;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-      }
-
-      .brief-modal__grid input,
-      .brief-modal__grid textarea {
-        width: 100%;
-        border-radius: 18px;
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        background: rgba(255, 255, 255, 0.03);
-        color: #ffffff;
-        padding: 16px 18px;
-        font: inherit;
-        resize: vertical;
-        overflow-x: hidden;
-      }
-
-      .brief-modal__field-wide {
-        grid-column: 1 / -1;
-      }
-
-      .brief-modal__upload input[type="file"] {
-        padding: 14px 16px;
-        cursor: pointer;
-      }
-
-      .brief-modal__upload input[type="file"]::file-selector-button {
-        margin-right: 14px;
-        border: 1px solid rgba(184, 255, 106, 0.45);
-        border-radius: 999px;
-        background: rgba(184, 255, 106, 0.08);
-        color: #b8ff6a;
-        padding: 10px 16px;
-        font: inherit;
-        cursor: pointer;
-      }
-
-      .brief-modal__upload small {
-        color: rgba(255, 255, 255, 0.54);
-        line-height: 1.5;
-      }
-
-      .brief-modal__actions {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 12px;
-        margin-top: 28px;
-      }
-
-      .brief-modal__dismiss {
-        background: transparent;
-      }
-
       @keyframes borderSheen {
         0% {
           opacity: 0.78;
@@ -1293,8 +1322,8 @@ const canonicalUrl = new URL(canonicalPath, siteUrl).toString();
         </div>
         <nav class="side-nav-links" aria-label="Боковая навигация">
           {navigation.map((item) => (
-            <a href={item.href} aria-current={Astro.url.pathname === item.href ? "page" : undefined}>
-              {item.label}
+            <a href={locale === "en" ? `/en${item.href}` : item.href} aria-current={Astro.url.pathname === item.href || Astro.url.pathname === `/en${item.href}` ? "page" : undefined}>
+              {t(`nav.${item.label.toLowerCase() === "главная" ? "home" : item.label.toLowerCase() === "услуги" ? "services" : item.label.toLowerCase() === "калькулятор" ? "calculator" : item.label.toLowerCase() === "о студии" ? "about" : item.label.toLowerCase() === "портфолио" ? "portfolio" : item.label.toLowerCase() === "блог" ? "blog" : item.label.toLowerCase() === "контакты" ? "contact" : ""}`)}
             </a>
           ))}
         </nav>
@@ -1308,15 +1337,18 @@ const canonicalUrl = new URL(canonicalPath, siteUrl).toString();
               <span></span>
               <span></span>
             </button>
-            <a class="brand" href="/">INTERIOR<span class="brand-mark">.360</span></a>
+            <a class="brand" href={locale === "en" ? "/en/" : "/"}>INTERIOR<span class="brand-mark">.360</span></a>
           </div>
           <nav class="nav" aria-label="Основная навигация">
             {navigation.map((item) => (
-              <a href={item.href} aria-current={Astro.url.pathname === item.href ? "page" : undefined}>
-                {item.label}
+              <a href={locale === "en" ? `/en${item.href}` : item.href} aria-current={Astro.url.pathname === item.href || Astro.url.pathname === `/en${item.href}` ? "page" : undefined}>
+                {t(`nav.${item.label.toLowerCase() === "главная" ? "home" : item.label.toLowerCase() === "услуги" ? "services" : item.label.toLowerCase() === "калькулятор" ? "calculator" : item.label.toLowerCase() === "о студии" ? "about" : item.label.toLowerCase() === "портфолио" ? "portfolio" : item.label.toLowerCase() === "блог" ? "blog" : item.label.toLowerCase() === "контакты" ? "contact" : ""}`)}
               </a>
             ))}
           </nav>
+          <a class="lang-toggle" href={locale === "ru" ? `/en${canonicalPath}` : canonicalPath.replace(/^\/en/, "") || "/"}>
+            {locale === "ru" ? "EN" : "RU"}
+          </a>
         </div>
       </header>
       <main>
@@ -1327,7 +1359,7 @@ const canonicalUrl = new URL(canonicalPath, siteUrl).toString();
       <footer class="footer">
         <div class="footer-inner">
           <span>INTERIOR.360</span>
-          <span>Многостраничный сайт студии 3D-визуализации интерьеров.</span>
+          <span>{t("footer.text")}</span>
         </div>
       </footer>
     </div>
@@ -1338,44 +1370,44 @@ const canonicalUrl = new URL(canonicalPath, siteUrl).toString();
         <button class="brief-modal__close" type="button" data-brief-close aria-label="Закрыть">×</button>
         <div class="brief-modal__content">
           <p class="eyebrow">Brief</p>
-          <h2 id="brief-modal-title">Заполнить бриф проекта</h2>
+          <h2 id="brief-modal-title">{locale === "ru" ? "Заполнить бриф проекта" : "Fill project brief"}</h2>
           <p class="lead">
-            Коротко опишите задачу, формат проекта и ожидаемый результат, чтобы мы могли быстро собрать понятный сценарий работы.
+            {locale === "ru" ? "Коротко опишите задачу, формат проекта и ожидаемый результат, чтобы мы могли быстро собрать понятный сценарий работы." : "Briefly describe the task, project format and expected result so we can quickly build a clear work scenario."}
           </p>
           <div class="brief-modal__grid">
             <label>
-              <span>Имя / компания</span>
-              <input type="text" placeholder="Как к вам обращаться?" />
+              <span>{locale === "ru" ? "Имя / компания" : "Name / Company"}</span>
+              <input type="text" placeholder={locale === "ru" ? "Как к вам обращаться?" : "How to address you?"} />
             </label>
             <label>
-              <span>Контакт</span>
-              <input type="text" placeholder="Telegram, WhatsApp, email или телефон" />
+              <span>{locale === "ru" ? "Контакт" : "Contact"}</span>
+              <input type="text" placeholder={locale === "ru" ? "Telegram, WhatsApp, email или телефон" : "Telegram, WhatsApp, email or phone"} />
             </label>
             <label>
-              <span>Формат проекта</span>
-              <input type="text" placeholder="Частный, B2B, девелопмент..." />
+              <span>{locale === "ru" ? "Формат проекта" : "Project format"}</span>
+              <input type="text" placeholder={locale === "ru" ? "Частный, B2B, девелопмент..." : "Private, B2B, development..."} />
             </label>
             <label>
-              <span>Площадь / масштаб</span>
-              <input type="text" placeholder="м2, количество помещений или объектов" />
+              <span>{locale === "ru" ? "Площадь / масштаб" : "Area / Scale"}</span>
+              <input type="text" placeholder={locale === "ru" ? "м2, количество помещений или объектов" : "sq.m, number of rooms or objects"} />
             </label>
             <label class="brief-modal__field-wide">
-              <span>Задача проекта</span>
-              <textarea rows="4" placeholder="Что нужно сделать, какой объём работ нужен и какой результат важен?"></textarea>
+              <span>{locale === "ru" ? "Задача проекта" : "Project task"}</span>
+              <textarea rows="4" placeholder={locale === "ru" ? "Что нужно сделать, какой объём работ нужен и какой результат важен?" : "What needs to be done, what scope of work and what result is important?"}></textarea>
             </label>
             <label class="brief-modal__field-wide">
-              <span>Сроки и комментарии</span>
-              <textarea rows="4" placeholder="Укажите сроки, ожидания по подаче и важные нюансы проекта."></textarea>
+              <span>{locale === "ru" ? "Сроки и комментарии" : "Deadlines and comments"}</span>
+              <textarea rows="4" placeholder={locale === "ru" ? "Укажите сроки, ожидания по подаче и важные нюансы проекта." : "Specify deadlines, presentation expectations and important project nuances."}></textarea>
             </label>
             <label class="brief-modal__field-wide brief-modal__upload">
-              <span>Файлы проекта</span>
+              <span>{locale === "ru" ? "Файлы проекта" : "Project files"}</span>
               <input type="file" multiple accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.webp,.zip,.rar,.dwg" />
-              <small>Можно прикрепить референсы, планы, ТЗ, изображения и сопроводительные материалы.</small>
+              <small>{locale === "ru" ? "Можно прикрепить референсы, планы, ТЗ, изображения и сопроводительные материалы." : "You can attach references, plans, specifications, images and supporting materials."}</small>
             </label>
           </div>
           <div class="brief-modal__actions">
-            <a class="button-secondary" href="/contact/">Отправить запрос</a>
-            <button class="button-secondary brief-modal__dismiss" type="button" data-brief-close>Закрыть</button>
+            <a class="button-secondary" href={locale === "ru" ? "/contact/" : "/en/contact/"}>{locale === "ru" ? "Отправить запрос" : "Send request"}</a>
+            <button class="button-secondary brief-modal__dismiss" type="button" data-brief-close>{locale === "ru" ? "Закрыть" : "Close"}</button>
           </div>
         </div>
       </div>
@@ -1506,39 +1538,6 @@ const canonicalUrl = new URL(canonicalPath, siteUrl).toString();
         });
       };
 
-      const setupBriefModal = () => {
-        const modal = document.querySelector("[data-brief-modal]");
-        if (!modal) return;
-
-        const openTriggers = document.querySelectorAll("[data-brief-open]");
-
-        const closeModal = () => {
-          modal.setAttribute("hidden", "");
-          document.body.style.overflow = "";
-        };
-
-        const openModal = () => {
-          modal.removeAttribute("hidden");
-          document.body.style.overflow = "hidden";
-        };
-
-        openTriggers.forEach((trigger) => {
-          trigger.addEventListener("click", openModal);
-        });
-
-        modal.addEventListener("click", (event) => {
-          if (event.target.closest("[data-brief-close]")) {
-            closeModal();
-          }
-        });
-
-        document.addEventListener("keydown", (event) => {
-          if (event.key === "Escape" && !modal.hasAttribute("hidden")) {
-            closeModal();
-          }
-        });
-      };
-
       const setupSideNav = () => {
         const toggle = document.querySelector("[data-menu-toggle]");
         const sideNav = document.querySelector("[data-side-nav]");
@@ -1580,6 +1579,39 @@ const canonicalUrl = new URL(canonicalPath, siteUrl).toString();
         });
       };
 
+      const setupBriefModal = () => {
+        const modal = document.querySelector("[data-brief-modal]");
+        if (!modal) return;
+
+        const openTriggers = document.querySelectorAll("[data-brief-open]");
+
+        const closeModal = () => {
+          modal.setAttribute("hidden", "");
+          document.body.style.overflow = "";
+        };
+
+        const openModal = () => {
+          modal.removeAttribute("hidden");
+          document.body.style.overflow = "hidden";
+        };
+
+        openTriggers.forEach((trigger) => {
+          trigger.addEventListener("click", openModal);
+        });
+
+        modal.addEventListener("click", (event) => {
+          if (event.target.closest("[data-brief-close]")) {
+            closeModal();
+          }
+        });
+
+        document.addEventListener("keydown", (event) => {
+          if (event.key === "Escape" && !modal.hasAttribute("hidden")) {
+            closeModal();
+          }
+        });
+      };
+
       if (document.readyState === "loading") {
         document.addEventListener(
           "DOMContentLoaded",
@@ -1600,4 +1632,3 @@ const canonicalUrl = new URL(canonicalPath, siteUrl).toString();
     </script>
   </body>
 </html>
-

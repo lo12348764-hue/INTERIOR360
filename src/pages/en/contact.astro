@@ -1,51 +1,52 @@
 ---
-import { contactChannels } from "../data/site";
-import SiteLayout from "../layouts/SiteLayout.astro";
+import { contactChannels } from "../../data/site";
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import { useTranslations } from "../../i18n";
+
+const t = useTranslations("en");
 
 const featuredWorks = [
   {
-    title: "Резиденция у реки",
-    category: "Жилой интерьер",
+    title: "Riverside Residence",
+    category: "Residential Interior",
     image: "/images/channel/living-light.jpg",
-    href: "/portfolio/rezidenciya-u-reki/",
+    href: "/en/portfolio/",
   },
   {
-    title: "Лобби «Аурум»",
-    category: "Девелопмент",
+    title: "Aurum Lobby",
+    category: "Development",
     image: "/images/channel/lobby-classic.jpg",
-    href: "/portfolio/lobbi-aurum/",
+    href: "/en/portfolio/",
   },
   {
-    title: "Пентхаус «Фрейм»",
-    category: "Премиум-сегмент",
+    title: "Frame Penthouse",
+    category: "Premium Segment",
     image: "/images/channel/living-premium.jpg",
-    href: "/portfolio/penthaus-freym/",
+    href: "/en/portfolio/",
   },
 ];
 ---
 
 <SiteLayout
-  title="Контакты | INTERIOR.360"
-  description="Контакты студии INTERIOR.360 для обсуждения проекта по 3D-визуализации."
-  canonicalPath="/contact/"
+  title="Contact | INTERIOR.360"
+  description="Contact INTERIOR.360 studio for a 3D visualization project discussion."
+  canonicalPath="/en/contact/"
+  locale="en"
 >
   <section class="page-hero">
     <div>
       <p class="eyebrow">Contact</p>
-      <h1 data-i18n="contact.title">Контакты</h1>
-      <p class="lead" data-i18n="contact.lead">
-        Обсудим ваш проект. Бесплатная консультация, ответ в течение 24 часов.
-        Свяжитесь любым удобным способом — и мы предложим формат работы под вашу задачу.
-      </p>
+      <h1>{t("contact.title")}</h1>
+      <p class="lead">{t("contact.lead")}</p>
     </div>
     <button class="hero-panel brief-panel-trigger" type="button" data-brief-open aria-haspopup="dialog" aria-controls="project-brief-modal">
-      <strong data-i18n="hero.brief">Заполнить бриф проекта</strong>
+      <strong>{t("hero.brief")}</strong>
     </button>
   </section>
 
   <section class="grid grid-2">
     <div class="surface">
-      <h2 style="font-size: 2rem; margin-bottom: 18px;">Как связаться</h2>
+      <h2 style="font-size: 2rem; margin-bottom: 18px;">How to Reach Us</h2>
       <div class="grid" style="gap: 14px;">
         {contactChannels.map((channel) => (
           <a
@@ -60,7 +61,7 @@ const featuredWorks = [
       </div>
     </div>
     <div class="surface">
-      <h2 style="font-size: 2rem; margin-bottom: 18px;">Посмотрите, что мы делаем</h2>
+      <h2 style="font-size: 2rem; margin-bottom: 18px;">See What We Do</h2>
       <div class="contact-portfolio">
         {featuredWorks.map((work) => (
           <a href={work.href} class="contact-portfolio-card">
@@ -75,7 +76,7 @@ const featuredWorks = [
         ))}
       </div>
       <p class="muted" style="margin-top: 18px;">
-        Хотите так же? Расскажите о вашем проекте — и мы предложим решение.
+        Want something similar? Tell us about your project — and we'll propose a solution.
       </p>
     </div>
   </section>

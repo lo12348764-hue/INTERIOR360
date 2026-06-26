@@ -1,29 +1,33 @@
 ---
-import { services } from "../data/site";
-import SiteLayout from "../layouts/SiteLayout.astro";
+import { servicesEn } from "../../data/site-en";
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import { useTranslations } from "../../i18n";
+
+const t = useTranslations("en");
 ---
 
 <SiteLayout
-  title="Услуги | INTERIOR.360"
-  description="Услуги студии INTERIOR.360: интерьерная 3D-визуализация, анимация, дизайн-проекты и подача для частных и коммерческих пространств."
-  canonicalPath="/services/"
+  title="Services | INTERIOR.360"
+  description="INTERIOR.360 services: interior 3D visualization, animation, design projects and presentation for private and commercial spaces."
+  canonicalPath="/en/services/"
+  locale="en"
 >
   <section class="page-hero">
     <div>
       <p class="eyebrow">Services</p>
-      <h1 data-i18n="services.title">Услуги и процесс</h1>
-      <p class="lead" data-i18n="services.lead">
-        Здесь можно посмотреть форматы работы, состав услуг и понять, как устроена подача проекта на разных стадиях.
+      <h1>{t("services.title")}</h1>
+      <p class="lead">
+        {t("services.lead")}
       </p>
     </div>
     <button class="hero-panel brief-panel-trigger" type="button" data-brief-open aria-haspopup="dialog" aria-controls="project-brief-modal">
-      <strong data-i18n="hero.brief">Заполнить бриф проекта</strong>
+      <strong>{t("hero.brief")}</strong>
     </button>
   </section>
 
   <section class="section">
     <div class="grid grid-3">
-      {services.map((service) => (
+      {servicesEn.map((service) => (
         <article class="surface service-accordion" data-accordion-item>
           <button class="service-summary" type="button" data-accordion-trigger aria-expanded="false">
             <h2>{service.title}</h2>
@@ -31,42 +35,42 @@ import SiteLayout from "../layouts/SiteLayout.astro";
           <div class="service-preview">
             <p class="muted service-intro">{service.description}</p>
             <div class="service-media-slot service-media-slot-filled">
-              {service.title === "Создание концептуального стиля проекта" ? (
+              {service.title === "Concept Style Creation" ? (
                 <img
                   class="service-media-image"
                   src="/images/channel/collaje-mat3.jpg"
-                  alt="Коллаж материалов и фактур для концептуального стиля проекта"
+                  alt="Materials and textures collage for concept style"
                   loading="lazy"
                 />
-              ) : service.title === "Рабочая документация" ? (
+              ) : service.title === "Working Documentation" ? (
                 <img
                   class="service-media-image service-media-image-workdoc"
                   src="/images/channel/workdoc.jpg"
-                  alt="Рабочая документация и чертежи проекта"
+                  alt="Working documentation and project drawings"
                   loading="lazy"
                 />
-              ) : service.title === "3D Визуализация" ? (
+              ) : service.title === "3D Visualization" ? (
                 <img
                   class="service-media-image service-media-image-visual"
                   src="/images/channel/yslygi 3.jpg"
-                  alt="3D визуализация интерьера"
+                  alt="3D interior visualization"
                   loading="lazy"
                 />
-              ) : service.title === "Стоимость проектных работ по стадиям" ? (
+              ) : service.title === "Project Cost by Stages" ? (
                 <img
                   class="service-media-image service-media-image-budget"
                   src="/images/channel/album.jpg"
-                  alt="Стоимость проектных работ по стадиям"
+                  alt="Project cost by stages"
                   loading="lazy"
                 />
-              ) : service.title === "Подача для девелоперов" ? (
+              ) : service.title === "Developer Presentation" ? (
                 <img
                   class="service-media-image service-media-image-developer"
                   src="/images/channel/yslygi 6.jpg"
-                  alt="Подача для девелоперов"
+                  alt="Developer presentation"
                   loading="lazy"
                 />
-              ) : service.title === "Панорама и румтур" ? (
+              ) : service.title === "Panorama & Room Tour" ? (
                 <video
                   class="service-media-image"
                   src="/images/channel/animation-walkthrough.mp4"
@@ -83,12 +87,10 @@ import SiteLayout from "../layouts/SiteLayout.astro";
               )}
             </div>
             <div class="service-actions">
-              {service.ctaLabel && service.ctaHref ? (
-                <a class="button-secondary" href={service.ctaHref}>
-                  {service.ctaLabel}
-                </a>
-              ) : null}
-              <a class="button-secondary" href="/calculator/">Рассчитать стоимость</a>
+              <a class="button-secondary" href={service.ctaHref}>
+                {service.ctaLabel}
+              </a>
+              <a class="button-secondary" href="/en/calculator/">Calculate cost</a>
             </div>
           </div>
           <div class="service-content">
@@ -102,65 +104,65 @@ import SiteLayout from "../layouts/SiteLayout.astro";
       ))}
       <article class="surface service-accordion" data-accordion-item id="calculate">
         <button class="service-summary" type="button" data-accordion-trigger aria-expanded="false">
-          <h2>Структура бюджета реализации и закупочный ориентир</h2>
+          <h2>Implementation budget structure and procurement guide</h2>
         </button>
         <div class="service-preview">
           <p class="muted service-intro">
-            Помогает заранее понять структуру расходов, состав комплектации и ключевые позиции материалов, мебели и оборудования.
+            Helps you understand the cost structure, procurement composition and key positions of materials, furniture and equipment in advance.
           </p>
           <div class="service-media-slot service-media-slot-filled">
             <img
               class="service-media-image service-media-image-procurement"
               src="/images/channel/yslygi 4.jpg"
-              alt="Структура бюджета реализации и закупочный ориентир"
+              alt="Implementation budget structure and procurement guide"
               loading="lazy"
             />
           </div>
           <div class="service-actions">
-            <a class="button-secondary" href="/calculator/">Рассчитать стоимость</a>
+            <a class="button-secondary" href="/en/calculator/">Calculate cost</a>
           </div>
         </div>
         <div class="service-content">
-          <p class="kicker">Бюджет и комплектация</p>
+          <p class="kicker">Budget and procurement</p>
           <ul class="list">
-            <li>Предварительный диапазон бюджета по проекту</li>
-            <li>Разделение на черновые и чистовые работы</li>
-            <li>Оценка затрат на материалы, мебель, свет и сантехнику</li>
-            <li>Понимание зависимости бюджета от площади и состава работ</li>
-            <li>Отделочные материалы по помещениям</li>
-            <li>Осветительное оборудование и сценарии света</li>
-            <li>Сантехника, двери и встроенные элементы</li>
-            <li>Мебель, декор и ключевые позиции комплектации</li>
+            <li>Estimated budget range for the project</li>
+            <li>Separation into rough and finish works</li>
+            <li>Cost estimation for materials, furniture, lighting and plumbing</li>
+            <li>Understanding how budget depends on area and scope of work</li>
+            <li>Finishing materials by rooms</li>
+            <li>Lighting equipment and lighting scenarios</li>
+            <li>Plumbing, doors and built-in elements</li>
+            <li>Furniture, decor and key procurement positions</li>
           </ul>
         </div>
       </article>
       <article class="surface service-accordion" data-accordion-item>
         <button class="service-summary" type="button" data-accordion-trigger aria-expanded="false">
-          <h2>Работы на объекте</h2>
+          <h2>On-site works</h2>
         </button>
         <div class="service-preview">
           <p class="muted service-intro">
-            Точная координация всех этапов реализации, контроль сроков и бюджета. Дополнительно позволяет синхронизировать работу подрядчиков и поставщиков, оптимизировать логистику материалов и заранее учитывать технологические зависимости.
+            Precise coordination of all implementation stages, control of deadlines and budget. Additionally allows synchronizing the work of contractors and suppliers, optimizing material logistics and accounting for technological dependencies in advance.
           </p>
           <div class="service-media-slot service-media-slot-filled">
             <img
               class="service-media-image service-media-image-sitework"
               src="/images/channel/yslygi 9.jpg"
-              alt="Работы на объекте и этапы реализации"
+              alt="On-site works and implementation stages"
               loading="lazy"
             />
           </div>
           <div class="service-actions">
-            <a class="button-secondary" href="/calculator/">Рассчитать стоимость</a>
+            <a class="button-secondary" href="/en/calculator/">Calculate cost</a>
           </div>
         </div>
         <div class="service-content">
-          <p class="kicker">График</p>
+          <p class="kicker">Schedule</p>
           <ul class="list">
-            <li>Подготовка и организация площадки</li>
-            <li>Демонтажные и черновые работы</li>
-            <li>Инженерные системы и монтаж</li>
-            <li>Чистовая отделка, комплектация и финальный этап</li>
+            <li>Site preparation and organization</li>
+            <li>Demolition and rough works</li>
+            <li>Engineering systems and installation</li>
+            <li>Finish works, procurement and final stage</li>
           </ul>
         </div>
       </article>
@@ -348,7 +350,7 @@ import SiteLayout from "../layouts/SiteLayout.astro";
     border-color: #b8ff6a;
   }
 
-  .service-actions .button-secondary[href="/portfolio/"] {
+  .service-actions .button-secondary[href="/en/portfolio/"] {
     color: #5c8dff;
     border-color: #5c8dff;
   }

@@ -15,6 +15,13 @@ export default defineConfig({
   server: {
     host: true,
   },
+  i18n: {
+    defaultLocale: "ru",
+    locales: ["ru", "en"],
+    routing: {
+      prefixDefaultLocale: false,
+    },
+  },
   vite: {
     server: {
       fs: {

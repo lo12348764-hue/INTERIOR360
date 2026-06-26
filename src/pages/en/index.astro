@@ -1,0 +1,388 @@
+---
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import { useTranslations } from "../../i18n";
+
+const t = useTranslations("en");
+
+const firstStripImages = [
+  "1.1.jpg",
+  "1.2.jpg",
+  "1.3.jpg",
+  "1.5.jpg",
+  "1.6.jpg",
+  "1.7.jpg",
+];
+
+const firstStripContent = {
+  "1.1.jpg": {
+    kicker: "Living Room",
+    title: "Dark living room with soft lighting",
+    description: "Deep dark palette, soft sofa and accent pendant lamp in a calm evening presentation.",
+  },
+  "1.2.jpg": {
+    kicker: "Kitchen",
+    title: "Kitchen with marble island",
+    description: "Bright kitchen with expressive marble island, built-in lighting and warm accents.",
+  },
+  "1.3.jpg": {
+    kicker: "Bedroom",
+    title: "Bedroom in warm neutral palette",
+    description: "Soft bedroom with textile headboard, perimeter lighting and calm natural view outside.",
+  },
+  "1.5.jpg": {
+    kicker: "Dining Room",
+    title: "Dining room with dark kitchen",
+    description: "Concise dining area with dark facades, soft lighting and accent pendant lamp above table.",
+  },
+  "1.6.jpg": {
+    kicker: "Kitchen",
+    title: "Kitchen with warm island",
+    description: "Kitchen island in warm terracotta shade with soft curves and natural textures.",
+  },
+  "1.7.jpg": {
+    kicker: "Home Office",
+    title: "Home office by the window",
+    description: "Compact workspace with large window, built-in shelves and calm evening atmosphere.",
+  },
+};
+
+const secondStripImages = [
+  "2.3.jpg",
+  "house-exterior.jpg",
+  "2-11.jpg",
+  "2.1.jpg",
+  "2.2.jpg",
+  "2.4.jpg",
+  "2.5.jpg",
+  "2.10.jpg",
+];
+
+const secondStripContent = {
+  "2-11.jpg": { kicker: "Townhouse", title: "Modern townhouse", description: "Vertical rhythm of facade, warm lighting and cohesive modern architecture." },
+  "house-exterior.jpg": { kicker: "Private House", title: "House with landscape design", description: "Concise house with panoramic glazing, water path and delicate evening lighting." },
+  "2.1.jpg": { kicker: "Living Room", title: "Dark lounge zone", description: "Corner soft zone with deep shades, accent pillows and high textured glazing." },
+  "2.2.jpg": { kicker: "Living Room", title: "Spacious living room in dark palette", description: "Large soft composition, low coffee table and intimate architectural presentation." },
+  "2.3.jpg": { kicker: "Interior Details", title: "Window niche", description: "Arched niche with soft seating by the window as a quiet place for rest and reading." },
+  "2.4.jpg": { kicker: "Exterior", title: "Modern house facade", description: "Clean geometry of facade, wooden slats and neatly assembled entrance area." },
+  "2.5.jpg": { kicker: "Exterior", title: "Inner courtyard", description: "Minimalist courtyard with large paving, soft modules for rest and delicate landscaping." },
+  "2.10.jpg": { kicker: "Living Room", title: "Living room with fireplace", description: "Bright living room with fireplace, panoramic window and soft furniture in natural atmosphere." },
+};
+
+const thirdStripImages = ["3.1.jpg", "3.1.jpg", "3.1.jpg", "3.1.jpg", "3.1.jpg", "3.1.jpg", "3.1.jpg"];
+
+const decorImages = ["4.1.jpg", "4.2.jpg", "4.3.jpg", "4.4.jpg", "4.5.jpg", "4.6.jpg", "4.7.jpg", "4.8.jpg", "4.9.jpg", "4.10.jpg"];
+
+const conceptImages = ["5-1.jpg", "5-2.jpg", "5-3.jpg", "tower-concept.jpg"];
+
+const decorCardContent = {
+  "4.1.jpg": { kicker: "Lighting", title: "Pendant lamp", description: "Minimalist pendant lamp with soft warm light in dark interior presentation." },
+  "4.2.jpg": { kicker: "Soft Furniture", title: "Pouf and accent textile", description: "Lilac pouf, decorative pillows and soft furniture in calm living scene." },
+  "4.3.jpg": { kicker: "Table & Decor", title: "Glass coffee table", description: "Light glass table with vase and books as accent in bright interior corner." },
+  "4.4.jpg": { kicker: "Lighting", title: "Pendant lights in bedroom", description: "Warm lighting scenario for bedroom with pendants and bedside lamp." },
+  "4.5.jpg": { kicker: "Soft Furniture", title: "Modular sofa", description: "Modular sofa in soft green shade by large arched window." },
+  "4.6.jpg": { kicker: "Table & Decor", title: "Table with vases and flowers", description: "Round table with dried flowers and ceramic vases in warm daytime presentation." },
+  "4.7.jpg": { kicker: "Soft Furniture", title: "Armchair and floor lamp", description: "Compact armchair with textile pillows and floor lamp for intimate rest zone." },
+  "4.8.jpg": { kicker: "Soft Furniture", title: "Round pouf", description: "Restrained round pouf in dark minimalist scene with soft evening light." },
+  "4.9.jpg": { kicker: "Furniture & Light", title: "Sofa with floor lamp", description: "Pastel sofa, thin floor lamp and concise stone table." },
+  "4.10.jpg": { kicker: "Soft Furniture", title: "Pouf armchair", description: "Low soft armchair in powder shade next to sconce and textile rug." },
+};
+
+const conceptCardContent = {
+  "5-1.jpg": { kicker: "Environmental Concept", title: "Organic tower in landscape", description: "Futuristic architectural concept with plastic forms, green integration and natural shelter atmosphere." },
+  "5-2.jpg": { kicker: "Architectural Concept", title: "Towers with green roofs", description: "Volumetric concept with smooth geometry, panoramic glazing and landscaped roofs." },
+  "5-3.jpg": { kicker: "Natural Architecture", title: "House with soft biomorphic plastic", description: "Warm architectural presentation with rounded contours, wood texture and deep connection with nature." },
+  "tower-concept.jpg": { kicker: "Tower Concept", title: "Cascading towers with green terraces", description: "High-rise concept with multi-level green platforms, soft geometry and strong urban presentation." },
+};
+
+const stats = [
+  { value: "150+", labelKey: "stats.projects" },
+  { value: "5+", labelKey: "stats.years" },
+  { value: "98%", labelKey: "stats.clients" },
+  { value: "14", labelKey: "stats.cycle" },
+];
+---
+
+<SiteLayout
+  title="INTERIOR.360 | 3D Interior Visualization"
+  description="INTERIOR.360 studio website: portfolio, services, blog, about and contacts."
+  canonicalPath="/en/"
+  locale="en"
+>
+  <section class="page-hero">
+    <div>
+      <p class="eyebrow hero-eyebrow">{t("hero.eyebrow")}</p>
+      <h1 style="font-size: clamp(2rem, 5vw, 4rem);">{t("hero.title")}</h1>
+      <p class="hero-subtitle">{t("hero.subtitle")}</p>
+    </div>
+    <button class="hero-panel brief-panel-trigger" type="button" data-brief-open aria-haspopup="dialog" aria-controls="project-brief-modal">
+      <strong>{t("hero.brief")}</strong>
+    </button>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">{t("home.title1")}</h2>
+    <div class="projects-strip">
+      {firstStripImages.map((imageName, index) => (
+        <a href="/en/portfolio/" class="card project-card decor-card">
+          <div class="media-frame">
+            <div class="media-motion">
+              <img
+                class:list={[
+                  "media",
+                  imageName === "1.1.jpg" && "media-lifted-150",
+                  imageName === "1.2.jpg" && "media-lifted-150-wide",
+                  imageName === "1.3.jpg" && "media-lifted-100",
+                  imageName === "1.6.jpg" && "media-wide-20",
+                ]}
+                src={`/images/channel/${imageName}`}
+                alt="Interior design"
+                loading={index === 0 ? "eager" : "lazy"}
+              />
+            </div>
+          </div>
+          <div class="card-body">
+            <p class="kicker">{firstStripContent[imageName]?.kicker}</p>
+            <h3 style="margin-top: 10px; font-size: 1.6rem;">{firstStripContent[imageName]?.title}</h3>
+            <p class="muted">{firstStripContent[imageName]?.description}</p>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">{t("home.title2")}</h2>
+    <div class="projects-strip secondary-projects-strip">
+      {secondStripImages.map((imageName) => (
+        <a href="/en/portfolio/" class="card project-card decor-card">
+          <div class="media-frame">
+            <div class="media-motion">
+              <img
+                class:list={["media", (imageName === "2.3.jpg" || imageName === "2-11.jpg") && "media-lifted-100-wide-left"]}
+                src={`/images/channel/${imageName}`}
+                alt="Townhouses and modular homes"
+                loading="lazy"
+              />
+            </div>
+          </div>
+          <div class="card-body">
+            <p class="kicker">{secondStripContent[imageName]?.kicker}</p>
+            <h3 style="margin-top: 10px; font-size: 1.6rem;">{secondStripContent[imageName]?.title}</h3>
+            <p class="muted">{secondStripContent[imageName]?.description}</p>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">{t("home.aboutTitle")}</h2>
+    <div class="stats">
+      {stats.map((stat) => (
+        <div class="stat">
+          <strong>{stat.value}</strong>
+          <span>{t(stat.labelKey)}</span>
+        </div>
+      ))}
+    </div>
+  </section>
+</SiteLayout>
+
+<style is:inline>
+  .hero-eyebrow {
+    text-align: left;
+    padding-left: 6px;
+  }
+
+  .hero-subtitle {
+    margin-top: 8px;
+    font-size: clamp(1rem, 2vw, 1.4rem);
+    color: var(--accent);
+    text-transform: lowercase;
+    letter-spacing: 0.08em;
+  }
+
+  .page-hero .hero-panel {
+    display: grid;
+    align-content: start;
+    gap: 12px;
+  }
+
+  .page-hero .hero-panel p {
+    margin: 0;
+  }
+
+  .page-hero .hero-panel strong {
+    line-height: 1.22;
+    text-wrap: balance;
+  }
+
+  .page-hero .hero-panel p + strong {
+    margin-top: -2px;
+  }
+
+  .page-hero .hero-panel strong + p {
+    margin-top: 8px;
+  }
+
+  .projects-strip {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(420px, 420px);
+    gap: 22px;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .projects-strip::-webkit-scrollbar {
+    display: none;
+  }
+
+  .project-card {
+    min-width: 0;
+    height: 540px;
+    display: grid;
+    grid-template-rows: minmax(0, 4fr) minmax(0, 1fr);
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .project-card:hover {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .project-card .media-frame {
+    min-height: 0;
+  }
+
+  .project-card .card-body {
+    padding: 20px;
+  }
+
+  .project-card .kicker {
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+  }
+
+  .project-card h3 {
+    font-size: 1.02rem !important;
+    line-height: 1.12;
+  }
+
+  .project-card .muted {
+    font-size: 0.78rem;
+    line-height: 1.45;
+  }
+
+  .secondary-projects-strip {
+    margin-top: 12px;
+  }
+
+  .project-card .media.media-lifted {
+    height: calc(100% + 78px);
+    transform: translateY(-78px) !important;
+  }
+
+  .project-card .media.media-lifted-300 {
+    height: calc(100% + 132px);
+    transform: translateX(-2px) translateY(-132px) scale(1.05) !important;
+  }
+
+  .project-card .media.media-wide-20 {
+    width: calc(100% + 14px);
+    transform: translateX(-12px) !important;
+  }
+
+  .project-card .media.media-lifted-100 {
+    height: calc(100% + 82px);
+    transform: translateY(-82px) !important;
+  }
+
+  .project-card .media.media-lifted-150 {
+    height: calc(100% + 74px);
+    transform: translateY(-74px) !important;
+  }
+
+  .project-card .media.media-lifted-150-wide {
+    width: calc(100% + 16px);
+    height: calc(100% + 74px);
+    transform: translateX(-12px) translateY(-74px) !important;
+  }
+
+  .project-card .media.media-lifted-100-wide-left {
+    width: calc(100% + 14px);
+    height: calc(100% + 86px);
+    transform: translateX(-14px) translateY(-86px) !important;
+  }
+
+  @media (max-width: 900px) {
+    .projects-strip {
+      grid-auto-columns: minmax(300px, 300px);
+      gap: 16px;
+    }
+
+    .project-card {
+      height: 420px;
+    }
+  }
+
+  @media (max-width: 740px) {
+    .projects-strip {
+      grid-auto-columns: minmax(280px, 280px);
+      gap: 14px;
+    }
+
+    .project-card {
+      height: 380px;
+    }
+
+    .project-card .kicker {
+      font-size: 0.58rem;
+    }
+
+    .project-card h3 {
+      font-size: 0.95rem !important;
+    }
+
+    .project-card .muted {
+      font-size: 0.72rem;
+      line-height: 1.4;
+    }
+
+    .project-card .media.media-lifted {
+      height: calc(100% + 64px);
+      transform: translateY(-64px) !important;
+    }
+
+    .project-card .media.media-lifted-300 {
+      height: calc(100% + 108px);
+      transform: translateX(-2px) translateY(-108px) scale(1.05) !important;
+    }
+
+    .project-card .media.media-lifted-100,
+    .project-card .media.media-lifted-150 {
+      height: calc(100% + 68px);
+      transform: translateY(-68px) !important;
+    }
+
+    .project-card .media.media-lifted-150-wide {
+      width: calc(100% + 12px);
+      height: calc(100% + 68px);
+      transform: translateX(-10px) translateY(-68px) !important;
+    }
+
+    .project-card .media.media-lifted-100-wide-left {
+      width: calc(100% + 12px);
+      height: calc(100% + 70px);
+      transform: translateX(-12px) translateY(-70px) !important;
+    }
+
+    .project-card .media.media-wide-20 {
+      width: calc(100% + 10px);
+      transform: translateX(-10px) !important;
+    }
+  }
+</style>

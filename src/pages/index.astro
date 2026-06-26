@@ -217,12 +217,12 @@ const conceptCardContent = {
 >
   <section class="page-hero">
     <div>
-      <p class="eyebrow hero-eyebrow">Design & Project Bureau</p>
-      <h1 style="font-size: clamp(2rem, 5vw, 4rem);">Студия дизайна интерьера</h1>
-      <p class="hero-subtitle">панорамы и румтуры</p>
+      <p class="eyebrow hero-eyebrow" data-i18n="hero.eyebrow">Design & Project Bureau</p>
+      <h1 data-i18n="hero.title">Студия дизайна интерьера</h1>
+      <p class="hero-subtitle" data-i18n="hero.subtitle">панорамы и румтуры</p>
     </div>
     <button class="hero-panel brief-panel-trigger" type="button" data-brief-open aria-haspopup="dialog" aria-controls="project-brief-modal">
-      <strong>Заполнить бриф проекта</strong>
+      <strong data-i18n="hero.brief">Заполнить бриф проекта</strong>
     </button>
   </section>
 
@@ -343,12 +343,22 @@ const conceptCardContent = {
   <section class="section">
     <h2 class="section-title">Коротко о студии</h2>
     <div class="stats">
-      {studioStats.map((stat) => (
-        <div class="stat">
-          <strong>{stat.value}</strong>
-          <span>{stat.label}</span>
-        </div>
-      ))}
+      <div class="stat">
+        <strong>150+</strong>
+        <span data-i18n="stats.projects">Проектов выпущено</span>
+      </div>
+      <div class="stat">
+        <strong>5+</strong>
+        <span data-i18n="stats.years">Лет в нише</span>
+      </div>
+      <div class="stat">
+        <strong>98%</strong>
+        <span data-i18n="stats.clients">Клиентов возвращаются</span>
+      </div>
+      <div class="stat">
+        <strong>14</strong>
+        <span data-i18n="stats.cycle">Дней средний цикл проекта</span>
+      </div>
     </div>
   </section>
 </SiteLayout>
